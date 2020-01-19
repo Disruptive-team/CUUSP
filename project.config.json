@@ -1,13 +1,16 @@
 {
-  "miniprogramRoot": "./dist",
-  "projectname": "CUUSP",
-  "description": "none",
-  "appid": "touristappid",
-  "setting": {
-    "urlCheck": true,
-    "es6": false,
-    "postcss": false,
-    "minified": false
-  },
-  "compileType": "miniprogram"
+	"miniprogramRoot": "dist/",
+	"projectname": "CUUSP",
+	"description": "none",
+	"appid": "wxf34303d4d6fe0005",
+	"setting": {
+		"urlCheck": true,
+		"es6": false,
+		"postcss": false,
+		"minified": false
+	},
+	"compileType": "miniprogram",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {}
 }

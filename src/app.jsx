@@ -19,13 +19,32 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/index/index'
+      'pages/index/index',
+      'pages/login/login',
+      'pages/main/main',
+      'pages/my/my',
     ],
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
+      navigationBarBackgroundColor: '#00BFFF',
       navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
+      navigationBarTextStyle: 'white'
+    },
+    tarbar:{
+      backgroundColor: 'light',
+      selectedColor: '#00BFFF',
+      borderStyle: 'black',
+      list:[{
+        pagePath: "src/pages/main/main",
+        iconPath: "src/images/class_1.svg",
+        selectedIconPath: "src/images/class_2.svg",
+        text: "主页"
+      },{
+        pagePath: "src/pages/my/my",
+        iconPath: "src/images/my_1.svg",
+        selectedIconPath: "src/images/my_2.svg",
+        text: "个人"
+      }]
     }
   }
 

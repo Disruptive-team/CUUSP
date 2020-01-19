@@ -22,12 +22,13 @@ import './index.css'
 }))
 class Index extends Component {
 
-    config = {
-    navigationBarTitleText: '首页'
+  config = {
+    navigationBarTitleText: '首页',
   }
 
   componentWillReceiveProps (nextProps) {
     console.log(this.props, nextProps)
+
   }
 
   componentWillUnmount () { }
@@ -37,6 +38,9 @@ class Index extends Component {
   componentDidHide () { }
 
   render () {
+    Taro.navigateTo({
+      url: '../main/main'
+    })
     return (
       <View className='index'>
         <Button className='add_btn' onClick={this.props.add}>+</Button>
