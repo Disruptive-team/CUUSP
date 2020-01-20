@@ -1,0 +1,21 @@
+.calendar {
+  font-size: 28px;
+  line-height: 34px;
+  color: #aaa;
+}
+.calendar .month {
+  float: left;
+  width: 52px;
+  text-align: center;
+}
+.calendar .week-chinese {
+  display: flex;
+  justify-content: space-around;
+}
+.calendar .week-chinese .date-item {
+  width: 100%;
+  text-align: center;
+}
+.calendar .today {
+  background-color: aqua;
+}
