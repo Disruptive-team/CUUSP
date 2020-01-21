@@ -1,11 +1,13 @@
 .calendar {
   font-size: 28px;
   line-height: 34px;
-  color: #aaa;
+  color: 	#666;
+  background-color: #FCFCFC;
 }
 .calendar .month {
   float: left;
   width: 52px;
+  padding: 10px 0;
   text-align: center;
 }
 .calendar .week-chinese {
@@ -13,9 +15,10 @@
   justify-content: space-around;
 }
 .calendar .week-chinese .date-item {
-  width: 100%;
+  padding: 10px 34px;
+  border-radius: 10px;
   text-align: center;
 }
 .calendar .today {
-  background-color: aqua;
+  background-color: #F0F0F0;
 }

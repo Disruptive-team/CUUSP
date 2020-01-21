@@ -1,0 +1,19 @@
+.top {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 6px;
+}
+.week {
+  height: 60px;
+}
+.week_inner {
+  display: flex;
+  justify-content: space-between;
+}
+.week_inner View {
+  height: 100%;
+  width: 80px;
+  text-align: center;
+  display: inline;
+  padding: 30px;
+}

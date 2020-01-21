@@ -1,4 +1,4 @@
-import { Component } from '@tarojs/taro'
+import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import classNames from 'classnames'
 
@@ -17,7 +17,7 @@ class Calendar extends Component {
     let this_week = new Date(start_Time)
     let today = new Date().getDate()
     for(let i=0;i<7;i++) {
-      this.chineseNum[i].push(this_week.getDate()+i)
+      this.chineseNum[i].push(this_week.getDate()+i+'')
       if(this_week.getDate()+i===today) {
         this.chineseNum[i].push('today')
       } else {
