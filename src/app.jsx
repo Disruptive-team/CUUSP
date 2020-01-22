@@ -6,6 +6,7 @@ import Index from './pages/index'
 import configStore from './store'
 
 import './app.css'
+import './icon.css'
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
@@ -19,10 +20,9 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/course/course',
       'pages/index/index',
-      'pages/login/login',
-      'pages/main/main',
-      'pages/my/my',
+      'pages/login/login'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -30,20 +30,21 @@ class App extends Component {
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'white'
     },
-    tarbar:{
-      backgroundColor: 'light',
+    tabBar: {
+      color: 'black',
       selectedColor: '#00BFFF',
+      backgroundColor: '#fff',
       borderStyle: 'black',
       list:[{
-        pagePath: "src/pages/main/main",
-        iconPath: "src/images/class_1.svg",
-        selectedIconPath: "src/images/class_2.svg",
+        pagePath: "pages/login/login",
+        iconPath: "images/class_1.png",
+        selectedIconPath: "images/class_2.png",
         text: "主页"
-      },{
-        pagePath: "src/pages/my/my",
-        iconPath: "src/images/my_1.svg",
-        selectedIconPath: "src/images/my_2.svg",
-        text: "个人"
+      }, {
+        pagePath: "pages/course/course",
+        iconPath: 'images/my_1.png',
+        selectedIconPath: 'images/my_2.png',
+        text: '课表'
       }]
     }
   }
