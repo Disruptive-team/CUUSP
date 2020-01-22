@@ -294,8 +294,8 @@
     lodash "^4.17.10"
     prop-types "^15.6.1"
 
-"@tarojs/taro-weapp@2.0.0":
-  version "2.0.0"
+"@tarojs/taro-weapp@2.0.1":
+  version "2.0.1"
   resolved "https://registry.npm.taobao.org/@tarojs/taro-weapp/download/@tarojs/taro-weapp-2.0.0.tgz#9200b05a94958a2295724c3ab2e9596b85a53283"
   integrity sha1-kgCwWpSViiKVckw6sulZa4WlMoM=
   dependencies:

@@ -39,7 +39,7 @@ class Index extends Component {
 
   render () {
     Taro.navigateTo({
-      url: '../main/main'
+      url: '../login/login'
     })
     return (
       <View className='index'>
