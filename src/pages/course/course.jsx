@@ -5,19 +5,6 @@ import './course.css'
 import Calendar from '../../components/calendar/Calendar'
 import CourseComponent from '../../components/course/CourseComponent'
 
-// @connect(({ counter }) => ({
-//   counter
-// }), (dispatch) => ({
-//   add () {
-//     dispatch(add())
-//   },
-//   dec () {
-//     dispatch(minus())
-//   },
-//   asyncAdd () {
-//     dispatch(asyncAdd())
-//   }
-// }))
 class Course extends Component {
 
   config = {
@@ -48,7 +35,6 @@ class Course extends Component {
       dataset: true,
       size: true
     }, res => {
-      console.log(res.height)
       this.setState({
         margin_top: res.height+2
       })
@@ -57,7 +43,19 @@ class Course extends Component {
 
   selectWeek () {
     this.setState({
-      arrow_up: !this.state.arrow_up
+      arrow_up: !this.state.arrow_up,
+      margin_top: this.state.margin_top+30
+    })
+    if(this.state.arrow_up) {
+      this.setState({
+        margin_top: this.state.margin_top-30
+      })
+    }
+  }
+
+  selectSpecificWeek (item) {
+    this.setState({
+      select_week: item
     })
   }
 
@@ -78,7 +76,8 @@ class Course extends Component {
     arrow_up: false,
     week_num: [],
     margin_top: 64,
-    left_data: [1, 2, 3, 4, '中\n午', 5, 6, 7, 8, '晚\n上', 9, 10, 11, 12]
+    left_data: [1, 2, 3, 4, '中\n午', 5, 6, 7, 8, '晚\n上', 9, 10, 11, 12],
+    select_week: 1
   }
 
   render () {
@@ -87,21 +86,21 @@ class Course extends Component {
         <View className='position_fixed' id='position_fixed'>
           <View className='top'>
             <View className='iconfont' style='font-size: 16px;padding: 8px 8px'>&#xe6cd;</View>
-            {this.state.arrow_up && <View onClick={this.selectWeek} className='iconfont' style='font-size: 16px;padding: 8px 8px'>第 10 周 &#xe797;</View>}
-            {!this.state.arrow_up && <View onClick={this.selectWeek} className='iconfont' style='font-size: 16px;padding: 8px 8px'>第 10 周 &#xe6b9;</View>}
+            {this.state.arrow_up && <View onClick={this.selectWeek} className='iconfont' style='font-size: 16px;padding: 8px 8px'>第 {this.state.select_week} 周 &#xe797;</View>}
+            {!this.state.arrow_up && <View onClick={this.selectWeek} className='iconfont' style='font-size: 16px;padding: 8px 8px'>第 {this.state.select_week} 周 &#xe6b9;</View>}
             <View className='iconfont' style='font-size: 16px;padding: 8px 8px'>&#xe623;</View>
           </View>
           <View className='week'>
             {this.state.arrow_up &&
               <ScrollView className='scroll_view' scrollX='false'>
                 {this.state.week_num.map((item, index) => {
-                  return (<View key={index} className='week_item'>
+                  return (<View onClick={this.selectSpecificWeek.bind(this, item)} key={index} className='week_item'>
                       <Text style='display: inline'>{item}</Text>
                   </View>)
                 })}
               </ScrollView>}
           </View>
-          <Calendar week='3' start_date='2020-01-06' />
+          <Calendar week={this.state.select_week} start_date='2019-8-26' />
         </View>
         <View className='course-content' style={'margin-top: '+this.state.margin_top+'px'}>
           <View className='left-section'>
