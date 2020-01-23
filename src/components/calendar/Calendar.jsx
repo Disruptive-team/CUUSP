@@ -11,8 +11,6 @@ class Calendar extends Component {
       month: 1,
       c_week: props.week,
       c_start_date: props.start_date,
-      // 组件内部数据
-      // 假设2020-1-6为第一周
       chineseNum: [['一'], ['二'], ['三'], ['四'], ['五'], ['六'], ['日']]
     }
   }

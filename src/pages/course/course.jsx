@@ -65,19 +65,22 @@ class Course extends Component {
       course: '计算机操作系统',
       teacher: '马立平',
       week: '01-13',
-      section_length: '1-2',
+      specific_week: 1,
+      section_length: '1-2'
     }, {
       place: '东3211',
       course: '计算机操作系统',
       teacher: '马立平',
       week: '01-13',
-      section_length: '1-4',
+      specific_week: 5,
+      section_length: '5-6'
     }],
     arrow_up: false,
     week_num: [],
     margin_top: 64,
-    left_data: [1, 2, 3, 4, '中\n午', 5, 6, 7, 8, '晚\n上', 9, 10, 11, 12],
-    select_week: 1
+    left_data: [1, 2, 3, 4, '中', 5, 6, 7, 8, '晚', 9, 10, 11, 12],
+    select_week: 1,
+    test: [1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1]
   }
 
   render () {

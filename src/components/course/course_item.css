@@ -1,8 +1,9 @@
 .course_item {
   text-align: center;
   padding: 10px 6px;
-  font-size: 30px;
+  font-size: 10PX;
   color: #fff;
   width: 90px;
   border-radius: 10px;
+  box-sizing: border-box;
 }

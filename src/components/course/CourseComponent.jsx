@@ -14,9 +14,13 @@ class CourseComponent extends Component {
   }
 
   componentDidMount() {
+    // 获取组件数据
     let data = this.props.course_data
+    // 每节课默认时长为2
     let section_length = 2;
+    // 用于存放周次列表
     let week = []
+    // 处理周次和课时时长
     for (let i = 0; i < data.length; i++) {
       section_length = data[i].section_length.split('-')
       let start_end = data[i].week.split('-')

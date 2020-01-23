@@ -37,7 +37,10 @@
   font-size: 28px;
   color: #666;
   text-align: center;
+  align-items: center;
 }
 .left-section-wrapper View {
-  padding: 30px 0;
+  height: 60PX;
+  line-height: 60PX;
+  vertical-align: middle;
 }
