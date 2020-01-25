@@ -54,8 +54,6 @@ class Calendar extends Component {
     })
   }
 
-
-
   render() {
     return (
       <View className='calendar'>
@@ -75,5 +73,4 @@ class Calendar extends Component {
     )
   }
 }
-
 export default Calendar

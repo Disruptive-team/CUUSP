@@ -1,9 +1,21 @@
 .course_item {
   text-align: center;
+  position: relative;
   padding: 10px 6px;
   font-size: 10PX;
   color: #fff;
   width: 90px;
   border-radius: 10px;
   box-sizing: border-box;
+}
+.repeat {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: red;
+  font-size: 8PX;
+  width: 10PX;
+  height: 10PX;
+  border-radius: 5PX;
+  border: 1px solid red;
 }

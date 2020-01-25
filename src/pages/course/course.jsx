@@ -60,27 +60,116 @@ class Course extends Component {
   }
 
   state = {
-    course_d: [{
+    course_d: [[{
       place: '东3211',
       course: '计算机操作系统',
       teacher: '马立平',
       week: '01-13',
-      specific_week: 1,
       section_length: '1-2'
     }, {
       place: '东3211',
       course: '计算机操作系统',
       teacher: '马立平',
+      week: '06-13',
+      section_length: '5-8'
+    }], [{
+      place: '东3211',
+      course: '数据库',
+      teacher: '马立平',
+      week: '02-13',
+      section_length: '1-2'
+    }], [{
+      place: '东3211',
+      course: '计算机操作系统',
+      teacher: '马立平',
       week: '01-13',
-      specific_week: 5,
-      section_length: '5-6'
-    }],
+      section_length: '1-2'
+    }, {
+      place: '东3211',
+      course: '计算机操作系统',
+      teacher: '马立平',
+      week: '06-13',
+      section_length: '5-8'
+    }], [{
+      place: '东3211',
+      course: '计算机操作系统',
+      teacher: '马立平',
+      week: '01-13',
+      section_length: '1-2'
+    }, {
+      place: '东3211',
+      course: '计算机操作系统',
+      teacher: '马立平',
+      week: '06-13',
+      section_length: '5-8'
+    }], [{
+      place: '东3211',
+      course: '计算机操作系统',
+      teacher: '马立平',
+      week: '01-13',
+      section_length: '1-2'
+    }, {
+      place: '东3211',
+      course: '计算机操作系统',
+      teacher: '马立平',
+      week: '06-13',
+      section_length: '5-8'
+    }], [{
+      place: '东3211',
+      course: '计算机操作系统',
+      teacher: '马立平',
+      week: '01-13',
+      section_length: '1-2'
+    }, {
+      place: '东3211',
+      course: '计算机操作系统',
+      teacher: '马立平',
+      week: '06-13',
+      section_length: '5-8'
+    }], [{
+      place: '东3211',
+      course: '计算机操作系统',
+      teacher: '马立平',
+      week: '01-13',
+      section_length: '1-2'
+    }, {
+      place: '东3211',
+      course: '计算机操作系统',
+      teacher: '马立平',
+      week: '06-13',
+      section_length: '5-8'
+    }], [{
+      place: '东3211',
+      course: '计算机操作系统',
+      teacher: '马立平',
+      week: '01-13',
+      section_length: '1-2'
+    }, {
+      place: '东3211',
+      course: '计算机操作系统',
+      teacher: '马立平',
+      week: '06-13',
+      section_length: '5-8'
+    }], [{
+      place: '东3211',
+      course: '计算机操作系统',
+      teacher: '马立平',
+      week: '01-13',
+      section_length: '1-2'
+    }, {
+      place: '东3211',
+      course: '计算机操作系统',
+      teacher: '马立平',
+      week: '06-13',
+      section_length: '5-8'
+    }]],
     arrow_up: false,
     week_num: [],
     margin_top: 64,
     left_data: [1, 2, 3, 4, '中', 5, 6, 7, 8, '晚', 9, 10, 11, 12],
     select_week: 1,
-    test: [1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1]
+    test: [1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1],
+    col: [1,1,1,1,1,1,1]
   }
 
   render () {
@@ -113,8 +202,17 @@ class Course extends Component {
               })}
             </View>
           </View>
-          <View className='course-content'>
-            <CourseComponent bg_color='pink' course_data={this.state.course_d} />
+          <View className='course-content-right'>
+            {/*{this.state.col.map((item, index) => {*/}
+            {/*  return <View className='test' key={index}>{item}</View>*/}
+            {/*})}*/}
+            <CourseComponent bg_color='pink' course_data={this.state.course_d[0]} />
+            <CourseComponent bg_color='pink' course_data={this.state.course_d[1]} />
+            <CourseComponent bg_color='pink' course_data={this.state.course_d[2]} />
+            <CourseComponent bg_color='pink' course_data={this.state.course_d[3]} />
+            <CourseComponent bg_color='pink' course_data={this.state.course_d[4]} />
+            <CourseComponent bg_color='pink' course_data={this.state.course_d[5]} />
+            <CourseComponent bg_color='pink' course_data={this.state.course_d[6]} />
           </View>
         </View>
       </View>
