@@ -22,7 +22,9 @@ class App extends Component {
     pages: [
       'pages/course/course',
       'pages/index/index',
-      'pages/login/login'
+      'pages/login/login',
+      'pages/register/register',
+      'pages/my/my'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -36,20 +38,22 @@ class App extends Component {
       backgroundColor: '#fff',
       borderStyle: 'black',
       list:[{
-        pagePath: "pages/login/login",
-        iconPath: "images/class_1.png",
-        selectedIconPath: "images/class_2.png",
+        pagePath: "pages/course/course",
+        iconPath: "images/class_2.png",
+        selectedIconPath: "images/class_1.png",
         text: "主页"
       }, {
-        pagePath: "pages/course/course",
-        iconPath: 'images/my_1.png',
-        selectedIconPath: 'images/my_2.png',
-        text: '课表'
+        pagePath: "pages/my/my",
+        iconPath: 'images/my_2.png',
+        selectedIconPath: 'images/my_1.png',
+        text: '我的'
       }]
     }
   }
 
-  componentDidMount () {}
+  componentDidMount () {
+    
+  }
 
   componentDidShow () {}
 

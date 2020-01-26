@@ -1,6 +1,6 @@
 .option{
     height: 40px;
-    margin-right: 10px;
+    /* margin-right: 10px; */
     font-size: 35rpx;
     vertical-align: 20rpx;
     
@@ -13,7 +13,7 @@
     width: 65%;
     display: inline-block;
     margin-top: 20rpx;
-    margin-right: -7px；
+    margin-left: 30px;
 }
 
 .bnt{
