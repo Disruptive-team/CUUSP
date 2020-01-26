@@ -1,0 +1,26 @@
+.option{
+    height: 40px;
+    /* margin-right: 10px; */
+    font-size: 35rpx;
+    vertical-align: 20rpx;
+    
+}
+
+.optionIpt{
+    border: 1rpx solid gray;
+    border-radius: 10rpx;
+    height: 75rpx;
+    width: 65%;
+    display: inline-block;
+    margin-top: 20rpx;
+    margin-left: 30px;
+}
+
+.bnt{
+    width: 78%;
+    height: 85rpx;
+    background: #00BFFF;
+    color: white;
+    margin-top: 30rpx;
+    line-height: 76rpx;
+}

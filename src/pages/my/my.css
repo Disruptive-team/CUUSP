@@ -1,0 +1,42 @@
+page{
+   background: #F5F5F5
+}
+
+.choose {
+    width: 100%;
+    height: 80rpx;
+    border-top: 1rpx solid #DCDCDC;
+    border-bottom: 1rpx solid #DCDCDC;
+    line-height: 80rpx;
+    padding-left: 20rpx;
+    background: white;
+    margin-top: 50rpx;
+}
+
+.textHidden{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 400rpx;
+}
+
+.arrow{
+    float: right;
+    margin-right: 40rpx;
+    color: gray;
+    font-size: 30rpx;
+    transform: scaleY(1.5);
+}
+
+.name{
+    width: 150rpx;
+    height: 150rpx;
+    display: inline-block;
+    background: #00BFFF;
+    border-radius: 50%;
+    line-height: 150rpx;
+    color: white;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

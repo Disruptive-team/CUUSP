@@ -7,12 +7,13 @@
 }
 
 .optionIpt{
-    border: 1px solid gray;
-    border-radius: 10px;
-    height: 75px;
+    border: 1rpx solid gray;
+    border-radius: 10rpx;
+    height: 75rpx;
     width: 65%;
     display: inline-block;
-    margin-top: 20px;
+    margin-top: 20rpx;
+    margin-right: -7px；
 }
 
 .bnt{
