@@ -1,0 +1,25 @@
+page{
+    background: #F5F5F5
+ }
+
+ .examTime{
+    background: #1E90FF;
+    width: 16%;
+    text-align: center;
+    height: 113rpx;
+    font-size: 37rpx;
+    display: inline-block;
+    margin-right: 40rpx;
+    word-break: break-all;
+    border-radius: 4px;
+    padding-top: 15rpx;   
+ }
+
+ .examView{
+    background: #87CEEB;
+    height: 125rpx;
+    margin-top: 15rpx;
+    color: white;
+    padding: 20rpx;
+    padding-left: 7%;    
+ }
