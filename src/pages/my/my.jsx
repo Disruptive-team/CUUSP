@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-import Taro, {Component } from '@tarojs/taro'
-import {View, Text} from '@tarojs/components'
-
-class My extends Component{
-    render(){
-        return (
-            <View>
-                <Text>my</Text>
-=======
 import Taro, {Component} from '@tarojs/taro'
 import {View, Text} from '@tarojs/components'
 import './my.css'
@@ -45,7 +35,6 @@ class My extends Component{
                     <Text className='arrow'>></Text>
                 </View>
 
->>>>>>> feature/20200115-pastry
             </View>
         )
     }

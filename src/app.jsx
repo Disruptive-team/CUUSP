@@ -24,7 +24,8 @@ class App extends Component {
       'pages/index/index',
       'pages/login/login',
       'pages/register/register',
-      'pages/my/my'
+      'pages/my/my',
+      'pages/home/home'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -38,10 +39,15 @@ class App extends Component {
       backgroundColor: '#fff',
       borderStyle: 'black',
       list:[{
+        pagePath: "pages/home/home",
+        iconPath: "images/home-1.png",
+        selectedIconPath: "images/home-2.png",
+        text: "主页"
+      }, {
         pagePath: "pages/course/course",
         iconPath: "images/class_2.png",
         selectedIconPath: "images/class_1.png",
-        text: "主页"
+        text: "课表"
       }, {
         pagePath: "pages/my/my",
         iconPath: 'images/my_2.png',

@@ -1,0 +1,28 @@
+page{
+    background: #F5F5F5
+ }
+
+ 
+.functionEntry{
+    width: 90rpx;
+    height: 90rpx;
+}
+
+.functionEntryView{
+    width: 25%;
+    text-align: center;
+    color: gray;
+    display: inline-block;
+}
+
+.todayClass{
+    padding: 15rpx;
+    width: 90%;
+    margin: auto;
+    font-size: 35rpx;
+    border-radius: 8rpx;
+    background: #87CEFA;
+    color: white;
+    margin-top: 10rpx;
+    padding-left: 40rpx;
+}
