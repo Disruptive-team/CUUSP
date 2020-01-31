@@ -15,7 +15,8 @@
   justify-content: space-around;
 }
 .calendar .week-chinese .date-item {
-  padding: 10px 34px;
+  /*padding: 10px 34px;*/
+  width: 100%;
   border-radius: 10px;
   text-align: center;
 }

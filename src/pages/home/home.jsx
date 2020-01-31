@@ -1,5 +1,5 @@
-import { Component } from '@tarojs/taro'
-import {Swiper, View, SwiperItem, Image } from '@tarojs/components'
+import Taro, { Component } from '@tarojs/taro'
+import {Swiper, View, SwiperItem, Image, Text } from '@tarojs/components'
 import './home.css'
 import exam from '../../images/home/exam.png'
 import grade from '../../images/home/grade.png'
@@ -37,31 +37,31 @@ class Home extends Component{
 
                 <View style='background: white;padding: 10rpx;margin-top: 15rpx;'>
                     <View className='functionEntryView'>
-                        <Image src={exam} className='functionEntry'></Image>
+                        <Image src={exam} className='functionEntry' />
                         <Text style='display:block'>考试</Text>
                     </View>
                     <View className='functionEntryView'>
-                        <Image src={grade} className='functionEntry'></Image>
+                        <Image src={grade} className='functionEntry' />
                         <Text style='display:block'>成绩</Text>
                     </View>
                     <View className='functionEntryView'>
-                        <Image src={card} className='functionEntry'></Image>
+                        <Image src={card} className='functionEntry' />
                         <Text style='display:block'>一卡通</Text>
                     </View>
                     <View className='functionEntryView'>
-                        <Image src={lose} className='functionEntry'></Image>
+                        <Image src={lose} className='functionEntry' />
                         <Text style='display:block'>失物招领</Text>
                     </View>
 
                 </View>
 
-                <View style="padding: 10rpx;">
-                    <Text style="font-size: 35rpx;color: gray;">今日课表</Text>
+                <View style='padding: 10rpx;'>
+                    <Text style='font-size: 35rpx;color: gray;'>今日课表</Text>
                     {
                         this.state.todayCourse.map((item, index)=>{
                             return (
                                 <View key={index} className='todayClass'>
-                                    <Image src={classPhoto} style="width: 100rpx;height: 100rpx;margin-right: 34rpx;"/>
+                                    <Image src={classPhoto} style='width: 100rpx;height: 100rpx;margin-right: 34rpx;' />
                                     <Text style='position: absolute'>{item.course}({item.teacher})</Text>
                                     <Text>{item.place}(第{item.section_length}节)</Text>
                                 </View>
