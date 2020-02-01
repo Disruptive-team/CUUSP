@@ -13,9 +13,8 @@
   top: 0;
   right: 0;
   color: red;
-  font-size: 8PX;
-  width: 10PX;
-  height: 10PX;
-  border-radius: 5PX;
-  border: 1px solid red;
+  width: 0;
+  height: 0;
+  border-top: 35rpx solid red;
+  border-left: 35rpx solid transparent;
 }

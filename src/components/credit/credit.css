@@ -1,0 +1,22 @@
+.card{
+    width: 40%;
+    border: 15rpx solid #FF7F50;
+    height: 195rpx;
+    color: #FF7F50;
+    border-radius: 30rpx;
+    margin-top: 25rpx;
+    margin-left: 5%;
+    display: inline-block;  
+    box-shadow: 10px 10px 5px rgba(0,0,0,0.9);  
+}
+
+.name{
+    margin-left: 5%;
+    margin-top: 10rpx;
+    display: block;
+}
+
+.score{
+    font-size: 100rpx;
+    margin-left: 30%;
+}

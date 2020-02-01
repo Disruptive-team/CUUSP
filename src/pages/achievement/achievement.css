@@ -1,0 +1,11 @@
+page{
+    background: #F5F5F5
+ }
+
+.list{
+    width: 50%;
+    display: inline-block;
+    text-align: center;
+    margin-top: 3%;
+    height: 100%;
+}

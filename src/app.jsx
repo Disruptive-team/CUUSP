@@ -25,7 +25,8 @@ class App extends Component {
       'pages/login/login',
       'pages/register/register',
       'pages/my/my',
-      'pages/home/home'
+      'pages/home/home',
+      'pages/achievement/achievement',
     ],
     window: {
       backgroundTextStyle: 'light',
