@@ -1,5 +1,9 @@
 import Taro, { Component } from '@tarojs/taro'
+<<<<<<< HEAD
 import {Swiper, View, SwiperItem, Image, Text} from '@tarojs/components'
+=======
+import {Swiper, View, SwiperItem, Image, Text } from '@tarojs/components'
+>>>>>>> 38042f6a659638edc8f3610bd24445dc2a6774d5
 import './home.css'
 import exam from '../../images/home/exam.png'
 import achievement from '../../images/home/grade.png'
