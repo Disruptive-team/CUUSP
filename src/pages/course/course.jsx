@@ -1,23 +1,21 @@
-import Taro, {Component} from '@tarojs/taro'
-import {View, ScrollView, Text} from '@tarojs/components'
+import Taro, { Component } from '@tarojs/taro'
+import { View, ScrollView, Text } from '@tarojs/components'
+import { connect } from '@tarojs/redux'
 
 import './course.css'
 import Calendar from '../../components/calendar/Calendar'
-import CourseComponent from '../../components/course/CourseComponent'
 
+@connect(({ course }) => ({
+  course
+}), null)
 class Course extends Component {
 
   config = {
     navigationBarTitleText: '课表',
   }
-
-  componentWillUnmount() {
-  }
-
-  componentDidShow() {
-  }
-
-  componentDidHide() {
+  constructor(props) {
+    super(props);
+    console.log(this.props)
   }
 
   componentDidMount() {
@@ -103,112 +101,6 @@ class Course extends Component {
   }
 
   state = {
-    course_d: [[[{
-      place: '东3211',
-      course: '计算机操作系统',
-      teacher: '马立平',
-      week: [1,2,3,4,5,6],
-      start_section: 1,
-      section_length: 2
-    }, {
-      place: '东3211',
-      course: '计算机网络',
-      teacher: '马立平',
-      week: [6,7,8,9,10],
-      start_section: 1,
-      section_length: 2
-    }], [{
-      place: '东3211',
-      course: '数据库',
-      teacher: '马立平',
-      week: [2,3,4,5,6,8,9],
-      start_section: 2,
-      section_length: 2
-    }]], [[{
-      place: '东3211',
-      course: '计算机操作系统',
-      teacher: '马立平',
-      week: [1,3,4,5,6,7,8,9,10],
-      start_section: 1,
-      section_length: 2
-    }, {
-      place: '东3211',
-      course: '计算机网络',
-      teacher: '马立平',
-      week: [1,3,4,5,6,7,8,9,10],
-      start_section: 1,
-      section_length: 4
-    }], [{
-      place: '东3211',
-      course: '数据库',
-      teacher: '马立平',
-      week: [2,3,4,5,6,8,9],
-      start_section: 3,
-      section_length: 2
-    }]], [[{
-      place: '东3211',
-      course: '计算机操作系统',
-      teacher: '马立平',
-      week: [1,3,4,5,6,7,8,9,10],
-      start_section: 1,
-      section_length: 2
-    }, {
-      place: '东3211',
-      course: '计算机网络',
-      teacher: '马立平',
-      week: [1,3,4,5,6,7,8,9,10],
-      start_section: 1,
-      section_length: 4
-    }], [{
-      place: '东3211',
-      course: '数据库',
-      teacher: '马立平',
-      week: [2,3,4,5,6,8,9],
-      start_section: 3,
-      section_length: 2
-    }]], [[{
-      place: '东3211',
-      course: '计算机操作系统',
-      teacher: '马立平',
-      week: [1,3,4,5,6,7,8,9,10],
-      start_section: 1,
-      section_length: 2
-    }, {
-      place: '东3211',
-      course: '计算机网络',
-      teacher: '马立平',
-      week: [1,3,4,5,6,7,8,9,10],
-      start_section: 1,
-      section_length: 4
-    }], [{
-      place: '东3211',
-      course: '数据库',
-      teacher: '马立平',
-      week: [2,3,4,5,6,8,9],
-      start_section: 3,
-      section_length: 2
-    }]], [[{
-      place: '东3211',
-      course: '计算机操作系统',
-      teacher: '马立平',
-      week: [1,3,4,5,6,7,8,9,10],
-      start_section: 1,
-      section_length: 2
-    }, {
-      place: '东3211',
-      course: '计算机网络',
-      teacher: '马立平',
-      week: [1,3,4,5,6,7,8,9,10],
-      start_section: 1,
-      section_length: 4
-    }], [{
-      place: '东3211',
-      course: '数据库',
-      teacher: '马立平',
-      week: [2,3,4,5,6,8,9],
-      start_section: 5,
-      section_length: 4
-    }]], [], []],
     arrow_up: false,
     week_num: [],
     margin_top: 64,
@@ -247,7 +139,7 @@ class Course extends Component {
             </View>
           </View>
           <View className='course-content-right'>
-            {this.state.course_d.map((item, index) => {
+            {this.props.course.course_d.map((item, index) => {
               return (<View key={index} className='col'>
                 <View className='col-wrapper'>
                   {item.map((item1, index1) => {
