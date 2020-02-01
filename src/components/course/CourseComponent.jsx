@@ -22,7 +22,7 @@ class CourseComponent extends Component {
   }
 
   componentDidMount() {
-
+    
   }
 
   defaultHeight = 60
@@ -55,7 +55,7 @@ class CourseComponent extends Component {
     return (<View className='course_item' style={'background-color: '+this.state.bg_color+';height: '+this.defaultHeight*this.state.course_data[0].section_length+'px'}>
        <View>@{this.state.course_data[0].place}</View>
        <View>{this.state.course_data[0].course}</View>
-      {this.state.course_data.length>1&&<View className='repeat'>重</View>}
+      {this.state.course_data.length>1&&<View className='repeat'></View>}
      </View>)
   }
 }

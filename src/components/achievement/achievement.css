@@ -1,0 +1,21 @@
+.result{
+    background: #00FF7F;
+    width: 15%;
+    display: inline-block;
+    height: 115rpx;
+    font-size: 38rpx;
+    color: white;
+    line-height: 120rpx;
+    margin-left: 5%;
+    margin-top: 1.5%;
+    text-align: center;
+    border-radius: 8rpx;
+}
+
+.info{
+    width: 45%;
+    display: inline-block;
+    padding-left: 2%;
+    font-size: 27rpx;
+    color: gray;
+}
