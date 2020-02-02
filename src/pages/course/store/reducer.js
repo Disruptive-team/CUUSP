@@ -1,3 +1,4 @@
+import { WEEK_NUM, SELECT_WEEK, SELECT_SPECIFIC_WEEK } from './contants'
 
 const defaultStore = {
   course_d: [[[{
@@ -106,11 +107,34 @@ const defaultStore = {
     start_section: 5,
     section_length: 4
   }]], [], []],
-  
+  left_data: [1, 2, 3, 4, '中', 5, 6, 7, 8, '晚', 9, 10, 11, 12],
+  margin_top: 60,
+  arrow_up: false,
+  select_week: 2,
 }
 
-const course = (state = defaultStore) => {
-  return state
+
+const course = (state = defaultStore, action) => {
+  switch (action.type) {
+    case WEEK_NUM:
+      return {
+        ...state,
+        week_num: action.week_num
+      }
+    case SELECT_WEEK:
+      return {
+        ...state,
+        arrow_up: !state.arrow_up,
+        margin_top: action.margin_top < 60 ? 60 : action.margin_top
+      }
+    case SELECT_SPECIFIC_WEEK:
+      return {
+        ...state,
+        select_week: action.item
+      }
+    default:
+      return state
+  }
 }
 
 export default course
