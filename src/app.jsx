@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { Provider } from '@tarojs/redux'
 
 import Index from './pages/index'
+import Course from './pages/course/course'
 
 import configStore from './store'
 
@@ -59,7 +60,7 @@ class App extends Component {
   }
 
   componentDidMount () {
-    
+
   }
 
   componentDidShow () {}
@@ -74,6 +75,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Index />
+        <Course />
       </Provider>
     )
   }

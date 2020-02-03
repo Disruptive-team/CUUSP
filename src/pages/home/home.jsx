@@ -1,9 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
-<<<<<<< HEAD
-import {Swiper, View, SwiperItem, Image, Text} from '@tarojs/components'
-=======
-import {Swiper, View, SwiperItem, Image, Text } from '@tarojs/components'
->>>>>>> 38042f6a659638edc8f3610bd24445dc2a6774d5
+
+import { Swiper, View, SwiperItem, Image, Text } from '@tarojs/components'
 import './home.css'
 import exam from '../../images/home/exam.png'
 import achievement from '../../images/home/grade.png'
@@ -36,9 +33,14 @@ class Home extends Component{
     toExam(){
         self = this
         this.setState({
+<<<<<<< HEAD
             examTime: true,
             cardComponent: false
         })          
+=======
+            examTime: true
+        })
+>>>>>>> 2f1a1334a3e00c7f3be7405b8a2a250e02f8a649
     }
     toAchievement(){
         Taro.navigateTo({
