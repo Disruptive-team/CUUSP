@@ -19,9 +19,16 @@ class Exam extends Component{
             }
         ]
     }
+    goBack(){
+        this.props.back();
+    }
     render(){
         return (
             <View>
+                <View className='head'>
+                    <Text className='back' onClick={this.goBack}>{'<'}</Text>
+                    <Text style="margin-right: 12%;letter-spacing: 3rpx;">考试</Text>
+                </View>
                { this.state.exam.map((item, index)=>{
                     return <View className='examView'>
                                 <View className='examTime'>{item.date}</View>

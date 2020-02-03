@@ -1,4 +1,4 @@
-import { Component } from '@tarojs/taro'
+import Taro, { Component } from '@tarojs/taro'
 import {View, Text} from '@tarojs/components'
 import './achievement.css'
 import Achievement from '../../components/achievement/achievement'
@@ -24,9 +24,16 @@ class AchievementCredit extends Component{
             credit: 'color: black'
         })
     }
+    goBack(){
+        Taro.navigateBack()
+    }
     render(){
         return (
             <View>
+                <View className='head'>
+                    <Text className='back' onClick={this.goBack}>{'<'}</Text>
+                    <Text style="margin-right: 12%;letter-spacing: 3rpx;">考试</Text>
+                </View>
                 <View style="height: 110rpx;background: white;margin-bottom: 35rpx;">
                     <View className='list' onClick={this.clickAchievement} style={this.state.achievement}>学期成绩</View>
                     <View className='list' onClick={this.clickCredit} style={this.state.credit}>学分修读进度</View>
