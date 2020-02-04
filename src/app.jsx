@@ -28,6 +28,7 @@ class App extends Component {
       'pages/my/my',
       'pages/home/home',
       'pages/achievement/achievement',
+      'pages/setting/index'
     ],
     window: {
       backgroundTextStyle: 'light',

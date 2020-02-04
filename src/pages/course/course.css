@@ -13,9 +13,14 @@
   background-color: #fff;
 }
 .scroll_view {
-  height: 60px;
+  display: flex;
+  flex-flow: row nowrap;
+  overflow-x: auto;
+  height: 130px;
   background-color: #fff;
-  /*animation: move linear 1s;*/
+}
+.scroll_view .week_top {
+  font-size: 32px;
 }
 @keyframes move {
   0% {

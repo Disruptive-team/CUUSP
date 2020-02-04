@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, ScrollView, Text } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 
 import './course.css'
@@ -18,7 +18,8 @@ import { actionCreators } from './store'
   detail_week: course.detail_week,
   detail_course: course.detail_course,
   is_click: course.is_click,
-  start_section: course.start_section
+  start_section: course.start_section,
+  select_aim_color: course.select_aim_color
 }), (dispatch) => ({
   onDealWeekNum () {
     dispatch(actionCreators.week_num())
@@ -26,8 +27,8 @@ import { actionCreators } from './store'
   onSelectWeek (arrow_up, margin_top) {
     dispatch(actionCreators.select_week(arrow_up, margin_top))
   },
-  onSelectSpecificWeek (item) {
-    dispatch(actionCreators.select_specific_week(item))
+  onSelectSpecificWeek (item, index) {
+    dispatch(actionCreators.select_specific_week(item, index))
   },
   onGetCourseInfo () {
     dispatch(actionCreators.get_course_info())
@@ -104,25 +105,35 @@ class Course extends Component {
     }
   }
 
+  setting () {
+    Taro.navigateTo({url: '/pages/setting/index'}).then((res) => {
+      console.log(res)
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+
   render() {
     return (
       <View className='course'>
         <View className='position_fixed' id='position_fixed'>
           <View className='top'>
-            <View className='iconfont' style='font-size: 16px;padding: 8px 8px'>&#xe6cd;</View>
+            {/*<View className='iconfont' style='font-size: 16px;padding: 8px 8px'>&#xe6cd;</View>*/}
             {this.props.arrow_up && <View onClick={this.props.onSelectWeek.bind(this, this.props.arrow_up, this.props.margin_top)} className='iconfont' style='font-size: 16px;padding: 8px 8px'>第 {this.state.select_week} 周 &#xe797;</View>}
             {!this.props.arrow_up && <View onClick={this.props.onSelectWeek.bind(this, this.props.arrow_up, this.props.margin_top)} className='iconfont' style='font-size: 16px;padding: 8px 8px'>第 {this.state.select_week} 周 &#xe6b9;</View>}
-            <View className='iconfont' style='font-size: 16px;padding: 8px 8px'>&#xe623;</View>
+            <View onClick={this.setting} className='iconfont' style='font-size: 16px;padding: 8px 8px'>&#xe69d;</View>
           </View>
           <View className='week'>
             {this.props.arrow_up &&
-            <ScrollView className='scroll_view' scrollX='false'>
+            <View className='scroll_view'>
               {this.props.week_num.map((item, index) => {
-                return (<View onClick={this.props.onSelectSpecificWeek.bind(this, item)} key={index} className='week_item'>
-                  <Text style='display: inline'>{item}</Text>
+                return (<View onClick={this.props.onSelectSpecificWeek.bind(this, item, index)} key={index} className='week_item'>
+                  <View className='week_top' style='display: inline-block; width: 50px; text-align: center'>第{item}周</View>
+                  <View className='iconfont' style={'font-size: 30px; color: '+this.props.select_aim_color[index]+'; text-align: center'}>&#xe606;</View>
                 </View>)
               })}
-            </ScrollView>}
+            </View>
+            }
           </View>
           <Calendar week={this.props.select_week} start_date='2019-8-26' />
         </View>

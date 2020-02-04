@@ -33,14 +33,9 @@ class Home extends Component{
     toExam(){
         self = this
         this.setState({
-<<<<<<< HEAD
             examTime: true,
             cardComponent: false
-        })          
-=======
-            examTime: true
         })
->>>>>>> 2f1a1334a3e00c7f3be7405b8a2a250e02f8a649
     }
     toAchievement(){
         Taro.navigateTo({
@@ -54,7 +49,7 @@ class Home extends Component{
             examTime: false
         })
     }
-    
+
     back(){
         self.setState({
             examTime: false,

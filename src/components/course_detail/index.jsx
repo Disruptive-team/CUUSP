@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import classnames from 'classnames'
+import classNames from 'classnames'
 
 import '../../icon.css'
 import './index.css'
@@ -11,11 +11,8 @@ class CourseDetail extends Component {
 
   constructor(props) {
     super(props);
-    console.log(props.detail)
-    // let res = this.deal_data(this.props.detail)
     if(Object.keys(props).toString())
       this.state.detail_content = this.deal_data(props.detail)
-    console.log(this.state.detail_content)
   }
 
   state = {
@@ -23,10 +20,6 @@ class CourseDetail extends Component {
     index: [999,0,0,0,0,0,0,0,0,0,0,0,0,0],
     flag: 1,
     time: ['', '8:00-8:45', '8:55-9:40', '10:00-10:45', '10:55-11:40', '14:00-14:45', '14:55-15:40', '16:00-16:45', '16:55-17:40', '19:00-19:45', '19:55-20:40', '21:00-21:45', '21:55-22:40']
-  }
-
-  componentWillMount() {
-    // console.log(this.props.detail)
   }
 
   deal_data (detail) {
@@ -65,7 +58,7 @@ class CourseDetail extends Component {
       <View className='root'>
         <View className='content'>
           {this.state.detail_content.map((item, index) => {
-            return (<View key={index} className={classnames('detail_content', 'detail_content_wrapper')} style={'z-index: '+this.state.index[index]} onClick={this.switch_detail}>
+            return (<View key={index} className={classNames('detail_content', 'detail_content_wrapper')} style={'z-index: '+this.state.index[index]} onClick={this.switch_detail}>
               <View className='iconfont' style='font-size: 24px;text-align: center;color: #fff;margin-bottom: 6px'>&#xe637;</View>
               <View className='item'>{item.course}</View>
               <View className='item'>{item.teacher}</View>

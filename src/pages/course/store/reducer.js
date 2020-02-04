@@ -9,7 +9,17 @@ const defaultStore = {
   detail_week: 0,
   detail_course: '',
   is_click: false,
-  start_section: 1
+  start_section: 1,
+// #00BFFF
+  select_aim_color: ['#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999']
+}
+
+const deal_color = (index, color) => {
+  for(let i=0;i<color.length;i++) {
+    color[i] = '#999'
+  }
+  color[index] = '#00BFFF'
+  return color
 }
 
 
@@ -29,7 +39,8 @@ const course = (state = defaultStore, action) => {
     case SELECT_SPECIFIC_WEEK:
       return {
         ...state,
-        select_week: action.item
+        select_week: action.item,
+        select_aim_color: deal_color(action.index, state.select_aim_color)
       }
     case GET_COURSE_INFO:
       return {

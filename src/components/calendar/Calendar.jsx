@@ -41,8 +41,9 @@ class Calendar extends Component {
     let month = new Date().getMonth()
     let chinese_num = [['一'], ['二'], ['三'], ['四'], ['五'], ['六'], ['日']]
     for(let i=0;i<7;i++) {
-      chinese_num[i].push(this_week.getDate()+i+'')
-      if(this_week.getDate()+i===today&&this_week.getMonth()===month) {
+      // chinese_num[i].push(this_week.getDate()+i+'')
+      chinese_num[i].push(new Date(this_week.getTime()+i*24*3600*1000).getDate()+'')
+      if(this_week.getDate()+i===today && this_week.getMonth()===month) {
         chinese_num[i].push('today')
       } else {
         chinese_num[i].push('')

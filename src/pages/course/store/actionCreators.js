@@ -13,7 +13,7 @@ const deal_week_num = () => {
 
 const compute_margin_top = (arrow_up, margin_top) => {
   console.log(margin_top)
-  return arrow_up ? margin_top - 30 : margin_top + 30
+  return arrow_up ? margin_top - 70 : margin_top + 70
 }
 
 const getCourseInfo = (res) => ({
@@ -35,10 +35,11 @@ export const select_week = (arrow_up, margin_top) => {
   }
 }
 
-export const select_specific_week = (item) => {
+export const select_specific_week = (item, index) => {
   return {
     type: SELECT_SPECIFIC_WEEK,
-    item
+    item,
+    index
   }
 }
 
