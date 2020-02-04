@@ -1,4 +1,7 @@
-import { WEEK_NUM, SELECT_WEEK, SELECT_SPECIFIC_WEEK } from './contants'
+import Taro from '@tarojs/taro'
+import { WEEK_NUM, SELECT_WEEK, SELECT_SPECIFIC_WEEK, GET_COURSE_INFO, DETAIL_COURSE, DELETE_MASK } from './constants'
+
+import { url } from '../../../utils/url'
 
 const deal_week_num = () => {
   let week_num = []
@@ -12,6 +15,11 @@ const compute_margin_top = (arrow_up, margin_top) => {
   console.log(margin_top)
   return arrow_up ? margin_top - 30 : margin_top + 30
 }
+
+const getCourseInfo = (res) => ({
+  type: GET_COURSE_INFO,
+  course_d: res.data || [[], [], [], [], [], [], []]
+})
 // eslint-disable-next-line import/prefer-default-export
 export const week_num = () => {
   return {
@@ -34,3 +42,27 @@ export const select_specific_week = (item) => {
   }
 }
 
+export const get_course_info = () => {
+  return (dispatch) => {
+    Taro.request({url: url + '/api/course_info'}).then(res => {
+      dispatch(getCourseInfo(res))
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+}
+
+export const detail_course = (detail_week, detail_courses, start_section) => {
+  return {
+    type: DETAIL_COURSE,
+    detail_week,
+    detail_courses,
+    start_section
+  }
+}
+
+export const delete_mask = () => {
+  return {
+    type: DELETE_MASK
+  }
+}

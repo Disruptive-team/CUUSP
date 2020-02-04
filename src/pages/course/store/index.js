@@ -1,5 +1,5 @@
 import course from './reducer'
-import * as contants from './contants'
+import * as constants from './constants'
 import * as actionCreators from './actionCreators'
 
-export { course, contants, actionCreators }
+export { course, constants, actionCreators }

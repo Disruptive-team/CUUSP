@@ -4,6 +4,7 @@ import { connect } from '@tarojs/redux'
 
 import './course.css'
 import Calendar from '../../components/calendar/Calendar'
+import CourseDetail from '../../components/course_detail'
 
 import { actionCreators } from './store'
 
@@ -14,6 +15,10 @@ import { actionCreators } from './store'
   week_num: course.week_num,
   arrow_up: course.arrow_up,
   select_week: course.select_week,
+  detail_week: course.detail_week,
+  detail_course: course.detail_course,
+  is_click: course.is_click,
+  start_section: course.start_section
 }), (dispatch) => ({
   onDealWeekNum () {
     dispatch(actionCreators.week_num())
@@ -23,6 +28,15 @@ import { actionCreators } from './store'
   },
   onSelectSpecificWeek (item) {
     dispatch(actionCreators.select_specific_week(item))
+  },
+  onGetCourseInfo () {
+    dispatch(actionCreators.get_course_info())
+  },
+  onDetailCourse (detail_week, detail_course, start_section) {
+    dispatch(actionCreators.detail_course(detail_week, detail_course, start_section))
+  },
+  onDeleteMask () {
+    dispatch(actionCreators.delete_mask())
   }
 }))
 class Course extends Component {
@@ -37,6 +51,7 @@ class Course extends Component {
 
   componentDidMount() {
     this.props.onDealWeekNum()
+    this.props.onGetCourseInfo()
   }
 
   isWeekIn (current_week, week_list) {
@@ -79,6 +94,16 @@ class Course extends Component {
     return flag >= 2
   }
 
+  course_detail (index, course, start_section) {
+    this.props.onDetailCourse(index, course, start_section)
+  }
+
+  delete_mask (e) {
+    if(e.target.id === 'course') {
+      this.props.onDeleteMask()
+    }
+  }
+
   render() {
     return (
       <View className='course'>
@@ -110,14 +135,19 @@ class Course extends Component {
             </View>
           </View>
           <View className='course-content-right'>
+            {this.props.is_click && <View id='course' className='course_detail' onClick={this.delete_mask}>
+              <View className='course_detail_wrapper'>
+                <CourseDetail detail={{course_d: this.props.course_d, detail_week: this.props.detail_week, detail_course: this.props.detail_course, start_section: this.props.start_section}} />
+              </View>
+            </View>}
             {this.props.course_d.map((item, index) => {
               return (<View key={index} className='col'>
                 <View className='col-wrapper'>
                   {item.map((item1, index1) => {
                     item1 = this.dealItem(this.props.select_week, item1)
                     return (<View key={index1} className='course-item-outer'>
-                      {this.isOverLap(this.props.select_week, item1)&&<View className='overlap'>重</View>}
-                      {this.isWeekIn(this.props.select_week, item1[0].week) && <View className='course-item' style={'height: '+(item1[0].section_length*60-2)+'PX;top: '+this.position_course_item(item1[0].start_section)+'PX'}>@{item1[0].place}{item1[0].course}</View>}
+                      {this.isOverLap(this.props.select_week, item1) && <View className='overlap'>重</View>}
+                      {this.isWeekIn(this.props.select_week, item1[0].week) && <View onClick={this.course_detail.bind(this, index, item1[0].course, item1[0].start_section, item1[0].teacher, item1[0].section_length)} className='course-item' style={'height: '+(item1[0].section_length*60-2)+'PX;top: '+this.position_course_item(item1[0].start_section)+'PX'}>@{item1[0].place}{item1[0].course}</View>}
                     </View>)
                   })}
                 </View>

@@ -1,116 +1,15 @@
-import { WEEK_NUM, SELECT_WEEK, SELECT_SPECIFIC_WEEK } from './contants'
+import { WEEK_NUM, SELECT_WEEK, SELECT_SPECIFIC_WEEK, GET_COURSE_INFO, DETAIL_COURSE, DELETE_MASK } from './constants'
 
 const defaultStore = {
-  course_d: [[[{
-    place: '东3211',
-    course: '计算机操作系统',
-    teacher: '马立平',
-    week: [1,2,3,4,5,6],
-    start_section: 1,
-    section_length: 2
-  }, {
-    place: '东3211',
-    course: '计算机网络',
-    teacher: '马立平',
-    week: [6,7,8,9,10],
-    start_section: 1,
-    section_length: 2
-  }], [{
-    place: '东3211',
-    course: '数据库',
-    teacher: '马立平',
-    week: [2,3,4,5,6,8,9],
-    start_section: 2,
-    section_length: 2
-  }]], [[{
-    place: '东3211',
-    course: '计算机操作系统',
-    teacher: '马立平',
-    week: [1,3,4,5,6,7,8,9,10],
-    start_section: 1,
-    section_length: 2
-  }, {
-    place: '东3211',
-    course: '计算机网络',
-    teacher: '马立平',
-    week: [1,3,4,5,6,7,8,9,10],
-    start_section: 1,
-    section_length: 4
-  }], [{
-    place: '东3211',
-    course: '数据库',
-    teacher: '马立平',
-    week: [2,3,4,5,6,8,9],
-    start_section: 3,
-    section_length: 2
-  }]], [[{
-    place: '东3211',
-    course: '计算机操作系统',
-    teacher: '马立平',
-    week: [1,3,4,5,6,7,8,9,10],
-    start_section: 1,
-    section_length: 2
-  }, {
-    place: '东3211',
-    course: '计算机网络',
-    teacher: '马立平',
-    week: [1,3,4,5,6,7,8,9,10],
-    start_section: 1,
-    section_length: 4
-  }], [{
-    place: '东3211',
-    course: '数据库',
-    teacher: '马立平',
-    week: [2,3,4,5,6,8,9],
-    start_section: 3,
-    section_length: 2
-  }]], [[{
-    place: '东3211',
-    course: '计算机操作系统',
-    teacher: '马立平',
-    week: [1,3,4,5,6,7,8,9,10],
-    start_section: 1,
-    section_length: 2
-  }, {
-    place: '东3211',
-    course: '计算机网络',
-    teacher: '马立平',
-    week: [1,3,4,5,6,7,8,9,10],
-    start_section: 1,
-    section_length: 4
-  }], [{
-    place: '东3211',
-    course: '数据库',
-    teacher: '马立平',
-    week: [2,3,4,5,6,8,9],
-    start_section: 3,
-    section_length: 2
-  }]], [[{
-    place: '东3211',
-    course: '计算机操作系统',
-    teacher: '马立平',
-    week: [1,3,4,5,6,7,8,9,10],
-    start_section: 1,
-    section_length: 2
-  }, {
-    place: '东3211',
-    course: '计算机网络',
-    teacher: '马立平',
-    week: [1,3,4,5,6,7,8,9,10],
-    start_section: 1,
-    section_length: 4
-  }], [{
-    place: '东3211',
-    course: '数据库',
-    teacher: '马立平',
-    week: [2,3,4,5,6,8,9],
-    start_section: 5,
-    section_length: 4
-  }]], [], []],
+  course_d: [[], [], [], [], [], [], []],
   left_data: [1, 2, 3, 4, '中', 5, 6, 7, 8, '晚', 9, 10, 11, 12],
   margin_top: 60,
   arrow_up: false,
   select_week: 2,
+  detail_week: 0,
+  detail_course: '',
+  is_click: false,
+  start_section: 1
 }
 
 
@@ -131,6 +30,24 @@ const course = (state = defaultStore, action) => {
       return {
         ...state,
         select_week: action.item
+      }
+    case GET_COURSE_INFO:
+      return {
+        ...state,
+        course_d: action.course_d
+      }
+    case DETAIL_COURSE:
+      return {
+        ...state,
+        detail_week: action.detail_week,
+        detail_course: action.detail_courses,
+        start_section: action.start_section,
+        is_click: true
+      }
+    case DELETE_MASK:
+      return {
+        ...state,
+        is_click: false
       }
     default:
       return state
