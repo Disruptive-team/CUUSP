@@ -4,11 +4,13 @@ import { Swiper, View, SwiperItem, Image, Text } from '@tarojs/components'
 import './home.css'
 import exam from '../../images/home/exam.png'
 import achievement from '../../images/home/grade.png'
-import card from '../../images/home/card.png'
+import cardPng from '../../images/home/card.png'
 import lose from '../../images/home/lost.png'
 import classPhoto from '../../images/class.png'
 import Exam from '../../components/exam/exam'
+import Card from '../../components/card/card'
 
+let self = ''
 class Home extends Component{
     state = {
         todayCourse: [{
@@ -24,24 +26,55 @@ class Home extends Component{
             week: '01-13',
             section_length: '1-2'
         }],
-        examTime: false
+        examTime: false,
+        cardComponent: false,
     }
 
     toExam(){
+        self = this
         this.setState({
+<<<<<<< HEAD
+            examTime: true,
+            cardComponent: false
+        })          
+=======
             examTime: true
         })
+>>>>>>> 2f1a1334a3e00c7f3be7405b8a2a250e02f8a649
     }
     toAchievement(){
         Taro.navigateTo({
             url: '../achievement/achievement'
         })
     }
+    toCard(){
+        self = this
+        this.setState({
+            cardComponent: true,
+            examTime: false
+        })
+    }
+    
+    back(){
+        self.setState({
+            examTime: false,
+            cardComponent: false
+        })
+    }
     render(){
+        let com = null
+        let flag = false
+        if(this.state.examTime){
+            com = <Exam back={this.back} />
+            flag = true
+        }else if(this.state.cardComponent){
+            com = <Card back={this.back} />
+            flag = true
+        }
         return (
             <View>
-            { this.state.examTime
-                ?<Exam />
+            { flag
+                ? com
                 :<View>
                     <Swiper indicatorDots indicatorActiveColor='#C0C0C0' indicatorColor='#DCDCDC' autoplay interval = '3000' style='background: white;'>
                         <SwiperItem>
@@ -61,8 +94,8 @@ class Home extends Component{
                             <Image src={achievement} className='functionEntry'></Image>
                             <Text style='display:block'>成绩</Text>
                         </View>
-                        <View className='functionEntryView'>
-                            <Image src={card} className='functionEntry'></Image>
+                        <View className='functionEntryView' onClick={this.toCard}>
+                            <Image src={cardPng} className='functionEntry'></Image>
                             <Text style='display:block'>一卡通</Text>
                         </View>
                         <View className='functionEntryView'>

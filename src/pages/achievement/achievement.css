@@ -9,3 +9,20 @@ page{
     margin-top: 3%;
     height: 100%;
 }
+
+.head{
+    height: 70rpx;
+    background: white;
+    text-align: center;
+    line-height: 60rpx;
+    font-size: 35rpx;
+    padding-top: 15rpx;
+    margin-bottom: 10rpx;
+}
+
+.back{
+    float: left;
+    transform: scaleY(1.5);
+    width: 10%;
+    font-size: 40rpx;
+}
