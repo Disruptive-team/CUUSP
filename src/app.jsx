@@ -7,6 +7,7 @@ import configStore from './store'
 
 import './app.css'
 import './icon.css'
+import './assets/iconfont.css'
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
@@ -26,7 +27,16 @@ class App extends Component {
       'pages/register/register',
       'pages/my/my',
       'pages/home/home',
-      'pages/achievement/achievement',
+    ],
+    subPackages: [
+      {
+        "root": 'functions',
+        "pages": [
+          'achievement/achievement',
+          'exam/exam',
+          'card/card'
+        ]
+      }
     ],
     window: {
       backgroundTextStyle: 'light',

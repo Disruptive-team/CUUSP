@@ -20,7 +20,7 @@ class Exam extends Component{
         ]
     }
     goBack(){
-        this.props.back();
+        Taro.navigateBack()
     }
     render(){
         return (

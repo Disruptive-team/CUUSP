@@ -142,7 +142,7 @@ class Card extends Component{
         })
     }
     goBack(){
-        this.props.back();
+        Taro.navigateBack()
     }
     showChooseDate(){
         this.setState({

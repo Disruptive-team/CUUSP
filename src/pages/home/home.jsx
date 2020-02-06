@@ -6,8 +6,6 @@ import achievement from '../../images/home/grade.png'
 import cardPng from '../../images/home/card.png'
 import lose from '../../images/home/lost.png'
 import classPhoto from '../../images/class.png'
-import Exam from '../../components/exam/exam'
-import Card from '../../components/card/card'
 
 let self = ''
 class Home extends Component{
@@ -25,28 +23,23 @@ class Home extends Component{
             week: '01-13',
             section_length: '1-2'
         }],
-        examTime: false,
-        cardComponent: false,
+        iconList: 'iconfont icondown functionEntryIcon'
     }
 
     toExam(){
-        self = this
-        this.setState({
-            examTime: true,
-            cardComponent: false
-        })          
+        Taro.navigateTo({
+            url: '../../functions/exam/exam'
+        })         
     }
     toAchievement(){
         Taro.navigateTo({
-            url: '../achievement/achievement'
+            url: '../../functions/achievement/achievement'
         })
     }
     toCard(){
-        self = this
-        this.setState({
-            cardComponent: true,
-            examTime: false
-        })
+        Taro.navigateTo({
+            url: '../../functions/card/card'
+        }) 
     }
     
     back(){
@@ -55,66 +48,66 @@ class Home extends Component{
             cardComponent: false
         })
     }
-    render(){
-        let com = null
-        let flag = false
-        if(this.state.examTime){
-            com = <Exam back={this.back} />
-            flag = true
-        }else if(this.state.cardComponent){
-            com = <Card back={this.back} />
-            flag = true
+    showList(){
+        let icon = this.state.iconList
+        if(icon === 'iconfont icondown functionEntryIcon'){
+            icon = 'iconfont iconup functionEntryIcon'
+        }else {
+            icon = 'iconfont icondown functionEntryIcon'
         }
+
+        this.setState({
+            iconList: icon
+        })
+    }
+    render(){
         return (
             <View>
-            { flag
-                ? com
-                :<View>
-                    <Swiper indicatorDots indicatorActiveColor='#C0C0C0' indicatorColor='#DCDCDC' autoplay interval = '3000' style='background: white;'>
-                        <SwiperItem>
-                            <View>123</View>
-                        </SwiperItem>
-                        <SwiperItem>
-                            <View>456</View>
-                        </SwiperItem>
-                    </Swiper>
-
-                    <View style='background: white;padding: 10rpx;margin-top: 15rpx;'>
-                        <View className='functionEntryView' onClick={this.toExam}>
-                            <Image src={exam} className='functionEntry'></Image>
-                            <Text style='display:block'>考试</Text>
-                        </View>
-                        <View className='functionEntryView' onClick={this.toAchievement}>
-                            <Image src={achievement} className='functionEntry'></Image>
-                            <Text style='display:block'>成绩</Text>
-                        </View>
-                        <View className='functionEntryView' onClick={this.toCard}>
-                            <Image src={cardPng} className='functionEntry'></Image>
-                            <Text style='display:block'>一卡通</Text>
-                        </View>
-                        <View className='functionEntryView'>
-                            <Image src={lose} className='functionEntry'></Image>
-                            <Text style='display:block'>失物招领</Text>
-                        </View>
-
+                <Swiper indicatorDots indicatorActiveColor='#C0C0C0' indicatorColor='#DCDCDC' autoplay interval = '3000' style='background: white;'>
+                    <SwiperItem>
+                        <View>123</View>
+                    </SwiperItem>
+                    <SwiperItem>
+                        <View>456</View>
+                    </SwiperItem>
+                </Swiper>
+                <View style='background: white;padding: 10rpx;margin-top: 15rpx;display: flex;flex-wrap: wrap;'>
+                    <View className='functionEntryView' onClick={this.toExam}>
+                        <Image src={exam} className='functionEntry'></Image>
+                        <Text style='display:block'>考试</Text>
                     </View>
-
-                    <View style="padding: 10rpx;">
-                        <Text style="font-size: 35rpx;color: gray;">今日课表</Text>
-                        {
-                            this.state.todayCourse.map((item, index)=>{
-                                return (
-                                    <View key={index} className='todayClass'>
-                                        <Image src={classPhoto} style="width: 100rpx;height: 100rpx;margin-right: 34rpx;"/>
-                                        <Text style='position: absolute'>{item.course}({item.teacher})</Text>
-                                        <Text>{item.place}(第{item.section_length}节)</Text>
-                                    </View>
-                                )
-                            })
-                        }
+                    <View className='functionEntryView' onClick={this.toAchievement}>
+                        <Image src={achievement} className='functionEntry'></Image>
+                        <Text style='display:block'>成绩</Text>
                     </View>
+                    <View className='functionEntryView' onClick={this.toCard}>
+                        <Image src={cardPng} className='functionEntry'></Image>
+                        <Text style='display:block'>一卡通</Text>
+                    </View>
+                    <Text className={this.state.iconList} onClick={this.showList}></Text>
+                    {this.state.iconList === 'iconfont iconup functionEntryIcon' && 
+                    <View className='functionEntryView'>
+                        <Image src={lose} className='functionEntry'></Image>
+                        <Text style='display:block'>失物招领</Text>
+                    </View>}
+                    
+
                 </View>
-            }
+
+                <View style="padding: 10rpx;">
+                    <Text style="font-size: 35rpx;color: gray;">今日课表</Text>
+                    {
+                        this.state.todayCourse.map((item, index)=>{
+                                                return (
+                            <View key={index} className='todayClass'>
+                                <Image src={classPhoto} style="width: 100rpx;height: 100rpx;margin-right: 34rpx;"/>
+                                <Text style='position: absolute'>{item.course}({item.teacher})</Text>
+                                <Text>{item.place}(第{item.section_length}节)</Text>
+                            </View>
+                            )
+                        })
+                    }
+                </View>
             </View>
 
         )

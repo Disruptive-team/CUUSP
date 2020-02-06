@@ -9,10 +9,17 @@ page{
 }
 
 .functionEntryView{
-    width: 25%;
     text-align: center;
     color: gray;
-    display: inline-block;
+    width: 25%;
+}
+
+.functionEntryIcon{
+    font-size: 65rpx;
+    color: gray;
+    text-align: center;
+    align-self: center;
+    width: 25%
 }
 
 .todayClass{
