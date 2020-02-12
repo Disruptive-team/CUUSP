@@ -2,8 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 
 import './index.css'
-import Calendar from '../../components/calendar/Calendar'
-import CourseComponent from '../../components/course/CourseComponent'
+import Home from '../home/home'
 
 
 // @connect(({ counter }) => ({
@@ -53,13 +52,9 @@ class Index extends Component {
   }
 
   render () {
-    Taro.navigateTo({
-      url: '../login/login'
-    })
     return (
       <View className='index'>
-        <Calendar week='3' start_date='2020-01-06' />
-        <CourseComponent bg_color='pink' course_data={this.state.course_d} />
+        <Home />
       </View>
     )
   }

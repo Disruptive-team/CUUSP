@@ -4,7 +4,7 @@ import ExamComponent from '../../components/exam/exam'
 class Exam extends Component{
     render(){
         return (
-            <ExamComponent />
+            <ExamComponent icon-back='iconfont iconback'/>
         )
     }
 }

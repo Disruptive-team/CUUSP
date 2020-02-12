@@ -31,7 +31,7 @@ class AchievementCredit extends Component{
         return (
             <View>
                 <View className='head'>
-                    <Text className='back' onClick={this.goBack}>{'<'}</Text>
+                    <Text className='iconfont iconback' style="font-size: 40rpx;float: left;" onClick={this.goBack}></Text>
                     <Text style="margin-right: 12%;letter-spacing: 3rpx;">考试</Text>
                 </View>
                 <View style="height: 110rpx;background: white;margin-bottom: 35rpx;">

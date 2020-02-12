@@ -3,6 +3,7 @@ import {View, Text} from '@tarojs/components'
 import './exam.css'
 
 class Exam extends Component{
+    static externalClasses = ['icon-back']
     state = {
         exam: [{
             place: '东3211',
@@ -26,7 +27,7 @@ class Exam extends Component{
         return (
             <View>
                 <View className='head'>
-                    <Text className='back' onClick={this.goBack}>{'<'}</Text>
+                    <Text className='icon-back' style="font-size: 40rpx;float: left;" onClick={this.goBack}></Text>
                     <Text style="margin-right: 12%;letter-spacing: 3rpx;">考试</Text>
                 </View>
                { this.state.exam.map((item, index)=>{

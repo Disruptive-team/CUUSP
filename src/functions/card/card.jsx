@@ -4,7 +4,7 @@ import CardComponent from '../../components/card/card'
 class Card extends Component{
     render(){
         return (
-            <CardComponent />
+            <CardComponent icon-back='iconfont iconback'/>
         )
     }
 }
