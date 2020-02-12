@@ -9,6 +9,7 @@ import './app.css'
 import './icon.css'
 import './assets/iconfont.css'
 
+import {checkCode} from './Interface/user'
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
 // if (process.env.NODE_ENV !== 'production' && process.env.TARO_ENV === 'h5')  {
@@ -67,9 +68,27 @@ class App extends Component {
       }]
     }
   }
-
+  
   componentDidMount () {
     
+    let type = Taro.getEnv()
+    if(type === 'WEAPP'){
+        Taro.login({
+          success(res){
+            checkCode({
+              code: res.code,
+              type: 'wx'
+            }).then(r=>{
+              if(r.data.code === 200){
+                Taro.setStorage({
+                  key: 'auth_token',
+                  data: r.data.data.auth_token
+                })
+              }
+            })
+          }
+        })
+    }
   }
 
   componentDidShow () {}
