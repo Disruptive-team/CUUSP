@@ -1,11 +1,20 @@
 import { Component } from '@tarojs/taro'
+import { connect } from '@tarojs/redux';
 import {View, Text} from '@tarojs/components'
 import './card.css'
 import '../../assets/iconfont.css'
+import storeConfig from '../../store'
+
+const store = storeConfig()
+@connect(({userInfo})=>({
+    userInfo
+}))
 
 class Card extends Component{
     static externalClasses = ['icon-back']
-
+    constructor(props){
+        console.log(props, this.props, this.props.userInfo)
+    }
     state = {
         name: '123',
         number: '5120200202',
@@ -69,6 +78,7 @@ class Card extends Component{
         this.setState({
             consumption: buffer
         })
+        console.log(store.getState())
     }
     setDate(obj){
         let nowBuffer = this.state.now
