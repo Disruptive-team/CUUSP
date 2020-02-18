@@ -3,6 +3,7 @@ import { View } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 
 import './index.css'
+import Home from '../home/home'
 
 class Index extends Component {
   constructor(props) {
@@ -19,11 +20,10 @@ class Index extends Component {
 
 
   render () {
-    // Taro.navigateTo({
-    //   url: '../login/login'
-    // })
     return (
-      <View className='index'>index</View>
+      <View className='index'>
+        <Home />
+      </View>
     )
   }
 }
