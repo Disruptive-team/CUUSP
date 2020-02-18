@@ -3,20 +3,20 @@ import {View, Text, Button} from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 
 import './my.css'
-import configStore from '../../store'
+import {action} from './store'
 import {updateUserInfo} from '../../Interface/user'
 
-const store = configStore()
 @connect(({ userInfo }) => ({
     userInfo
   }), (dispatch) => ({
     setUserInfo(data) {
-      dispatch(data)
+      dispatch(action.user_info(data))
     }
   }))
 class My extends Component{
-    constructor(){
-        console.log(store.getState())
+    constructor(props){
+        super(props)
+        // console.log(store.getState())
            
     }
     state = {
@@ -30,6 +30,8 @@ class My extends Component{
         })
     }
     login(){
+
+        console.log(this)
         let that = this
         if(Taro.getEnv() === 'WEAPP'){
             Taro.getUserInfo().then(res=>{
@@ -38,20 +40,17 @@ class My extends Component{
                     key: 'auth_token',
                     success: function(r){
                         console.log(r)
-                        let action = {
-                            type: 'setUserInfo',
-                            value: {
-                                nick_name: res.userInfo.nickName,	
-                                gender: res.userInfo.gender,
-                                avatar_url: res.userInfo.avatarUrl,	
-                                country: res.userInfo.country,
-                                city: res.userInfo.city,
-                                auth_token: r.data
-                            }
-                        }
-                        that.props.setUserInfo(action)
-                        console.log(that.props.userInfo, that.props.setUserInfo)
+                        that.props.setUserInfo({
+                            nick_name: res.userInfo.nickName,	
+                            gender: res.userInfo.gender,
+                            avatar_url: res.userInfo.avatarUrl,	
+                            country: res.userInfo.country,
+                            city: res.userInfo.city,
+                            auth_token: r.data
+                        })
                         // store.dispatch(action)
+                        // console.log(that.props.userInfo, store.getState())
+
                         updateUserInfo({
                             nick_name: res.userInfo.nickName,	
                             gender: res.userInfo.gender,

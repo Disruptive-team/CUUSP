@@ -1,11 +1,11 @@
-import { Component } from '@tarojs/taro'
+import Taro, { Component } from '@tarojs/taro'
 import { connect } from '@tarojs/redux';
 import {View, Text} from '@tarojs/components'
 import './card.css'
 import '../../assets/iconfont.css'
-import storeConfig from '../../store'
+// import storeConfig from '../../store'
 
-const store = storeConfig()
+// const store = storeConfig()
 @connect(({userInfo})=>({
     userInfo
 }))
@@ -13,7 +13,7 @@ const store = storeConfig()
 class Card extends Component{
     static externalClasses = ['icon-back']
     constructor(props){
-        console.log(props, this.props, this.props.userInfo)
+        super(props)
     }
     state = {
         name: '123',
@@ -78,7 +78,6 @@ class Card extends Component{
         this.setState({
             consumption: buffer
         })
-        console.log(store.getState())
     }
     setDate(obj){
         let nowBuffer = this.state.now
@@ -148,9 +147,10 @@ class Card extends Component{
         })
     }
     submitDate(){
-        this.state.showDate = `${this.state.now.year}-${this.state.now.mouth}-${this.state.now.day}`
+        let date = `${this.state.now.year}-${this.state.now.mouth}-${this.state.now.day}`
         this.setState({
-            chooseDate: false
+            chooseDate: false,
+            showDate: date
         })
     }
     goBack(){
