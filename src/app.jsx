@@ -30,6 +30,7 @@ class App extends Component {
       'pages/register/register',
       'pages/my/my',
       'pages/home/home',
+      'pages/setting/index'
     ],
     subPackages: [
       {
@@ -70,9 +71,9 @@ class App extends Component {
       }]
     }
   }
-  
+
   componentDidMount () {
-    
+
     let type = Taro.getEnv()
     if(type === 'WEAPP'){
         Taro.login({

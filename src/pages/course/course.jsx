@@ -120,7 +120,7 @@ class Course extends Component {
   }
 
   setting () {
-    Taro.navigateTo({url: '/pages/setting/index'}).then((res) => {
+    Taro.redirectTo({url: '/pages/setting/index'}).then((res) => {
       console.log(res)
     }).catch((err) => {
       console.log(err)

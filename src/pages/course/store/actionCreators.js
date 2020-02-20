@@ -47,15 +47,38 @@ export const select_specific_week = (item, index) => {
 export const get_course_info = () => {
   return (dispatch) => {
     try {
+      // 获取缓存课表数据
       let course_data = Taro.getStorageSync('course_data')
+      // 获取缓存Authorization
+      let Authorization = Taro.getStorageSync('')
+      // 若缓存没有课表数据
       if (!course_data) {
-        Taro.request({url: wfw_url + '/api/course/getAllLast'}).then(res => {
-          let res_d = resolve_course(res.data.data)
-          Taro.setStorage({
-            key: 'course_data',
-            data: res_d
-          }).then(() => {})
-          dispatch(getCourseInfo(res_d))
+        // 请求数据库课表数据
+        Taro.request({url: wfw_url + '/api/course/getAllLast', header: {Authorization}}).then(res => {
+          if (res.code === 200) {
+            // 解析课表数据
+            let res_d = resolve_course(res.data.data)
+            // 将课表数据存入缓存
+            Taro.setStorage({
+              key: 'course_data',
+              data: res_d
+            }).then(() => {})
+            dispatch(getCourseInfo(res_d))
+          } else {
+            // 数据库没有课表数据，
+            Taro.request({url: wfw_url + '/api/course/getAllRealTime', header: {Authorization}}).then(res1 => {
+              if (res1.code === 200) {
+                let res_d = resolve_course(res.data.data)
+                Taro.setStorage({
+                  key: 'course_data',
+                  data: res_d
+                }).then(() => {})
+                dispatch(getCourseInfo(res_d))
+              } else {
+                Taro.showToast({title: '123'})
+              }
+            })
+          }
         }).catch(err => {
           console.log(err)
         })
