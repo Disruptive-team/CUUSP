@@ -3,6 +3,7 @@ import { Provider } from '@tarojs/redux'
 
 import Index from './pages/index'
 import Course from './pages/course/course'
+import Exam from './components/exam/exam'
 
 import configStore from './store'
 
@@ -77,6 +78,7 @@ class App extends Component {
       <Provider store={store}>
         <Index />
         <Course />
+        <Exam />
       </Provider>
     )
   }

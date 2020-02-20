@@ -1,8 +1,11 @@
-import { Component } from '@tarojs/taro'
+import Taro, { Component } from '@tarojs/taro'
 import {View, Text} from '@tarojs/components'
 import './exam.css'
 
 class Exam extends Component{
+  constructor(props) {
+    super(props);
+  }
     state = {
         exam: [{
             place: '东3211',
@@ -36,7 +39,7 @@ class Exam extends Component{
                                 <Text>{item.place}(第{item.section_length}节)</Text>
                            </View>
                     })
-               } 
+               }
             </View>
         )
     }

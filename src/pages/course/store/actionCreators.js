@@ -1,7 +1,8 @@
 import Taro from '@tarojs/taro'
 import { WEEK_NUM, SELECT_WEEK, SELECT_SPECIFIC_WEEK, GET_COURSE_INFO, DETAIL_COURSE, DELETE_MASK } from './constants'
+import resolve_course from '../resolve/resolve_course'
 
-import { url } from '../../../utils/url'
+import { url, wfw_url } from '../../../utils/url'
 
 const deal_week_num = () => {
   let week_num = []
@@ -18,7 +19,7 @@ const compute_margin_top = (arrow_up, margin_top) => {
 
 const getCourseInfo = (res) => ({
   type: GET_COURSE_INFO,
-  course_d: res.data || [[], [], [], [], [], [], []]
+  course_d: res || [[], [], [], [], [], [], []]
 })
 // eslint-disable-next-line import/prefer-default-export
 export const week_num = () => {
@@ -45,11 +46,27 @@ export const select_specific_week = (item, index) => {
 
 export const get_course_info = () => {
   return (dispatch) => {
-    Taro.request({url: url + '/api/course_info'}).then(res => {
-      dispatch(getCourseInfo(res))
-    }).catch(err => {
-      console.log(err)
-    })
+    try {
+      let course_data = Taro.getStorageSync('course_data')
+      if (!course_data) {
+        Taro.request({url: wfw_url + '/api/course/getAllLast'}).then(res => {
+          let res_d = resolve_course(res.data.data)
+          Taro.setStorage({
+            key: 'course_data',
+            data: res_d
+          }).then(() => {})
+          dispatch(getCourseInfo(res_d))
+        }).catch(err => {
+          console.log(err)
+        })
+      } else {
+        Taro.getStorage({key: 'course_data'}).then((r) => {
+          dispatch(getCourseInfo(r.data))
+        })
+      }
+    } catch (e) {
+
+    }
   }
 }
 

@@ -5,7 +5,7 @@ const defaultStore = {
   left_data: [1, 2, 3, 4, '中', 5, 6, 7, 8, '晚', 9, 10, 11, 12],
   margin_top: 60,
   arrow_up: false,
-  select_week: 2,
+  select_week: 1,
   detail_week: 0,
   detail_course: '',
   is_click: false,
