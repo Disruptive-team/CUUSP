@@ -14,10 +14,13 @@
     display: inline-block;
     margin-top: 20rpx;
     margin-left: 30px;
+    text-align: left;
+    text-indent: 20rpx;
+    padding-left: 20rpx;
 }
 
 .bnt{
-    width: 78%;
+    width: 70%;
     height: 85rpx;
     background: #00BFFF;
     color: white;

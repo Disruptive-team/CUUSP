@@ -74,21 +74,32 @@ class App extends Component {
     
     let type = Taro.getEnv()
     if(type === 'WEAPP'){
-        Taro.login({
-          success(res){
-            checkCode({
-              code: res.code,
-              type: 'wx'
-            }).then(r=>{
-              if(r.data.code === 200){
-                Taro.setStorage({
-                  key: 'auth_token',
-                  data: r.data.data.auth_token
+        Taro.checkSession({
+          success: function () {
+            //session_key 未过期，并且在本生命周期一直有效
+            console.log('session_key 未过期')
+          },
+          fail: function () {
+            // session_key 已经失效，需要重新执行登录流程
+            console.log('session_key过期')
+            Taro.login({
+              success(res){
+                checkCode({
+                  code: res.code,
+                  type: 'wx'
+                }).then(r=>{
+                  if(r.data.code === 200){
+                    Taro.setStorage({
+                      key: 'auth_token',
+                      data: r.data.data.auth_token
+                    })
+                  }
                 })
               }
             })
           }
         })
+       
     }
   }
 

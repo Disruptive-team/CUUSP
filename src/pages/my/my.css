@@ -65,3 +65,11 @@ page{
     padding-right: 85rpx;
     line-height: 100rpx;
 }
+
+.head-image{
+    padding-top: 5px;
+    background: white;
+    padding-left: 50rpx;
+    display: flex;
+    padding-bottom: 5rpx;
+}

@@ -1,5 +1,5 @@
 import Taro, {Component} from '@tarojs/taro'
-import {View, Text, Button} from '@tarojs/components'
+import {View, Text, Button, Image} from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 
 import './my.css'
@@ -16,22 +16,30 @@ import {updateUserInfo} from '../../Interface/user'
 class My extends Component{
     constructor(props){
         super(props)
-        // console.log(store.getState())
-           
+        console.log(this.props)
+        let name = '', school = '', img = '', id = ''
+        if(this.props.userInfo){
+            name = this.props.nick_name
+            school = this.props.studentSchool
+            img = this.props.avatar_url
+            id = this.props.studentID
+        }
+        this.state = {
+            userId: id,
+            userName: name,
+            userSchool: school,
+            userImgSrc: img,
+        }
     }
-    state = {
-        userId: '',
-        userName: '',
-        userSchool: '',
+    componentDidMount(){
+        console.log('哈哈哈哈哈',this.props)
     }
     exit(){
         Taro.navigateTo({
             url: '../register/register'
         })
     }
-    login(){
-
-        console.log(this)
+    getUserInfo(){
         let that = this
         if(Taro.getEnv() === 'WEAPP'){
             Taro.getUserInfo().then(res=>{
@@ -48,9 +56,10 @@ class My extends Component{
                             city: res.userInfo.city,
                             auth_token: r.data
                         })
-                        // store.dispatch(action)
-                        // console.log(that.props.userInfo, store.getState())
-
+                        that.setState({
+                            userImgSrc: res.userInfo.avatarUr,
+                            userName: res.userInfo.nickName
+                        })
                         updateUserInfo({
                             nick_name: res.userInfo.nickName,	
                             gender: res.userInfo.gender,
@@ -64,10 +73,20 @@ class My extends Component{
                     }
                 })
                 
+            }).catch(res=>{
+                console.log(res)
             })
-        //    Taro.navigateTo({
-        //        url: '../login/login'
-        //    })
+            Taro.showModal({
+                title: '提示',
+                content: '是否现在绑定教务处账号?',
+            }).then(res=>{
+                if(res.confirm){
+                    Taro.navigateTo({
+                        url: '../register/register'
+                    })
+                }
+            })
+          
         }
     }
     componentWillMount(){
@@ -76,25 +95,42 @@ class My extends Component{
     render(){
         return(
             <View>
-                <View style='padding-top: 5px;background: white;padding-left: 20rpx;display:flex'>
-                    <View className='name'>
-                        {this.state.userName?this.state.userName:'请登录'}
+                <View className='head-image'>
+                    {this.state.userImgSrc
+                    ?<Image src={this.state.userImgSrc} className='name' />
+                    :<View className='name'>请登录</View>}
+                    
+                    {this.state.userName 
+                    ?<View style='padding-left: 8%;line-height: 145rpx;font-size: 40rpx;'>
+                        <Text>你好！{this.state.userName}</Text>
+                        {/* <View className='textHidden' style='margin-bottom: 5px;margin-top: 7px;'>昵称：{this.state.user}\n</View>
+                        <View className='textHidden' >学校：{this.state.userSchool}</View> */}
                     </View>
-                    {this.state.userId && this.state.userSchool 
-                    ?<View style='padding-left: 5%;'>
-                        <View className='textHidden' style='margin-bottom: 5px;margin-top: 7px;'>学号：{this.state.userId}\n</View>
-                        <View className='textHidden' >学校：{this.state.userSchool}</View>
-                    </View>
-                    : <Button className='loginBnt' onClick={this.login}>登录</Button>}
+                    : <Button className='loginBnt' openType='getUserInfo' onGetUserInfo={this.getUserInfo} >登录</Button>}
                 </View>
-                <View className='choose'>
-                    <Text className='iconfont iconmodifyPassword icon'></Text>
-                    <Text style='padding-left: 35rpx;'>修改密码</Text>
+                <View className='choose' onClick={this.exit}>
+                    <Text className='iconchange iconfont icon'></Text>
+                    <Text style='padding-left: 20rpx;'>个人信息</Text>
                     <Text className='iconfont iconapp-go go'></Text>
                 </View>
                 <View className='choose' onClick={this.exit}>
                     <Text className='iconchange iconfont icon'></Text>
-                    <Text style='padding-left: 20rpx;'>更换绑定</Text>
+                    <Text style='padding-left: 20rpx;'>修改教务信息</Text>
+                    <Text className='iconfont iconapp-go go'></Text>
+                </View>
+                <View className='choose' onClick={this.exit}>
+                    <Text className='iconchange iconfont icon'></Text>
+                    <Text style='padding-left: 20rpx;'>分享</Text>
+                    <Text className='iconfont iconapp-go go'></Text>
+                </View>
+                <View className='choose' onClick={this.exit}>
+                    <Text className='iconchange iconfont icon'></Text>
+                    <Text style='padding-left: 20rpx;'>意见反馈</Text>
+                    <Text className='iconfont iconapp-go go'></Text>
+                </View>
+                <View className='choose' onClick={this.exit}>
+                    <Text className='iconchange iconfont icon'></Text>
+                    <Text style='padding-left: 20rpx;'>关于我们</Text>
                     <Text className='iconfont iconapp-go go'></Text>
                 </View>
 

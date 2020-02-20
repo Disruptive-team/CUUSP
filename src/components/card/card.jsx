@@ -3,9 +3,7 @@ import { connect } from '@tarojs/redux';
 import {View, Text} from '@tarojs/components'
 import './card.css'
 import '../../assets/iconfont.css'
-// import storeConfig from '../../store'
 
-// const store = storeConfig()
 @connect(({userInfo})=>({
     userInfo
 }))
@@ -14,55 +12,59 @@ class Card extends Component{
     static externalClasses = ['icon-back']
     constructor(props){
         super(props)
-    }
-    state = {
-        name: '123',
-        number: '5120200202',
-        consumption: [{
-            place: '五食堂',
-            amount: 10.11,
-            date: '2020-2-2 15:58:12',
-            mode: false,
-        },{
-            place: '五食堂',
-            amount: 10.11,
-            date: '2020-2-2 15:58:12',
-            mode: true,
-        },{
-            place: '五食堂',
-            amount: 10.11,
-            date: '2020-2-2 15:58:12',
-            mode: false,
-        },{
-            place: '五食堂hahahahhahahahahhahahah',
-            amount: 10.11,
-            date: '2020-2-2 15:58:12',
-            mode: false,
-        },{
-            place: '五食堂hahahahhahahahahhahahah',
-            amount: 10.11,
-            date: '2020-2-2 15:58:12',
-            mode: false,
-        }],
-        showDate: '2020-2-2',
-        state: '正式卡',
-        now:{
-            year: 2020,
-            mouth: 12,
-            day: 1
-        },
-        min: {
-            year: 2000,
-            mouth: 1,
-            day: 1
-        },
-        max:{
-            year: 2020,
-            mouth: 2,
-            day: 2
-        },
-        chooseDate: false,
-
+        let imgSrc = '../../images/my_1.png'
+        if(this.props.userInfo){
+            imgSrc = this.props.userInfo.avatar_url
+        }
+        this.state = {
+            name: '123',
+            number: '5120200202',
+            consumption: [{
+                place: '五食堂',
+                amount: 10.11,
+                date: '2020-2-2 15:58:12',
+                mode: false,
+            },{
+                place: '五食堂',
+                amount: 10.11,
+                date: '2020-2-2 15:58:12',
+                mode: true,
+            },{
+                place: '五食堂',
+                amount: 10.11,
+                date: '2020-2-2 15:58:12',
+                mode: false,
+            },{
+                place: '五食堂hahahahhahahahahhahahah',
+                amount: 10.11,
+                date: '2020-2-2 15:58:12',
+                mode: false,
+            },{
+                place: '五食堂hahahahhahahahahhahahah',
+                amount: 10.11,
+                date: '2020-2-2 15:58:12',
+                mode: false,
+            }],
+            showDate: '2020-2-2',
+            state: '正式卡',
+            now:{
+                year: 2020,
+                mouth: 12,
+                day: 1
+            },
+            min: {
+                year: 2000,
+                mouth: 1,
+                day: 1
+            },
+            max:{
+                year: 2020,
+                mouth: 2,
+                day: 2
+            },
+            chooseDate: false,
+            imgSrc: imgSrc
+        }
     }
     componentDidMount(){
         let buffer = this.state.consumption
@@ -169,7 +171,7 @@ class Card extends Component{
                     <Text style="margin-right: 12%;letter-spacing: 3rpx;">一卡通消费记录</Text>
                 </View>
                 <View className='card'>
-                    <Image src='../../images/my_2.png' className='photo'></Image>
+                    <Image src={this.state.imgSrc} className='photo'></Image>
                     <View className='info'>
                         <Text>姓名：{this.state.name}\n</Text>
                         <Text>学号：{this.state.number}</Text>
