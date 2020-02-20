@@ -1,9 +1,20 @@
-import { Component } from '@tarojs/taro'
-import {View, Text, Swiper, ScrollView} from '@tarojs/components'
+import Taro, { Component } from '@tarojs/taro'
+import { connect } from '@tarojs/redux';
+import {View, Text} from '@tarojs/components'
 import './card.css'
-import date from '../../images/date.png'
+import '../../assets/iconfont.css'
+// import storeConfig from '../../store'
+
+// const store = storeConfig()
+@connect(({userInfo})=>({
+    userInfo
+}))
 
 class Card extends Component{
+    static externalClasses = ['icon-back']
+    constructor(props){
+        super(props)
+    }
     state = {
         name: '123',
         number: '5120200202',
@@ -136,13 +147,14 @@ class Card extends Component{
         })
     }
     submitDate(){
-        this.state.showDate = `${this.state.now.year}-${this.state.now.mouth}-${this.state.now.day}`
+        let date = `${this.state.now.year}-${this.state.now.mouth}-${this.state.now.day}`
         this.setState({
-            chooseDate: false
+            chooseDate: false,
+            showDate: date
         })
     }
     goBack(){
-        this.props.back();
+        Taro.navigateBack()
     }
     showChooseDate(){
         this.setState({
@@ -153,7 +165,7 @@ class Card extends Component{
         return (
             <View>
                 <View className='head'>
-                    <Text className='back' onClick={this.goBack}>{'<'}</Text>
+                    <Text className='icon-back' onClick={this.goBack} style="font-size: 40rpx;float: left;"></Text>
                     <Text style="margin-right: 12%;letter-spacing: 3rpx;">一卡通消费记录</Text>
                 </View>
                 <View className='card'>
