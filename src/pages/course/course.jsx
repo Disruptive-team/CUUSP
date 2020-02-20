@@ -8,6 +8,8 @@ import CourseDetail from '../../components/course_detail'
 
 import { actionCreators } from './store'
 
+import { pullDownRefreshContent } from '../../utils/globalConstant'
+
 @connect(({ course }) => ({
   course_d: course.course_d,
   margin_top: course.margin_top,
@@ -45,6 +47,7 @@ class Course extends Component {
   // eslint-disable-next-line react/sort-comp
   config = {
     navigationBarTitleText: '课表',
+    enablePullDownRefresh: true
   }
   constructor(props) {
     super(props);
@@ -53,6 +56,17 @@ class Course extends Component {
   componentDidMount() {
     this.props.onDealWeekNum()
     this.props.onGetCourseInfo()
+  }
+
+  onPullDownRefresh() {
+    Taro.startPullDownRefresh().then(() => {
+      Taro.showModal({title: '温馨提示', content: pullDownRefreshContent}).then(r => {
+        if (r.confirm) {
+          this.props.onGetCourseInfo()
+        }
+      })
+    })
+    Taro.stopPullDownRefresh()
   }
 
   isWeekIn (current_week, week_list) {
@@ -106,7 +120,7 @@ class Course extends Component {
   }
 
   setting () {
-    Taro.navigateTo({url: '/pages/setting/index'}).then((res) => {
+    Taro.redirectTo({url: '/pages/setting/index'}).then((res) => {
       console.log(res)
     }).catch((err) => {
       console.log(err)
@@ -135,7 +149,7 @@ class Course extends Component {
             </View>
             }
           </View>
-          <Calendar week={this.props.select_week} start_date='2019-8-26' />
+          <Calendar week={this.props.select_week} start_date='2020-2-17' />
         </View>
         <View className='course-content' style={'margin-top: ' + this.props.margin_top + 'px'}>
           <View className='left-section'>

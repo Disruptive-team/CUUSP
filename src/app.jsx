@@ -3,6 +3,7 @@ import { Provider } from '@tarojs/redux'
 
 import Index from './pages/index'
 import Course from './pages/course/course'
+import Exam from './components/exam/exam'
 
 import configStore from './store'
 
@@ -29,6 +30,7 @@ class App extends Component {
       'pages/register/register',
       'pages/my/my',
       'pages/home/home',
+      'pages/setting/index'
     ],
     subPackages: [
       {
@@ -69,9 +71,9 @@ class App extends Component {
       }]
     }
   }
-  
+
   componentDidMount () {
-    
+
     let type = Taro.getEnv()
     if(type === 'WEAPP'){
         Taro.checkSession({
@@ -116,6 +118,7 @@ class App extends Component {
       <Provider store={store}>
         <Index />
         <Course />
+        <Exam />
       </Provider>
     )
   }
