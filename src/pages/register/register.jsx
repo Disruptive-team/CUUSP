@@ -39,12 +39,13 @@ class Register extends Component{
     register(){
         let that = this
         console.log(that.state)
-        // if(that.state.studentNumber !== that.state.studentConfirmPassWord){
-        //     Taro.showModal({
-        //         title: '提示',
-        //         content: '两次输入密码不一致',
-        //     })
-        // }
+        if(that.state.studentPassWord !== that.state.studentConfirmPassWord){
+            Taro.showModal({
+                title: '提示',
+                content: '两次输入密码不一致',
+            })
+            return 
+        }
         Taro.getStorage({
             key: 'auth_token',
             success: function(r){
@@ -55,16 +56,26 @@ class Register extends Component{
                 }).then(res=>{
                     console.log(res)
                     if(res.data.code === 200){
-                        that.props.setStudentInfo({
-                            studentID: that.state.studentNumber,
-                            studentSchool: '西南科技大学'
+                        Taro.showToast({
+                            title: '绑定成功',
+                            icon: 'success'
+                        }).then(r=>{
+                            that.props.setStudentInfo({
+                                studentID: that.state.studentNumber,
+                                studentSchool: '西南科技大学'
+                            })
+                            Taro.setStorage({
+                                key: 'auth_token',
+                                data: res.data.data.auth_token
+                            })
+                            Taro.switchTab({
+                                url: '/pages/home/home'
+                            })
                         })
-                        Taro.setStorage({
-                            key: 'auth_token',
-                            data: res.data.data.auth_token
-                        })
-                        Taro.switchTab({
-                            url: '/pages/home/home'
+                    }else{
+                        Taro.showToast({
+                            title: '系统繁忙，请稍后再试~',
+                            icon: 'none'
                         })
                     }
                 })
@@ -77,8 +88,8 @@ class Register extends Component{
                 <Text style='font-size: 85rpx;margin-top: 20%;display: block;'>查课表</Text>
                 <View style='margin-top:10%;'>
                     <Input className='optionIpt' placeholder='账号' onInput={this.getNumber} value={this.state.studentNumber} />
-                    <Input className='optionIpt' onInput={this.getPassword} value={this.state.studentPassWord} placeholder='密码' />
-                    <Input className='optionIpt' onInput={this.getConfirmPassword} value={this.state.studentConfirmPassWord} placeholder='确认密码' />
+                    <Input className='optionIpt' onInput={this.getPassword} value={this.state.studentPassWord} placeholder='密码' type='password' />
+                    <Input className='optionIpt' onInput={this.getConfirmPassword} value={this.state.studentConfirmPassWord} placeholder='确认密码' type='password' />
 
                 </View>
                 <Button className='bnt' onClick={this.register}>注   册</Button>

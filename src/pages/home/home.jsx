@@ -7,8 +7,9 @@ import achievement from '../../images/home/grade.png'
 import cardPng from '../../images/home/card.png'
 import lose from '../../images/home/lost.png'
 import classPhoto from '../../images/class.png'
+import {whetherBindID} from '../../Interface/common'
+import {getActiveSwiper} from '../../Interface/images'
 
-let self = ''
 class Home extends Component{
     state = {
         todayCourse: [{
@@ -24,30 +25,82 @@ class Home extends Component{
             week: '01-13',
             section_length: '1-2'
         }],
-        iconList: 'iconfont icondown functionEntryIcon'
+        iconList: 'iconfont icondown functionEntryIcon',
+        bindID: false,
+        swiperImgs: []
     }
+    componentDidMount(){
+        Taro.hideToast()
+        this.getSwiperImgs()
+        this.getBindID()
+    }
+    getSwiperImgs(){
+        let that = this
+        getActiveSwiper().then(res=>{
+            that.setState({
+                swiperImgs: res.data.data
+            })
 
+        })
+
+    }
+    getBindID(){
+        let that = this
+        Taro.getStorage({
+            key: 'auth_token',
+            success: function(res){
+                whetherBindID({
+                    auth_token: res.data
+                }).then(r=>{
+                    if(r.data.code === 200){
+                        that.setState({
+                            bindID:r.data.data.bind
+                        })
+                    }
+                    console.log(r)
+                }).catch(err=>{
+                    console.log(err)
+                })
+            }
+        })
+    }
+    ifBind(){
+        if(!this.state.bindID){
+            Taro.showModal({
+                title: '提示',
+                content: '您现在未绑定教务处，是否现在去绑定？',
+            }).then(res => {
+                if(res.confirm){
+                    Taro.navigateTo({
+                        url: '../register/register'
+                    })
+                }
+            })
+            return false
+        }
+        return true
+    }
     toExam(){
-        Taro.navigateTo({
-            url: '../../functions/exam/exam'
-        })         
+        if(this.ifBind()){
+            Taro.navigateTo({
+                url: '../../functions/exam/exam'
+            }) 
+        }        
     }
     toAchievement(){
-        Taro.navigateTo({
-            url: '../../functions/achievement/achievement'
-        })
+        if(this.ifBind()){
+            Taro.navigateTo({
+                url: '../../functions/achievement/achievement'
+            })
+        }
+        
     }
     toCard(){
-        Taro.navigateTo({
-            url: '../../functions/card/card'
-        }) 
-    }
-
-    back(){
-        self.setState({
-            examTime: false,
-            cardComponent: false
-        })
+        if(this.ifBind()){
+            Taro.navigateTo({
+                url: '../../functions/card/card'
+            }) 
+        }
     }
     showList(){
         let icon = this.state.iconList
@@ -65,12 +118,12 @@ class Home extends Component{
         return (
             <View>
                 <Swiper indicatorDots indicatorActiveColor='#C0C0C0' indicatorColor='#DCDCDC' autoplay interval = '3000' style='background: white;'>
-                    <SwiperItem>
-                        <View>123</View>
-                    </SwiperItem>
-                    <SwiperItem>
-                        <View>456</View>
-                    </SwiperItem>
+                    {this.state.swiperImgs.map((item, index)=>{
+                        return <SwiperItem>
+                                    <Image src={item.img_url} style='height: 100%;'></Image>
+                                </SwiperItem>
+                    })}
+                    
                 </Swiper>
                 <View style='background: white;padding: 10rpx;margin-top: 15rpx;display: flex;flex-wrap: wrap;'>
                     <View className='functionEntryView' onClick={this.toExam}>

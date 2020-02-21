@@ -50,11 +50,9 @@ class My extends Component{
         let that = this
         if(Taro.getEnv() === 'WEAPP'){
             Taro.getUserInfo().then(res=>{
-                console.log(res)
                 Taro.getStorage({
                     key: 'auth_token',
                     success: function(r){
-                        console.log(r)
                         that.props.setUserInfo({
                             nick_name: res.userInfo.nickName,	
                             gender: res.userInfo.gender,
@@ -106,6 +104,14 @@ class My extends Component{
             path: '/page/home/home'
           }
     }
+    toPerson(){
+
+    }
+    toRegister(){
+        Taro.navigateTo({
+            url: '../register/register'
+        })
+    }
     render(){
         return(
             <View>
@@ -123,12 +129,12 @@ class My extends Component{
                     : <Button className='loginBnt' openType='getUserInfo' onGetUserInfo={this.getUserInfo} >登录</Button>}
                 </View>
                 <View className='group'>
-                    <Button className='choose bnt' onClick={this.person} >
+                    <Button className='choose bnt' onClick={this.toPerson} >
                         <Text className='icongerenxinxi iconfont icon'></Text>
                         <Text style='padding-left: 20rpx;'>个人信息</Text>
                         <Text className='iconfont iconapp-go go'></Text>
                     </Button>
-                    <Button className='choose bnt' onClick={this.modifyInfo}>
+                    <Button className='choose bnt' onClick={this.toRegister}>
                         <Text className='iconjiaowuchu iconfont icon'></Text>
                         <Text style='padding-left: 20rpx;'>修改教务信息</Text>
                         <Text className='iconfont iconapp-go go'></Text>
