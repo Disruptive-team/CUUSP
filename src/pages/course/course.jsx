@@ -32,8 +32,8 @@ import { pullDownRefreshContent } from '../../utils/globalConstant'
   onSelectSpecificWeek (item, index) {
     dispatch(actionCreators.select_specific_week(item, index))
   },
-  onGetCourseInfo () {
-    dispatch(actionCreators.get_course_info())
+  onGetCourseInfo (source) {
+    dispatch(actionCreators.get_course_info(source))
   },
   onDetailCourse (detail_week, detail_course, start_section) {
     dispatch(actionCreators.detail_course(detail_week, detail_course, start_section))
@@ -55,14 +55,30 @@ class Course extends Component {
 
   componentDidMount() {
     this.props.onDealWeekNum()
-    this.props.onGetCourseInfo()
+    let auth_token
+    try {
+      Taro.showLoading({title: 'loading'})
+      auth_token = Taro.getStorageSync('auth_token')
+    } catch (e) {
+
+    }
+    if (auth_token) {
+      Taro.hideLoading()
+      this.props.onGetCourseInfo(0)
+    }
+    else {
+      setTimeout(() => {
+        Taro.hideLoading()
+        this.props.onGetCourseInfo(0)
+      }, 3000)
+    }
   }
 
   onPullDownRefresh() {
     Taro.startPullDownRefresh().then(() => {
       Taro.showModal({title: '温馨提示', content: pullDownRefreshContent}).then(r => {
         if (r.confirm) {
-          this.props.onGetCourseInfo()
+          this.props.onGetCourseInfo(1)
         }
       })
     })
@@ -120,11 +136,7 @@ class Course extends Component {
   }
 
   setting () {
-    Taro.redirectTo({url: '/pages/setting/index'}).then((res) => {
-      console.log(res)
-    }).catch((err) => {
-      console.log(err)
-    })
+    Taro.navigateTo({url: '/pages/setting/index'})
   }
 
   render() {
@@ -172,7 +184,7 @@ class Course extends Component {
                     item1 = this.dealItem(this.props.select_week, item1)
                     return (<View key={index1} className='course-item-outer'>
                       {this.isOverLap(this.props.select_week, item1) && <View className='overlap'>重</View>}
-                      {this.isWeekIn(this.props.select_week, item1[0].week) && <View onClick={this.course_detail.bind(this, index, item1[0].course, item1[0].start_section, item1[0].teacher, item1[0].section_length)} className='course-item' style={'height: '+(item1[0].section_length*60-2)+'PX;top: '+this.position_course_item(item1[0].start_section)+'PX'}>@{item1[0].place}{item1[0].course}</View>}
+                      {this.isWeekIn(this.props.select_week, item1[0].week) && <View onClick={this.course_detail.bind(this, index, item1[0].course, item1[0].start_section, item1[0].teacher, item1[0].section_length)} className='course-item' style={'height: '+(item1[0].section_length*60-2)+'PX;top: '+this.position_course_item(item1[0].start_section)+'PX;background-color: '+item1[0].color}>@{item1[0].place}{item1[0].course}</View>}
                     </View>)
                   })}
                 </View>

@@ -54,11 +54,13 @@ class CourseDetail extends Component {
   }
 
   render() {
+    const detail_content = this.state.detail_content
+    console.log(this.state)
     return (
       <View className='root'>
         <View className='content'>
           {this.state.detail_content.map((item, index) => {
-            return (<View key={index} className={classNames('detail_content', 'detail_content_wrapper')} style={'z-index: '+this.state.index[index]} onClick={this.switch_detail}>
+            return (<View key={index} className={classNames('detail_content', 'detail_content_wrapper')} style={'z-index: '+this.state.index[index]+';background: '+item.color} onClick={this.switch_detail}>
               <View className='iconfont' style='font-size: 24px;text-align: center;color: #fff;margin-bottom: 6px'>&#xe637;</View>
               <View className='item'>{item.course}</View>
               <View className='item'>{item.teacher}</View>
@@ -67,7 +69,7 @@ class CourseDetail extends Component {
               <View className='item'>第{(item.start_section-1)*2+1}节: {this.state.time[(item.start_section-1)*2+1]}</View>
               <View className='item'>第{(item.start_section)*2}节: {this.state.time[(item.start_section)*2]}</View>
               <View className='item'>周次: {item.week[0]}-{item.week[item.week.length-1]}</View>
-              <View className='page'>第{index+1}/{this.state.detail_content.length}页</View>
+              <View className='page'>第{index+1}/{detail_content.length}页</View>
             </View>)
           })}
         </View>

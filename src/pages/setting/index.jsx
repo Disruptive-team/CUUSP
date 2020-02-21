@@ -1,35 +1,28 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
-
-import { wfw_url } from '../../utils/url'
+import { connect } from '@tarojs/redux'
 
 import './index.css'
-import resolve_course from '../course/resolve/resolve_course'
+import { actionCreators } from '../course/store'
 
+@connect(({course}) => ({
+  test: course
+}), (dispatch) => ({
+  onGetCourseInfo (source) {
+    dispatch(actionCreators.get_course_info(source))
+  }
+}))
 class Setting extends Component {
 
   config = {
     navigationBarTitleText: 'Setting',
   }
+  constructor(props) {
+    super(props);
+  }
 
   getLastCourse () {
-    let Authorization
-    try {
-      Authorization = Taro.getStorageSync('')
-    } catch (e) {}
-    Taro.request({url: wfw_url + '/api/course/getAllRealTime', header: {Authorization}}).then(res => {
-      if (res.code === 200) {
-        let res_d = resolve_course(res.data.data)
-        Taro.setStorage({
-          key: 'course_data',
-          data: res_d
-        }).then(() => {
-          Taro.redirectTo({url: 'pages/course/course'})
-        })
-      } else {
-        Taro.showToast({title: '获取失败'})
-      }
-    })
+    this.props.onGetCourseInfo(2)
   }
 
   render() {

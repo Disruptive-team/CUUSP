@@ -22,17 +22,13 @@ const userInfo = (state = initState, action) => {
                 country: action.data.country,
                 city: action.data.city,
             }
-<<<<<<< HEAD
         case SET_STUDENT_INFO:
             return {
                 ...state,
                 studentID: action.data.studentID,
                 studentSchool: action.data.studentSchool
             }
-        default: 
-=======
         default:
->>>>>>> d91c6ad71377daa8db9fe49a3175a5fe769a2ef4
             return state
     }
 }
