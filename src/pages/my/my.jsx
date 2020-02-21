@@ -32,11 +32,18 @@ class My extends Component{
         }
     }
     componentDidMount(){
-        console.log('哈哈哈哈哈',this.props)
-    }
-    exit(){
-        Taro.navigateTo({
-            url: '../register/register'
+        let that = this
+        Taro.getSetting({
+            success: function(res){
+                if(res.authSetting['scope.userInfo']){
+                    Taro.getUserInfo().then(rr=>{
+                        that.setState({
+                            userImgSrc: rr.userInfo.avatarUrl,
+                            userName: rr.userInfo.nickName
+                        })
+                    })
+                }
+            }
         })
     }
     getUserInfo(){
@@ -56,7 +63,7 @@ class My extends Component{
                             auth_token: r.data
                         })
                         that.setState({
-                            userImgSrc: res.userInfo.avatarUr,
+                            userImgSrc: res.userInfo.avatarUrl,
                             userName: res.userInfo.nickName
                         })
                         updateUserInfo({
@@ -91,6 +98,16 @@ class My extends Component{
 
         }
     }
+    onShareAppMessage(res){
+        if (res.from === 'button') {
+            // 来自页面内转发按钮
+            console.log(res.target)
+          }
+          return {
+            title: '分享',
+            path: '/page/home/home'
+          }
+    }
     render(){
         return(
             <View>
@@ -107,32 +124,36 @@ class My extends Component{
                     </View>
                     : <Button className='loginBnt' openType='getUserInfo' onGetUserInfo={this.getUserInfo} >登录</Button>}
                 </View>
-                <View className='choose' onClick={this.exit}>
-                    <Text className='iconchange iconfont icon'></Text>
-                    <Text style='padding-left: 20rpx;'>个人信息</Text>
-                    <Text className='iconfont iconapp-go go'></Text>
+                <View className='group'>
+                    <Button className='choose bnt' onClick={this.person} >
+                        <Text className='icongerenxinxi iconfont icon'></Text>
+                        <Text style='padding-left: 20rpx;'>个人信息</Text>
+                        <Text className='iconfont iconapp-go go'></Text>
+                    </Button>
+                    <Button className='choose bnt' onClick={this.modifyInfo}>
+                        <Text className='iconjiaowuchu iconfont icon'></Text>
+                        <Text style='padding-left: 20rpx;'>修改教务信息</Text>
+                        <Text className='iconfont iconapp-go go'></Text>
+                    </Button>
                 </View>
-                <View className='choose' onClick={this.exit}>
-                    <Text className='iconchange iconfont icon'></Text>
-                    <Text style='padding-left: 20rpx;'>修改教务信息</Text>
-                    <Text className='iconfont iconapp-go go'></Text>
-                </View>
-                <View className='choose' onClick={this.exit}>
-                    <Text className='iconchange iconfont icon'></Text>
-                    <Text style='padding-left: 20rpx;'>分享</Text>
-                    <Text className='iconfont iconapp-go go'></Text>
-                </View>
-                <View className='choose' onClick={this.exit}>
-                    <Text className='iconchange iconfont icon'></Text>
-                    <Text style='padding-left: 20rpx;'>意见反馈</Text>
-                    <Text className='iconfont iconapp-go go'></Text>
-                </View>
-                <View className='choose' onClick={this.exit}>
-                    <Text className='iconchange iconfont icon'></Text>
-                    <Text style='padding-left: 20rpx;'>关于我们</Text>
-                    <Text className='iconfont iconapp-go go'></Text>
-                </View>
+                <View className='group'>
+                    <Button className='choose bnt' onClick={this.share} openType='share' >
+                        <Text className='iconfenxiang iconfont icon'></Text>
+                        <Text style='padding-left: 20rpx;'>分享</Text>
+                        <Text className='iconfont iconapp-go go' ></Text>
+                    </Button>
 
+                    <Button className='choose bnt' onClick={this.opinion} openType='feedback'>
+                        <Text className='iconyijianfankui iconfont icon'></Text>
+                        <Text style='padding-left: 20rpx;'>意见反馈</Text>
+                        <Text className='iconfont iconapp-go go'></Text>
+                    </Button>
+                    <Button className='choose bnt' onClick={this.about} >
+                        <Text className='iconwode-guanyuwomen iconfont icon'></Text>
+                        <Text style='padding-left: 20rpx;'>关于我们</Text>
+                        <Text className='iconfont iconapp-go go'></Text>
+                    </Button>
+                </View>
             </View>
         )
     }
