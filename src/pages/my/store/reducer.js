@@ -28,7 +28,7 @@ const userInfo = (state = initState, action) => {
                 studentID: action.data.studentID,
                 studentSchool: action.data.studentSchool
             }
-        default: 
+        default:
             return state
     }
 }

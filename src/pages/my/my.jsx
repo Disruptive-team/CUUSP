@@ -54,9 +54,9 @@ class My extends Component{
                     key: 'auth_token',
                     success: function(r){
                         that.props.setUserInfo({
-                            nick_name: res.userInfo.nickName,	
+                            nick_name: res.userInfo.nickName,
                             gender: res.userInfo.gender,
-                            avatar_url: res.userInfo.avatarUrl,	
+                            avatar_url: res.userInfo.avatarUrl,
                             country: res.userInfo.country,
                             city: res.userInfo.city,
                             auth_token: r.data
@@ -66,18 +66,21 @@ class My extends Component{
                             userName: res.userInfo.nickName
                         })
                         updateUserInfo({
-                            nick_name: res.userInfo.nickName,	
+                            nick_name: res.userInfo.nickName,
                             gender: res.userInfo.gender,
-                            avatar_url: res.userInfo.avatarUrl,	
+                            avatar_url: res.userInfo.avatarUrl,
                             country: res.userInfo.country,
                             city: res.userInfo.city,
                             auth_token: r.data
                         }).then(rr=>{
-                            console.log(rr)
+                            console.log('rr')
                         })
+                    },
+                    fail: function (r) {
+                      console.log('sadfsd')
                     }
                 })
-                
+
             }).catch(res=>{
                 console.log(res)
             })
@@ -91,7 +94,7 @@ class My extends Component{
                     })
                 }
             })
-          
+
         }
     }
     onShareAppMessage(res){
@@ -119,8 +122,8 @@ class My extends Component{
                     {this.state.userImgSrc
                     ?<Image src={this.state.userImgSrc} className='name' />
                     :<View className='name'>请登录</View>}
-                    
-                    {this.state.userName 
+
+                    {this.state.userName
                     ?<View style='padding-left: 8%;line-height: 145rpx;font-size: 40rpx;'>
                         <Text>你好！{this.state.userName}</Text>
                         {/* <View className='textHidden' style='margin-bottom: 5px;margin-top: 7px;'>昵称：{this.state.user}\n</View>

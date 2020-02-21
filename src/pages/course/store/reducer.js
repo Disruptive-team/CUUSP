@@ -1,4 +1,12 @@
-import { WEEK_NUM, SELECT_WEEK, SELECT_SPECIFIC_WEEK, GET_COURSE_INFO, DETAIL_COURSE, DELETE_MASK } from './constants'
+import {
+  WEEK_NUM,
+  SELECT_WEEK,
+  SELECT_SPECIFIC_WEEK,
+  GET_COURSE_INFO,
+  DETAIL_COURSE,
+  DELETE_MASK,
+  ONLY_SHOW_CURRENT_WEEK
+} from './constants'
 
 const defaultStore = {
   course_d: [[], [], [], [], [], [], []],
@@ -10,7 +18,7 @@ const defaultStore = {
   detail_course: '',
   is_click: false,
   start_section: 1,
-// #00BFFF
+  only_current_week: false,
   select_aim_color: ['#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999', '#999']
 }
 
@@ -59,6 +67,11 @@ const course = (state = defaultStore, action) => {
       return {
         ...state,
         is_click: false
+      }
+    case ONLY_SHOW_CURRENT_WEEK:
+      return {
+        ...state,
+        only_current_week: !state.only_current_week
       }
     default:
       return state

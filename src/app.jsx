@@ -4,6 +4,7 @@ import { Provider } from '@tarojs/redux'
 import Index from './pages/index'
 import Course from './pages/course/course'
 import Exam from './components/exam/exam'
+import Setting from './pages/setting/index'
 
 import configStore from './store'
 
@@ -76,32 +77,57 @@ class App extends Component {
 
     let type = Taro.getEnv()
     if(type === 'WEAPP'){
-        Taro.checkSession({
-          success: function () {
-            //session_key 未过期，并且在本生命周期一直有效
-            console.log('session_key 未过期')
-          },
-          fail: function () {
-            // session_key 已经失效，需要重新执行登录流程
-            console.log('session_key过期')
-            Taro.login({
-              success(res){
-                checkCode({
-                  code: res.code,
-                  type: 'wx'
-                }).then(r=>{
-                  if(r.data.code === 200){
-                    Taro.setStorage({
-                      key: 'auth_token',
-                      data: r.data.data.auth_token
-                    })
-                  }
-                })
-              }
-            })
+      Taro.checkSession({
+        success: function () {
+          //session_key 未过期，并且在本生命周期一直有效
+          console.log('session_key 未过期')
+          try {
+            let auth_token = Taro.getStorageSync("auth_token")
+            console.log("auth_token的值是",auth_token)
+            if (!auth_token){
+              console.log("没有获取到auth_token")
+              Taro.login({
+                success(res){
+                  console.log("请求微信的res是",res)
+                  checkCode({
+                    code: res.code,
+                    type: 'wx'
+                  }).then(r=>{
+                    // console.log("获取后端auth_token的结果是",r.data.data.auth_token)
+                    console.log("获取code后端的结果是",r.data.code)
+                    if(r.data.code === 200){
+                      try {
+                        Taro.setStorageSync('auth_token', r.data.data.auth_token)
+                      } catch (e) { }
+                    }
+                  })
+                }
+              })
+            }
+
+          }catch (e) {
           }
-        })
-       
+        },
+        fail: function () {
+          // session_key 已经失效，需要重新执行登录流程
+          console.log('session_key过期')
+          Taro.login({
+            success(res){
+              checkCode({
+                code: res.code,
+                type: 'wx'
+              }).then(r=>{
+                if(r.data.code === 200){
+                  Taro.setStorage({
+                    key: 'auth_token',
+                    data: r.data.data.auth_token
+                  })
+                }
+              })
+            }
+          })
+        }
+      })
     }
   }
 
@@ -119,6 +145,7 @@ class App extends Component {
         <Index />
         <Course />
         <Exam />
+        <Setting />
       </Provider>
     )
   }
