@@ -1,5 +1,13 @@
 import Taro from '@tarojs/taro'
-import { WEEK_NUM, SELECT_WEEK, SELECT_SPECIFIC_WEEK, GET_COURSE_INFO, DETAIL_COURSE, DELETE_MASK } from './constants'
+import {
+  WEEK_NUM,
+  SELECT_WEEK,
+  SELECT_SPECIFIC_WEEK,
+  GET_COURSE_INFO,
+  DETAIL_COURSE,
+  DELETE_MASK,
+  ONLY_SHOW_CURRENT_WEEK
+} from './constants'
 import resolve_course from '../resolve/resolve_course'
 
 import { wfw_url } from '../../../utils/url'
@@ -134,5 +142,11 @@ export const detail_course = (detail_week, detail_courses, start_section) => {
 export const delete_mask = () => {
   return {
     type: DELETE_MASK
+  }
+}
+
+export const only_show_current_week = () => {
+  return {
+    type: ONLY_SHOW_CURRENT_WEEK
   }
 }

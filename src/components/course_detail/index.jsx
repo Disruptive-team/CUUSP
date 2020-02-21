@@ -55,7 +55,6 @@ class CourseDetail extends Component {
 
   render() {
     const detail_content = this.state.detail_content
-    console.log(this.state)
     return (
       <View className='root'>
         <View className='content'>

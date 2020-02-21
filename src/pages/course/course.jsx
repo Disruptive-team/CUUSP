@@ -21,7 +21,8 @@ import { pullDownRefreshContent } from '../../utils/globalConstant'
   detail_course: course.detail_course,
   is_click: course.is_click,
   start_section: course.start_section,
-  select_aim_color: course.select_aim_color
+  select_aim_color: course.select_aim_color,
+  only_current_week: course.only_current_week
 }), (dispatch) => ({
   onDealWeekNum () {
     dispatch(actionCreators.week_num())
@@ -185,6 +186,7 @@ class Course extends Component {
                     return (<View key={index1} className='course-item-outer'>
                       {this.isOverLap(this.props.select_week, item1) && <View className='overlap'>重</View>}
                       {this.isWeekIn(this.props.select_week, item1[0].week) && <View onClick={this.course_detail.bind(this, index, item1[0].course, item1[0].start_section, item1[0].teacher, item1[0].section_length)} className='course-item' style={'height: '+(item1[0].section_length*60-2)+'PX;top: '+this.position_course_item(item1[0].start_section)+'PX;background-color: '+item1[0].color}>@{item1[0].place}{item1[0].course}</View>}
+                      {this.props.only_current_week && !this.isWeekIn(this.props.select_week, item1[0].week) && <View onClick={this.course_detail.bind(this, index, item1[0].course, item1[0].start_section, item1[0].teacher, item1[0].section_length)} className='course-item' style={'height: '+(item1[0].section_length*60-2)+'PX;top: '+this.position_course_item(item1[0].start_section)+'PX;color: #ccc'}>@{item1[0].place}{item1[0].course}</View>}
                     </View>)
                   })}
                 </View>
