@@ -4,15 +4,16 @@ import { connect } from '@tarojs/redux'
 
 import './index.css'
 import { actionCreators } from '../course/store'
+import { wfw_url } from '../../utils/url'
 
-@connect(({course}) => ({
-  course
+@connect(({ course, commonInfo}) => ({
+  course,
+  isBind: commonInfo.bindID
 }), (dispatch) => ({
-  onGetCourseInfo (source) {
-    dispatch(actionCreators.get_course_info(source))
+  onGetCourseInfo (url) {
+    dispatch(actionCreators.get_course_info(url))
   },
   onOnlyShowCurrentWeek () {
-    //Taro.switchTab({url: '/pages/course/course'})
     dispatch(actionCreators.only_show_current_week())
   }
 }))
@@ -26,7 +27,16 @@ class Setting extends Component {
   }
 
   getLastCourse () {
-    this.props.onGetCourseInfo(2)
+    // 是否绑定学号
+    if (this.props.isBind) {
+      this.props.onGetCourseInfo(wfw_url + '/api/course/getAllRealTime')
+    } else {
+      Taro.showModal({title: '~温馨提示~', content: '未绑定学号，前往绑定中心绑定'}).then(res => {
+         if (res.confirm) {
+           Taro.navigateTo({url: '/pages/register/register'})
+        }
+      })
+    }
   }
 
   render() {

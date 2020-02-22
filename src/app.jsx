@@ -33,12 +33,12 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/home/home',
       'pages/course/course',
       'pages/index/index',
       'pages/login/login',
       'pages/register/register',
       'pages/my/my',
-      'pages/home/home',
       'pages/setting/index'
     ],
     subPackages: [
@@ -82,7 +82,6 @@ class App extends Component {
   }
 
   componentDidMount () {
-
     let type = Taro.getEnv()
     let that = this
     if(type === 'WEAPP'){
@@ -181,7 +180,7 @@ class App extends Component {
           console.log(err)
       })
     }
-    
+
   }
 
   // 在 App 类中的 render() 函数没有实际作用

@@ -29,16 +29,18 @@ class Home extends Component{
     t = t - 1
     let course_data = []
     if (course) {
-      for (let i = 0; i < course.res_d[t].length; i++) {
-        for (let j = 0; j < course.res_d[t][i].length; j++) {
-          if (course.res_d[t][i][j].week.indexOf(course.week) !== -1) {
-            course_data.push(course.res_d[t][i][j])
+      try {
+        for (let i = 0; i < course.res_d[t].length; i++) {
+          for (let j = 0; j < course.res_d[t][i].length; j++) {
+            if (course.res_d[t][i][j].week.indexOf(course.week) !== -1) {
+              course_data.push(course.res_d[t][i][j])
+            }
           }
         }
-      }
+      } catch (e) {}
     }
     console.log(this.props)
-    let that = this    
+    let that = this
     this.state = {
       today_course: course_data,
       week: course.week,
@@ -117,11 +119,10 @@ class Home extends Component{
             <View>
                 <Swiper indicatorDots indicatorActiveColor='#C0C0C0' indicatorColor='#DCDCDC' autoplay interval = '3000' style='background: white;'>
                     {this.state.swiperImgs.map((item, index)=>{
-                        return <SwiperItem>
-                                    <Image src={item.img_url} style='height: 100%;width:100%'></Image>
-                                </SwiperItem>
+                        return (<SwiperItem key={index}>
+                                    <Image src={item.img_url} style='height: 100%;width:100%' />
+                                </SwiperItem>)
                     })}
-
                 </Swiper>
                 <View style='background: white;padding: 10rpx;margin-top: 15rpx;display: flex;flex-wrap: wrap;'>
                     <View className='functionEntryView' onClick={this.toExam}>

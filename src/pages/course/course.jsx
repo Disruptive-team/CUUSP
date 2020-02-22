@@ -7,12 +7,10 @@ import Calendar from '../../components/calendar/Calendar'
 import CourseDetail from '../../components/course_detail'
 
 import { actionCreators } from './store'
+import { wfw_url } from '../../utils/url'
 
-import { pullDownRefreshContent } from '../../utils/globalConstant'
-import { whetherBindID } from '../../Interface/common'
-
-@connect(({ course }) => ({
-  course_d: course.course_d,
+@connect(({ course, commonInfo }) => ({
+  course_d: course.course_d || [],
   margin_top: course.margin_top,
   left_data: course.left_data,
   week_num: course.week_num,
@@ -23,7 +21,8 @@ import { whetherBindID } from '../../Interface/common'
   is_click: course.is_click,
   start_section: course.start_section,
   select_aim_color: course.select_aim_color,
-  only_current_week: course.only_current_week
+  only_current_week: course.only_current_week,
+  isBind: commonInfo.bindID
 }), (dispatch) => ({
   onDealWeekNum () {
     dispatch(actionCreators.week_num())
@@ -34,14 +33,17 @@ import { whetherBindID } from '../../Interface/common'
   onSelectSpecificWeek (item, index) {
     dispatch(actionCreators.select_specific_week(item, index))
   },
-  onGetCourseInfo (source) {
-    dispatch(actionCreators.get_course_info(source))
+  onGetCourseInfo (url) {
+    dispatch(actionCreators.get_course_info(url))
   },
   onDetailCourse (detail_week, detail_course, start_section) {
     dispatch(actionCreators.detail_course(detail_week, detail_course, start_section))
   },
   onDeleteMask () {
     dispatch(actionCreators.delete_mask())
+  },
+  onCacheToStore (course_data) {
+    dispatch(actionCreators.cache_to_store(course_data))
   }
 }))
 class Course extends Component {
@@ -49,7 +51,8 @@ class Course extends Component {
   // eslint-disable-next-line react/sort-comp
   config = {
     navigationBarTitleText: '课表',
-    enablePullDownRefresh: true
+    enablePullDownRefresh: true,
+    backgroundTextStyle: 'dark'
   }
   constructor(props) {
     super(props);
@@ -57,35 +60,60 @@ class Course extends Component {
 
   componentDidMount() {
     this.props.onDealWeekNum()
-    let auth_token
-    try {
-      // Taro.showLoading({title: 'loading'})
-      auth_token = Taro.getStorageSync('auth_token')
-    } catch (e) {
-      console.log('====1')
-    }
-    if (auth_token) {
-      console.log('====2')
-      Taro.hideLoading()
-      this.props.onGetCourseInfo(0)
-    }
-    else {
-      console.log('====3')
-      setTimeout(() => {
-        this.props.onGetCourseInfo(0)
-        Taro.hideLoading()
-      }, 3000)
-    }
+    Taro.getStorage({key: 'course_data'}).then((res) => {
+      this.props.onCacheToStore(res.data.res_d)
+    }).catch(() => {})
+    // let auth_token
+    // try {
+    //   // Taro.showLoading({title: 'loading'})
+    //   auth_token = Taro.getStorageSync('auth_token')
+    // } catch (e) {
+    // }
+    // if (auth_token) {
+    //   Taro.hideLoading()
+    //   this.props.onGetCourseInfo(0)
+    // }
+    // else {
+    //   setTimeout(() => {
+    //     this.props.onGetCourseInfo(0)
+    //     Taro.hideLoading()
+    //   }, 3000)
+    // }
   }
 
   onPullDownRefresh() {
-    Taro.startPullDownRefresh().then(() => {
-      Taro.showModal({title: '温馨提示', content: pullDownRefreshContent}).then(r => {
-        if (r.confirm) {
-          this.props.onGetCourseInfo(1)
+    // 判断是否绑定学号
+    if (this.props.isBind) {
+      this.props.onGetCourseInfo(wfw_url + '/api/course/getAllLast')
+    } else {
+      Taro.showModal({title: '~温馨提示~', content: '未绑定学号，前往绑定中心绑定'}).then(res => {
+        if (res.confirm) {
+          Taro.navigateTo({url: '/pages/register/register'})
         }
       })
-    })
+    }
+    //
+    // let Authorization
+    // try {
+    //   Authorization = Taro.getStorageSync('auth_token')
+    // } catch (e) {}
+    // whetherBindID({auth_token: Authorization}).then(r => {
+    //   if (r.data.data.bind === 0) {
+    //     Taro.showModal({title: '~温馨提示~', content: '未绑定学号，前往绑定中心绑定'}).then(rr => {
+    //       if (rr.confirm) {
+    //         Taro.switchTab({url: '/pages/my/my'})
+    //       }
+    //     })
+    //   } else {
+    //     Taro.startPullDownRefresh().then(() => {
+    //       Taro.showModal({title: '温馨提示', content: pullDownRefreshContent}).then(res => {
+    //         if (res.confirm) {
+    //           this.props.onGetCourseInfo(1)
+    //         }
+    //       })
+    //     })
+    //   }
+    // })
     Taro.stopPullDownRefresh()
   }
 
@@ -140,23 +168,7 @@ class Course extends Component {
   }
 
   setting () {
-    let Authorization
-    try {
-      Authorization = Taro.getStorageSync('auth_token')
-    } catch (e) {
-
-    }
-    whetherBindID({auth_token: Authorization}).then(r => {
-      if (r.data.data.bind === 0) {
-        Taro.showModal({title: '~温馨提示~', content: '未绑定学号，前往绑定中心绑定'}).then(rr => {
-          if (rr.confirm) {
-            Taro.switchTab({url: '/pages/my/my'})
-          }
-        })
-      } else {
-        Taro.navigateTo({url: '/pages/setting/index'})
-      }
-    })
+    Taro.navigateTo({url: '/pages/setting/index'})
   }
 
   render() {

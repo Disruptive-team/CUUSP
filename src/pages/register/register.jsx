@@ -1,18 +1,22 @@
-import Taro, { Component } from '@tarojs/taro'
+import Taro, {Component} from '@tarojs/taro'
 import {View, Input, Text, Button} from '@tarojs/components'
-import { connect } from '@tarojs/redux'
+import {connect} from '@tarojs/redux'
 
 import './register.css'
 import {bindWX} from '../../Interface/user'
 import {action} from '../my/store'
+import {actionCreators} from '../course/store'
 
-@connect(({ userInfo }) => ({
-    userInfo
-  }), (dispatch) => ({
-    setStudentInfo(data) {
-      dispatch(action.student_info(data))
-    }
-  }))
+@connect(({userInfo}) => ({
+  userInfo
+}), (dispatch) => ({
+  setStudentInfo(data) {
+    dispatch(action.student_info(data))
+  },
+  onGetCourse(url) {
+    dispatch(actionCreators.get_course_info(url))
+  }
+}))
 
 class Register extends Component{
     
@@ -42,7 +46,6 @@ class Register extends Component{
                 title: '请输入学号',
                 icon: 'none'
             })
-            debugger
             return
         }
         if(!this.state.studentPassWord){
@@ -105,13 +108,13 @@ class Register extends Component{
                 <View style='display: flex;justify-content: center;margin-left: 47rpx;'>
                     <Text className='iconfont iconmima' style='color: gray;font-size: 50rpx;line-height: 100rpx;'></Text>
                     <Input className='optionIpt' onInput={this.getPassword} value={this.state.studentPassWord} placeholder='密码' type={this.state.seePwd?'':'password'} />
-                    <Text className={this.state.seePwd?'iconfont iconchakanmima':'iconfont iconbiyan'} style='font-size: 21px;line-height: 42px;z-index: 10;margin-top: 10rpx;transform: translateX(-60rpx);' onClick={this.seePassword}></Text>
+                    <Text className={this.state.seePwd?'iconfont iconchakanmima':'iconfont iconbiyan'} style='font-size: 21px;line-height: 42px;z-index: 10;margin-top: 10rpx;transform: translateX(-80rpx);width: 50rpx;' onClick={this.seePassword}></Text>
 
                 </View>
-                <Button className='bnt' onClick={this.register}>绑   定</Button>
+                <Button className='bnt' onClick={this.register}>绑 定</Button>
             </View>
-        )
-    }
+      )
+  }
 }
 
 export default Register
