@@ -8,12 +8,12 @@
 
 .optionIpt{
     border: 1rpx solid gray;
-    border-radius: 10rpx;
+    border-radius: 45rpx;
     height: 75rpx;
-    width: 65%;
+    width: 55%;
     display: inline-block;
     margin-top: 20rpx;
-    margin-left: 30px;
+    margin-left: 20rpx;
     text-align: left;
     text-indent: 20rpx;
     padding-left: 20rpx;

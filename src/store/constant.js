@@ -1,0 +1,1 @@
+export const SET_COMMON_INFO = 'SET_COMMON_INFO'

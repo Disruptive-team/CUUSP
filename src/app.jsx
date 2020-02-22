@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { Provider } from '@tarojs/redux'
+import { connect, Provider } from '@tarojs/redux'
 
 import Index from './pages/index'
 import Course from './pages/course/course'
@@ -12,6 +12,8 @@ import './app.css'
 import './icon.css'
 import './assets/iconfont.css'
 
+import {common_info} from './store/actions'
+import {whetherBindID} from './Interface/common'
 import {checkCode} from './Interface/user'
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
@@ -20,7 +22,13 @@ import {checkCode} from './Interface/user'
 // }
 
 const store = configStore()
-
+@connect(({ commonInfo }) => ({
+  commonInfo
+}), (dispatch) => ({
+  setCommonInfo(data) {
+    dispatch(common_info(data))
+  }
+}))
 class App extends Component {
 
   config = {
@@ -75,6 +83,7 @@ class App extends Component {
 
   componentDidMount () {
     let type = Taro.getEnv()
+    let that = this
     if(type === 'WEAPP'){
       Taro.checkSession({
         success: function () {
@@ -99,9 +108,13 @@ class App extends Component {
                         Taro.setStorageSync('auth_token', r.data.data.auth_token)
                       } catch (e) { }
                     }
+                    that.getBindID()
                   })
                 }
               })
+            }
+            else {
+              that.getBindID(auth_token)
             }
           }catch (e) {
           }
@@ -120,6 +133,7 @@ class App extends Component {
                     key: 'auth_token',
                     data: r.data.data.auth_token
                   })
+                  that.getBindID(r.data.data.auth_token)
                 }
               })
             }
@@ -134,6 +148,40 @@ class App extends Component {
   componentDidHide () {}
 
   componentDidCatchError () {}
+
+  getBindID(auth_token){
+    let that = this
+    if(!auth_token){
+      Taro.getStorage({
+        key: 'auth_token',
+        success: function(r){
+          whetherBindID({
+            auth_token: r.data
+          }).then(res=>{
+              if(res.data.code === 200){
+                  that.props.setCommonInfo({
+                    bindID: res.data.data.bind
+                  })
+              }
+          }).catch(err=>{
+              console.log(err)
+          })
+        }})
+    }else {
+      whetherBindID({
+        auth_token: auth_token
+      }).then(res=>{
+          if(res.data.code === 200){
+              that.props.setCommonInfo({
+                bindID: res.data.data.bind
+              })
+          }
+      }).catch(err=>{
+          console.log(err)
+      })
+    }
+
+  }
 
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数
