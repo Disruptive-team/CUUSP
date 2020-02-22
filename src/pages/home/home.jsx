@@ -12,6 +12,9 @@ import {getActiveSwiper} from '../../Interface/images'
 
     
 class Home extends Component{
+  config = {
+    navigationBarTitleText: '主页',
+  }
   constructor(props) {
     super(props);
     let course

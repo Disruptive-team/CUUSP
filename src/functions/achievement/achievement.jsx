@@ -5,6 +5,10 @@ import Achievement from '../../components/achievement/achievement'
 import Credit from '../../components/credit/credit'
 
 class AchievementCredit extends Component{
+    
+    config = {
+        navigationBarTitleText: '成绩',
+    }
     state={
         showContent: false,
         achievement: 'color: black',

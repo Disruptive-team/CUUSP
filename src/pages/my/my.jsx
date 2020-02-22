@@ -5,6 +5,7 @@ import { connect } from '@tarojs/redux'
 import './my.css'
 import {action} from './store'
 import {updateUserInfo} from '../../Interface/user'
+// import {whetherBindID} from '../../Interface/common'
 
 @connect(({ userInfo }) => ({
     userInfo
@@ -14,6 +15,9 @@ import {updateUserInfo} from '../../Interface/user'
     }
   }))
 class My extends Component{
+    config = {
+        navigationBarTitleText: '分享',
+    }
     constructor(props){
         super(props)
         console.log(this.props)
@@ -29,6 +33,7 @@ class My extends Component{
             userName: name,
             userSchool: school,
             userImgSrc: img,
+            scopeUserInfo: false
         }
     }
     componentDidMount(){
@@ -39,12 +44,21 @@ class My extends Component{
                     Taro.getUserInfo().then(rr=>{
                         that.setState({
                             userImgSrc: rr.userInfo.avatarUrl,
-                            userName: rr.userInfo.nickName
+                            userName: rr.userInfo.nickName,
+                            scopeUserInfo: true
                         })
                     })
                 }
             }
         })
+    }
+    scope(){
+        if(!this.state.scopeUserInfo){
+            Taro.showToast({
+                title: '请先登录，再进行其他操作'
+            })
+            return
+        }
     }
     getUserInfo(){
         let that = this
@@ -108,12 +122,16 @@ class My extends Component{
           }
     }
     toPerson(){
-
+        this.scope()
     }
     toRegister(){
+        this.scope()
         Taro.navigateTo({
             url: '../register/register'
         })
+    }
+    about(){
+        this.scope()
     }
     render(){
         return(
@@ -144,7 +162,7 @@ class My extends Component{
                     </Button>
                 </View>
                 <View className='group'>
-                    <Button className='choose bnt' onClick={this.share} openType='share' >
+                    <Button className='choose bnt' openType='share' >
                         <Text className='iconfenxiang iconfont icon'></Text>
                         <Text style='padding-left: 20rpx;'>分享</Text>
                         <Text className='iconfont iconapp-go go' ></Text>

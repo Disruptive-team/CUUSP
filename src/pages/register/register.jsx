@@ -15,6 +15,10 @@ import {action} from '../my/store'
   }))
 
 class Register extends Component{
+    
+    config = {
+        navigationBarTitleText: '绑定',
+    }
     state = {
         studentNumber: '',
         studentPassWord: '',

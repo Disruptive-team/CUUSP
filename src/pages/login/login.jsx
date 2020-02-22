@@ -3,6 +3,10 @@ import {View, Input, Text, Button} from '@tarojs/components'
 import './login.css'
 
 class Login extends Component{
+    
+    config = {
+        navigationBarTitleText: '登录',
+    }
     render () {
         return (
             <View style='text-align:center'>
