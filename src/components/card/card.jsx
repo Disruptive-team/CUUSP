@@ -9,6 +9,7 @@ import '../../assets/iconfont.css'
 }))
 
 class Card extends Component{
+    defaultProps = {}
     static externalClasses = ['icon-back']
     constructor(props){
         super(props)
@@ -95,7 +96,7 @@ class Card extends Component{
                maxBuf.day = 31;
             case 4: case 6: case 9: case 11:
                 maxBuf.day = 30;
-            case 2: 
+            case 2:
                 if(nowBuffer.year % 4){
                     maxBuf.day = 28
                 } else {
@@ -181,7 +182,7 @@ class Card extends Component{
                     </View>
                 </View>
                 <View style="color: gray;font-size: 30rpx;padding: 15rpx;">
-                    <Text>消费日期：</Text> 
+                    <Text>消费日期：</Text>
                     <View className='date' onClick={this.showChooseDate}>
                         <Text style='color:black'>{this.state.showDate}</Text>
                         <Text style="writing-mode: vertical-rl;font-size: 35rpx;margin-left: 8px;transform: scaleX(1.6);">></Text>

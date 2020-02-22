@@ -3,10 +3,11 @@ import {View, Text} from '@tarojs/components'
 import './select.css'
 
 class Select extends Component{
+  defaultProps = {}
     constructor(props) {
         super(props);
         this.state = ({
-            element: props.element,
+            element: props.element || [],
             width: props.width,
             height: props.height,
             color: props.color,
@@ -46,7 +47,7 @@ class Select extends Component{
                         </View>
                     })}
                 </View>
-                
+
             </View>
         )
     }

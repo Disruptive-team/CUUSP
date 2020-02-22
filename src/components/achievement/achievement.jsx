@@ -4,6 +4,7 @@ import './achievement.css'
 import Select from '../select/select'
 
 class Achievement extends Component{
+    defaultProps = {}
     state = {
         achievement: [{
             semester: 5,
@@ -74,7 +75,7 @@ class Achievement extends Component{
     }
     changeSemester(semester){
         console.log(semester)
-        
+
     }
     render(){
         let element = ['第1学期','第2学期','第3学期','第4学期','第5学期','第6学期']

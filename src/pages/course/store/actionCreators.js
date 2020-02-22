@@ -46,6 +46,9 @@ const requestData = (url, Authorization, dispatch, source) => {
       if (source === 2) {
         Taro.switchTab({url: '/pages/course/course'})
       }
+    } else {
+      Taro.hideLoading()
+      Taro.showModal({title: '~温馨提示~', content: '获取课表失败，请查看学校教务处是否可用'})
     }
   })
 }
@@ -79,7 +82,6 @@ export const get_course_info = (source) => {
     try {
       // 获取缓存课表数据
       course_data = Taro.getStorageSync('course_data')
-      console.log(course_data)
       // 获取缓存Authorization
       Authorization = Taro.getStorageSync('auth_token')
     } catch (e) {

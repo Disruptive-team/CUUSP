@@ -10,7 +10,7 @@ import classPhoto from '../../images/class.png'
 import {whetherBindID} from '../../Interface/common'
 import {getActiveSwiper} from '../../Interface/images'
 
-    
+
 class Home extends Component{
   constructor(props) {
     super(props);
@@ -24,10 +24,12 @@ class Home extends Component{
     t = t === 0 ? 7 : t
     t = t - 1
     let course_data = []
-    for (let i=0;i<course.res_d[t].length;i++) {
-      for (let j=0;j<course.res_d[t][i].length;j++) {
-        if (course.week in course.res_d[t][i][j].week) {
-          course_data.push(course.res_d[t][i][j])
+    if (course) {
+      for (let i = 0; i < course.res_d[t].length; i++) {
+        for (let j = 0; j < course.res_d[t][i].length; j++) {
+          if (course.res_d[t][i][j].week.indexOf(course.week) !== -1) {
+            course_data.push(course.res_d[t][i][j])
+          }
         }
       }
     }
@@ -35,21 +37,6 @@ class Home extends Component{
       today_course: course_data,
       week: course.week,
       iconList: 'iconfont icondown functionEntryIcon',
-      time: ['', '8:00', '10:00', '14:00', '16:00', '19:00', '21:00'],
-      todayCourse: [{
-        place: '东3211',
-        course: '计算机操作系统',
-        teacher: '马立平',
-        week: '01-13',
-        section_length: '1-2'
-        },{
-            place: '东3211',
-            course: '计算机操作系统',
-            teacher: '马立平',
-            week: '01-13',
-            section_length: '1-2'
-        }],
-        iconList: 'iconfont icondown functionEntryIcon',
         bindID: false,
         swiperImgs: []
     }
@@ -61,7 +48,7 @@ class Home extends Component{
         this.getSwiperImgs()
         this.getBindID()
     }
-    
+
     componentDidMount() {
         console.log(this.state)
         Taro.hideToast()
@@ -108,8 +95,8 @@ class Home extends Component{
         if(this.ifBind()){
             Taro.navigateTo({
                 url: '../../functions/exam/exam'
-            }) 
-        }        
+            })
+        }
     }
     toAchievement(){
         if(this.ifBind()){
@@ -117,13 +104,13 @@ class Home extends Component{
                 url: '../../functions/achievement/achievement'
             })
         }
-        
+
     }
     toCard(){
         if(this.ifBind()){
             Taro.navigateTo({
                 url: '../../functions/card/card'
-            }) 
+            })
         }
     }
     showList(){
@@ -156,7 +143,7 @@ class Home extends Component{
                                     <Image src={item.img_url} style='height: 100%;'></Image>
                                 </SwiperItem>
                     })}
-                    
+
                 </Swiper>
                 <View style='background: white;padding: 10rpx;margin-top: 15rpx;display: flex;flex-wrap: wrap;'>
                     <View className='functionEntryView' onClick={this.toExam}>
