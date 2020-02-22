@@ -9,6 +9,7 @@ import CourseDetail from '../../components/course_detail'
 import { actionCreators } from './store'
 
 import { pullDownRefreshContent } from '../../utils/globalConstant'
+import { whetherBindID } from '../../Interface/common'
 
 @connect(({ course }) => ({
   course_d: course.course_d,
@@ -58,19 +59,21 @@ class Course extends Component {
     this.props.onDealWeekNum()
     let auth_token
     try {
-      Taro.showLoading({title: 'loading'})
+      // Taro.showLoading({title: 'loading'})
       auth_token = Taro.getStorageSync('auth_token')
     } catch (e) {
-
+      console.log('====1')
     }
     if (auth_token) {
+      console.log('====2')
       Taro.hideLoading()
       this.props.onGetCourseInfo(0)
     }
     else {
+      console.log('====3')
       setTimeout(() => {
-        Taro.hideLoading()
         this.props.onGetCourseInfo(0)
+        Taro.hideLoading()
       }, 3000)
     }
   }
@@ -137,7 +140,23 @@ class Course extends Component {
   }
 
   setting () {
-    Taro.navigateTo({url: '/pages/setting/index'})
+    let Authorization
+    try {
+      Authorization = Taro.getStorageSync('auth_token')
+    } catch (e) {
+
+    }
+    whetherBindID({auth_token: Authorization}).then(r => {
+      if (r.data.data.bind === 0) {
+        Taro.showModal({title: '~温馨提示~', content: '未绑定学号，前往绑定中心绑定'}).then(rr => {
+          if (rr.confirm) {
+            Taro.switchTab({url: '/pages/my/my'})
+          }
+        })
+      } else {
+        Taro.navigateTo({url: '/pages/setting/index'})
+      }
+    })
   }
 
   render() {
