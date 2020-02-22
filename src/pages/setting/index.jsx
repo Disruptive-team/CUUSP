@@ -4,15 +4,15 @@ import { connect } from '@tarojs/redux'
 
 import './index.css'
 import { actionCreators } from '../course/store'
+import { wfw_url } from '../../utils/url'
 
 @connect(({course}) => ({
   course
 }), (dispatch) => ({
-  onGetCourseInfo (source) {
-    dispatch(actionCreators.get_course_info(source))
+  onGetCourseInfo (url) {
+    dispatch(actionCreators.get_course_info(url))
   },
   onOnlyShowCurrentWeek () {
-    //Taro.switchTab({url: '/pages/course/course'})
     dispatch(actionCreators.only_show_current_week())
   }
 }))
@@ -26,7 +26,7 @@ class Setting extends Component {
   }
 
   getLastCourse () {
-    this.props.onGetCourseInfo(2)
+    this.props.onGetCourseInfo(wfw_url + '/api/course/getAllRealTime')
   }
 
   render() {

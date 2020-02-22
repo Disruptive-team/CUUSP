@@ -25,12 +25,12 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/home/home',
       'pages/course/course',
       'pages/index/index',
       'pages/login/login',
       'pages/register/register',
       'pages/my/my',
-      'pages/home/home',
       'pages/setting/index'
     ],
     subPackages: [
@@ -74,7 +74,6 @@ class App extends Component {
   }
 
   componentDidMount () {
-
     let type = Taro.getEnv()
     if(type === 'WEAPP'){
       Taro.checkSession({
@@ -104,7 +103,6 @@ class App extends Component {
                 }
               })
             }
-
           }catch (e) {
           }
         },

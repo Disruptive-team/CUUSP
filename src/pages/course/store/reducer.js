@@ -5,7 +5,7 @@ import {
   GET_COURSE_INFO,
   DETAIL_COURSE,
   DELETE_MASK,
-  ONLY_SHOW_CURRENT_WEEK
+  ONLY_SHOW_CURRENT_WEEK, CACHE_TO_STORE
 } from './constants'
 
 const defaultStore = {
@@ -72,6 +72,11 @@ const course = (state = defaultStore, action) => {
       return {
         ...state,
         only_current_week: !state.only_current_week
+      }
+    case CACHE_TO_STORE:
+      return {
+        ...state,
+        course_d: action.course_data
       }
     default:
       return state
