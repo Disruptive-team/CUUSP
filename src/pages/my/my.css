@@ -24,10 +24,10 @@ page{
     transform: scaleY(1.5);
 }
 
-.name{
+.img{
     width: 150rpx;
     height: 150rpx;
-    display: inline-block;
+    display: block;
     background: #00BFFF;
     border-radius: 50%;
     line-height: 150rpx;
@@ -63,16 +63,11 @@ page{
 }
 
 .head-image{
-    padding-top: 5px;
-    background: white;
-    padding-left: 50rpx;
-    display: flex;
-    padding-bottom: 5rpx;
-    width: 85%;
+    width: 150rpx;
     margin: auto;
-    margin-bottom: 5%;
-    border-radius: 20rpx;
-    margin-top: 3%;
+    text-align: center;
+    margin-bottom: 35rpx;
+    margin-top: 20rpx;
 }
 
 .bnt{

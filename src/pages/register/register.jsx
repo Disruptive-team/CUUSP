@@ -22,7 +22,7 @@ class Register extends Component{
     state = {
         studentNumber: '',
         studentPassWord: '',
-        studentConfirmPassWord: ''
+        seePwd: true
     }
     getNumber(e){
         this.setState({
@@ -34,22 +34,9 @@ class Register extends Component{
             studentPassWord: e.detail.value
         })
     }
-    getConfirmPassword(e){
-        console.log(e)
-        this.setState({
-            studentConfirmPassWord: e.detail.value
-        })
-    }
     register(){
         let that = this
         console.log(that.state)
-        if(that.state.studentPassWord !== that.state.studentConfirmPassWord){
-            Taro.showModal({
-                title: '提示',
-                content: '两次输入密码不一致',
-            })
-            return 
-        }
         Taro.getStorage({
             key: 'auth_token',
             success: function(r){
@@ -86,17 +73,27 @@ class Register extends Component{
             }
         })
     }
+    seePassword(){
+        let buffer = this.state.seePwd
+        this.setState({
+            seePwd: !buffer
+        })
+    }
     render () {
         return (
             <View style='text-align:center'>
-                <Text style='font-size: 85rpx;margin-top: 20%;display: block;'>查课表</Text>
-                <View style='margin-top:10%;'>
+                <Text style='font-size: 85rpx;margin-top: 20%;display: block;margin-bottom: 10%;'>查课表</Text>
+                <View style='display: flex;justify-content: center;'>
+                    <Text className='iconfont iconiconfontyonghuming' style='font-size: 50rpx;line-height: 100rpx;'></Text>
                     <Input className='optionIpt' placeholder='账号' onInput={this.getNumber} value={this.state.studentNumber} />
-                    <Input className='optionIpt' onInput={this.getPassword} value={this.state.studentPassWord} placeholder='密码' type='password' />
-                    <Input className='optionIpt' onInput={this.getConfirmPassword} value={this.state.studentConfirmPassWord} placeholder='确认密码' type='password' />
+                </View>
+                <View style='display: flex;justify-content: center;'>
+                    <Text className='iconfont iconmima' style='font-size: 50rpx;line-height: 100rpx;'></Text>
+                    <Input className='optionIpt' onInput={this.getPassword} value={this.state.studentPassWord} placeholder='密码' type={this.state.seePwd?'':'password'} />
+                    <Text className={this.state.seePwd?'iconfont iconchakanmima':'iconfont iconbiyan'} style='font-size: 50rpx;line-height: 100rpx;position: absolute;;right: 19%;top: 38%;z-index: 10;' onClick={this.seePassword}></Text>
 
                 </View>
-                <Button className='bnt' onClick={this.register}>注   册</Button>
+                <Button className='bnt' onClick={this.register}>绑   定</Button>
             </View>
         )
     }

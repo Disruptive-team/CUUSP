@@ -1,5 +1,5 @@
 import Taro, {Component} from '@tarojs/taro'
-import {View, Text, Button, Image} from '@tarojs/components'
+import {View, Text, Button, OpenData} from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 
 import './my.css'
@@ -55,7 +55,8 @@ class My extends Component{
     scope(){
         if(!this.state.scopeUserInfo){
             Taro.showToast({
-                title: '请先登录，再进行其他操作'
+                title: '请先登录，再进行其他操作',
+                icon: 'none'
             })
             return
         }
@@ -133,21 +134,19 @@ class My extends Component{
     about(){
         this.scope()
     }
+    clearStorge(){
+        Taro.clearStorageSync()
+        Taro.showToast({
+            title: '清除缓存完成',
+            icon: 'none'
+        })
+    }
     render(){
         return(
             <View>
                 <View className='head-image'>
-                    {this.state.userImgSrc
-                    ?<Image src={this.state.userImgSrc} className='name' />
-                    :<View className='name'>请登录</View>}
-
-                    {this.state.userName
-                    ?<View style='padding-left: 8%;line-height: 145rpx;font-size: 40rpx;'>
-                        <Text>你好！{this.state.userName}</Text>
-                        {/* <View className='textHidden' style='margin-bottom: 5px;margin-top: 7px;'>昵称：{this.state.user}\n</View>
-                        <View className='textHidden' >学校：{this.state.userSchool}</View> */}
-                    </View>
-                    : <Button className='loginBnt' openType='getUserInfo' onGetUserInfo={this.getUserInfo} >登录</Button>}
+                    <OpenData type='userAvatarUrl' className='img'></OpenData>
+                    <OpenData type='userNickName'></OpenData>
                 </View>
                 <View className='group'>
                     <Button className='choose bnt' onClick={this.toPerson} >
@@ -161,7 +160,7 @@ class My extends Component{
                         <Text className='iconfont iconapp-go go'></Text>
                     </Button>
                 </View>
-                <View className='group'>
+                <View className='group' style='margin-bottom: 60rpx;'>
                     <Button className='choose bnt' openType='share' >
                         <Text className='iconfenxiang iconfont icon'></Text>
                         <Text style='padding-left: 20rpx;'>分享</Text>
@@ -178,7 +177,13 @@ class My extends Component{
                         <Text style='padding-left: 20rpx;'>关于我们</Text>
                         <Text className='iconfont iconapp-go go'></Text>
                     </Button>
+                    <Button className='choose bnt' onClick={this.clearStorge} >
+                        <Text className='iconwode-guanyuwomen iconfont icon'></Text>
+                        <Text style='padding-left: 20rpx;'>清除缓存</Text>
+                        <Text className='iconfont iconapp-go go'></Text>
+                    </Button>
                 </View>
+                
             </View>
         )
     }

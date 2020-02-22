@@ -1,16 +1,17 @@
+import { connect } from '@tarojs/redux';
 import Taro, { Component } from '@tarojs/taro'
 import { Swiper, View, SwiperItem, Image, Text } from '@tarojs/components'
-import { connect } from '@tarojs/redux'
 import './home.css'
 import exam from '../../images/home/exam.png'
 import achievement from '../../images/home/grade.png'
 import cardPng from '../../images/home/card.png'
 import lose from '../../images/home/lost.png'
 import classPhoto from '../../images/class.png'
-import {whetherBindID} from '../../Interface/common'
 import {getActiveSwiper} from '../../Interface/images'
 
-
+@connect(({commonInfo})=>({
+    commonInfo
+}))
 class Home extends Component{
   config = {
     navigationBarTitleText: '主页',
@@ -36,11 +37,13 @@ class Home extends Component{
         }
       }
     }
+    console.log(this.props)
+    let that = this    
     this.state = {
       today_course: course_data,
       week: course.week,
       iconList: 'iconfont icondown functionEntryIcon',
-        bindID: false,
+        bindID: that.props.commonInfo.bindID,
         swiperImgs: []
     }
     }
@@ -49,34 +52,6 @@ class Home extends Component{
         console.log(this.state)
         Taro.hideToast()
         this.getSwiperImgs()
-        this.getBindID()
-    }
-
-    componentDidMount() {
-        console.log(this.state)
-        Taro.hideToast()
-        this.getSwiperImgs()
-        this.getBindID()
-    }
-    getBindID(){
-        let that = this
-        Taro.getStorage({
-            key: 'auth_token',
-            success: function(res){
-                whetherBindID({
-                    auth_token: res.data
-                }).then(r=>{
-                    if(r.data.code === 200){
-                        that.setState({
-                            bindID:r.data.data.bind
-                        })
-                    }
-                    console.log(r)
-                }).catch(err=>{
-                    console.log(err)
-                })
-            }
-        })
     }
     ifBind(){
         if(!this.state.bindID){
@@ -143,7 +118,7 @@ class Home extends Component{
                 <Swiper indicatorDots indicatorActiveColor='#C0C0C0' indicatorColor='#DCDCDC' autoplay interval = '3000' style='background: white;'>
                     {this.state.swiperImgs.map((item, index)=>{
                         return <SwiperItem>
-                                    <Image src={item.img_url} style='height: 100%;'></Image>
+                                    <Image src={item.img_url} style='height: 100%;width:100%'></Image>
                                 </SwiperItem>
                     })}
 
