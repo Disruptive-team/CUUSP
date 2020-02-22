@@ -9,7 +9,7 @@ import CourseDetail from '../../components/course_detail'
 import { actionCreators } from './store'
 import { wfw_url } from '../../utils/url'
 
-@connect(({ course }) => ({
+@connect(({ course, commonInfo }) => ({
   course_d: course.course_d || [],
   margin_top: course.margin_top,
   left_data: course.left_data,
@@ -21,7 +21,8 @@ import { wfw_url } from '../../utils/url'
   is_click: course.is_click,
   start_section: course.start_section,
   select_aim_color: course.select_aim_color,
-  only_current_week: course.only_current_week
+  only_current_week: course.only_current_week,
+  isBind: commonInfo.bindID
 }), (dispatch) => ({
   onDealWeekNum () {
     dispatch(actionCreators.week_num())
@@ -61,7 +62,7 @@ class Course extends Component {
     this.props.onDealWeekNum()
     Taro.getStorage({key: 'course_data'}).then((res) => {
       this.props.onCacheToStore(res.data.res_d)
-    })
+    }).catch(() => {})
     // let auth_token
     // try {
     //   // Taro.showLoading({title: 'loading'})
@@ -82,7 +83,7 @@ class Course extends Component {
 
   onPullDownRefresh() {
     // 判断是否绑定学号
-    if ('已绑定学号') {
+    if (this.props.isBind) {
       this.props.onGetCourseInfo(wfw_url + '/api/course/getAllLast')
     } else {
       Taro.showModal({title: '~温馨提示~', content: '未绑定学号，前往绑定中心绑定'}).then(res => {

@@ -41,45 +41,38 @@ const getCourseInfo = (res, week) => ({
 })
 
 const requestCourseData = (url, dispatch) => {
-  console.log(url)
-  if ('已绑定学号') {
-    let Authorization
-    try {
-      // 获取缓存Authorization
-      Authorization = Taro.getStorageSync('auth_token')
-    } catch (e) {}
-    if (url === wfw_url + '/api/course/getAllRealTime') {
+  let Authorization
+  try {
+    // 获取缓存Authorization
+    Authorization = Taro.getStorageSync('auth_token')
+  } catch (e) {}
+  if (url === wfw_url + '/api/course/getAllRealTime') {
       Taro.showLoading({title: '正在爬取课表...'})
-    }
-    Taro.request({url, header: {Authorization}}).then(res => {
-      Taro.hideLoading()
-      if (res.data.code === 200) {
-        Taro.showToast({title: '刷新成功'})
-        // 解析课表数据
-        let res_d = resolve_course(res.data.data)
-        // 将课表数据和当前周存入缓存
-        Taro.setStorage({
-          key: 'course_data',
-          data: { res_d, week: res.data.data.body.week }
-        }).then(() => {})
-        dispatch(getCourseInfo(res_d, res.data.data.body.week))
-      } else {
-        if (url === wfw_url + '/api/course/getAllRealTime') {
-          Taro.showModal({title: '~温馨提示~', content: '获取课表失败，请查看学校教务处是否可用'})
-        } else {
-          Taro.showToast({title: '刷新失败'})
-        }
-      }
-    }).catch(() => {
-      Taro.hideLoading()
-    })
-  } else {
-    Taro.showModal({title: '~温馨提示~', content: '未绑定学号，前往绑定中心绑定'}).then(res => {
-      if (res.confirm) {
-        Taro.navigateTo({url: '/pages/register/register'})
-      }
-    })
   }
+  console.log('URL:'+url)
+  Taro.request({url, header: {Authorization}, method: 'GET'}).then(res => {
+    Taro.hideLoading()
+    console.log(res)
+    if (res.data.code === 200) {
+      Taro.showToast({title: '刷新成功'})
+      // 解析课表数据
+      let res_d = resolve_course(res.data.data)
+      // 将课表数据和当前周存入缓存
+      Taro.setStorage({
+        key: 'course_data',
+        data: { res_d, week: res.data.data.body.week }
+      }).then(() => {})
+      dispatch(getCourseInfo(res_d, res.data.data.body.week))
+    } else {
+      if (url === wfw_url + '/api/course/getAllRealTime') {
+        Taro.showModal({title: '~温馨提示~', content: '获取课表失败，请查看学校教务处是否可用'})
+      } else {
+        Taro.showToast({title: '刷新失败', icon: 'none'})
+      }
+    }
+  }).catch(() => {
+    Taro.hideLoading()
+  })
 }
 // eslint-disable-next-line import/prefer-default-export
 export const week_num = () => {
