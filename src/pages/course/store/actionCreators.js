@@ -9,6 +9,7 @@ import {
   ONLY_SHOW_CURRENT_WEEK
 } from './constants'
 import resolve_course from '../resolve/resolve_course'
+import { whetherBindID } from '../../../Interface/common'
 
 import { wfw_url } from '../../../utils/url'
 
@@ -109,17 +110,34 @@ export const get_course_info = (source) => {
           }).then(() => {})
           dispatch(getCourseInfo(res_d, res.data.data.body.week))
         } else {
-          // 数据库中没有课表数据，
+          // 数据库中没有课表数据
+          Taro.showLoading({title: 'loading'})
+          // 首次请求教务处
           Taro.request({url: wfw_url + '/api/course/getAllRealTime', header: {Authorization}}).then(res1 => {
             if (res1.data.code === 200) {
               let res_d = resolve_course(res.data.data)
               Taro.setStorage({
                 key: 'course_data',
                 data: { res_d, week: res.data.data.body.week }
-              }).then(() => {})
+              }).then(() => {
+                Taro.hideLoading()
+              }).catch(() => {
+                Taro.showModal({title: '~温馨提示~', content: '平台罢工'})
+              })
               dispatch(getCourseInfo(res_d, res1.data.data.body.week))
             } else {
-              Taro.showToast({title: '获取课表失败，请检查学号或密码是否正确以及学校教务处是否可用', duration: 5000})
+              Taro.hideLoading()
+              whetherBindID({auth_token: Authorization}).then(r => {
+                if (r.data.data.bind === 0) {
+                  Taro.showModal({title: '~温馨提示~', content: '未绑定学号，前往绑定中心绑定'}).then(rr => {
+                    if (rr.confirm) {
+                      Taro.switchTab({url: '/pages/my/my'})
+                    }
+                  })
+                } else {
+                  Taro.showModal({title: '~温馨提示~', content: '获取课表失败，请查看学校教务处是否可用'})
+                }
+              })
             }
           })
         }
