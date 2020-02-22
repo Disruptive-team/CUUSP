@@ -17,7 +17,7 @@ import {action} from '../my/store'
 class Register extends Component{
     
     config = {
-        navigationBarTitleText: '绑定',
+        navigationBarTitleText: '绑定到统一服务平台',
     }
     state = {
         studentNumber: '',
