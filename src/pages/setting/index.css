@@ -1,3 +1,9 @@
 .list_item View {
-  padding: 20px 0;
+  padding: 20px 0 10px 10px;
+  color: #666;
+}
+.only-show-current-week {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

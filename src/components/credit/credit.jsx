@@ -3,6 +3,7 @@ import {View, Text} from '@tarojs/components'
 import './credit.css'
 
 class Credit extends Component{
+  defaultProps = {}
     constructor(props) {
         super(props);
         this.state = ({
@@ -15,7 +16,7 @@ class Credit extends Component{
             electiveCredit: 0,
             generalCredit: 0,
             PECredit: 0,
-            failCredit: 0, 
+            failCredit: 0,
         })
       }
     render(){

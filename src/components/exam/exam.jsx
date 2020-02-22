@@ -3,6 +3,7 @@ import {View, Text} from '@tarojs/components'
 import './exam.css'
 
 class Exam extends Component{
+  defaultProps = {}
     static externalClasses = ['icon-back']
     state = {
         exam: [{

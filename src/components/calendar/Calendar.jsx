@@ -5,6 +5,7 @@ import classNames from 'classnames'
 import './calendar.css'
 
 class Calendar extends Component {
+  defaultProps = {}
   constructor(props) {
     super(props)
     this.state = {
