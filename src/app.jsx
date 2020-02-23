@@ -26,7 +26,7 @@ const store = configStore()
 @connect(({commonInfo}) => ({
   commonInfo
 }), (dispatch) => ({
-  setCommonInfo(data) {
+  onSetCommonInfo(data) {
     dispatch(common_info(data))
   }
 }))
@@ -84,62 +84,55 @@ class App extends Component {
 
   componentDidMount() {
     let type = Taro.getEnv()
-    let that = this
     if (type === 'WEAPP') {
-      Taro.checkSession({
-        success: function () {
-          //session_key 未过期，并且在本生命周期一直有效
-          //console.log('session_key 未过期')
-          try {
-            let auth_token = Taro.getStorageSync("auth_token")
-            // console.log("auth_token的值是",auth_token)
-            if (!auth_token) {
-              // console.log("没有获取到auth_token")
-              Taro.login({
-                success(res) {
-                  // console.log("请求微信的res是",res)
-                  checkCode({
-                    code: res.code,
-                    type: 'wx'
-                  }).then(r => {
-                    // console.log("获取后端auth_token的结果是",r.data.data.auth_token)
-                    // console.log("获取code后端的结果是",r.data.code)
-                    if (r.data.code === 200) {
-                      try {
-                        Taro.setStorageSync('auth_token', r.data.data.auth_token)
-                      } catch (e) {
-                      }
-                    }
-                    that.getBindID()
-                  })
+      Taro.checkSession().then(() => {
+        //session_key 未过期，并且在本生命周期一直有效
+        //console.log('session_key 未过期')
+        let auth_token
+        try {
+          auth_token = Taro.getStorageSync("auth_token")
+        } catch (e) {
+        }
+        // console.log("auth_token的值是",auth_token)
+        if (!auth_token) {
+          // console.log("没有获取到auth_token")
+          Taro.login().then(res => {
+            // console.log("请求微信的res是",res)
+            checkCode({
+              code: res.code,
+              type: 'wx'
+            }).then(r => {
+              // console.log("获取后端auth_token的结果是",r.data.data.auth_token)
+              // console.log("获取code后端的结果是",r.data.code)
+              if (r.data.code === 200) {
+                try {
+                  Taro.setStorageSync('auth_token', r.data.data.auth_token)
+                } catch (e) {
                 }
+              }
+              this.getBindID()
+            })
+          })
+        } else {
+          this.getBindID(auth_token)
+        }
+      }).catch(() => {
+        // session_key 已经失效，需要重新执行登录流程
+        console.log('session_key过期')
+        Taro.login().then(res => {
+          checkCode({
+            code: res.code,
+            type: 'wx'
+          }).then(r => {
+            if (r.data.code === 200) {
+              Taro.setStorage({
+                key: 'auth_token',
+                data: r.data.data.auth_token
               })
-            } else {
-              that.getBindID(auth_token)
-            }
-          } catch (e) {
-          }
-        },
-        fail: function () {
-          // session_key 已经失效，需要重新执行登录流程
-          console.log('session_key过期')
-          Taro.login({
-            success(res) {
-              checkCode({
-                code: res.code,
-                type: 'wx'
-              }).then(r => {
-                if (r.data.code === 200) {
-                  Taro.setStorage({
-                    key: 'auth_token',
-                    data: r.data.data.auth_token
-                  })
-                  that.getBindID(r.data.data.auth_token)
-                }
-              })
+              this.getBindID(r.data.data.auth_token)
             }
           })
-        }
+        })
       })
     }
   }
@@ -148,9 +141,15 @@ class App extends Component {
     let isBind
     try {
       isBind = Taro.getStorageSync('isBind')
-    } catch (e) {}
+    } catch (e) {
+      console.log('真机读取缓存失败')
+    }
     if (isBind) {
-      this.props.setCommonInfo({bindID: isBind})
+      console.log('isBind')
+      console.log('===============')
+      console.log(isBind)
+      console.log('===============')
+      this.props.onSetCommonInfo({bindID: isBind})
       return
     }
     if (!auth_token) {
@@ -158,7 +157,7 @@ class App extends Component {
         whetherBindID({auth_token: r.data}).then(res => {
           if (res.data.code === 200) {
             Taro.setStorage({key: 'isBind', data: res.data.data.bind})
-            this.props.setCommonInfo({
+            this.props.onSetCommonInfo({
               bindID: res.data.data.bind
             }).catch(err => {
               console.log(err)
@@ -172,7 +171,7 @@ class App extends Component {
       }).then(res => {
         if (res.data.code === 200) {
           Taro.setStorage({key: 'isBind', data: res.data.data.bind})
-          this.props.setCommonInfo({
+          this.props.onSetCommonInfo({
             bindID: res.data.data.bind
           })
         }
@@ -180,7 +179,6 @@ class App extends Component {
         console.log(err)
       })
     }
-
   }
 
   // 在 App 类中的 render() 函数没有实际作用
