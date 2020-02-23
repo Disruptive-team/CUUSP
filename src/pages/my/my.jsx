@@ -53,13 +53,17 @@ class My extends Component{
         })
     }
     scope(){
-        if(!this.state.scopeUserInfo){
-            Taro.showToast({
-                title: '请先登录，再进行其他操作',
+        Taro.getStorage({key: 'isBind'}).then((r)=>{
+            let isbind = r.data
+            if(isbind!==1){
+              Taro.showToast({
+                title: '请先绑定，再进行该操作',
                 icon: 'none'
-            })
-            return
-        }
+              })
+            }
+        }).catch((e)=>{
+
+        })
     }
     getUserInfo(){
         let that = this
@@ -126,13 +130,11 @@ class My extends Component{
         this.scope()
     }
     toRegister(){
-        this.scope()
         Taro.navigateTo({
             url: '../register/register'
         })
     }
     about(){
-        this.scope()
     }
     clearStorge(){
         Taro.clearStorageSync()
@@ -142,6 +144,12 @@ class My extends Component{
         })
     }
     render(){
+      let Bind
+      try {
+        Bind = Taro.getStorageSync("isBind")
+      }catch (e) {
+        Bind=0
+      }
         return(
             <View>
                 <View className='head-image'>
@@ -156,11 +164,14 @@ class My extends Component{
                     </Button>
                     <Button className='choose bnt' onClick={this.toRegister}>
                         <Text className='iconjiaowuchu iconfont icon'></Text>
-                        <Text style='padding-left: 20rpx;'>修改教务信息</Text>
+                      {Bind
+                        ? <Text style='padding-left: 20rpx;'>修改教务信息</Text>
+                        : <Text style='padding-left: 20rpx;'>绑定教务信息</Text>
+                      }
                         <Text className='iconfont iconapp-go go'></Text>
                     </Button>
                 </View>
-                <View className='group' style='margin-bottom: 60rpx;'>
+                <View className='group'>
                     <Button className='choose bnt' openType='share' >
                         <Text className='iconfenxiang iconfont icon'></Text>
                         <Text style='padding-left: 20rpx;'>分享</Text>
@@ -183,7 +194,7 @@ class My extends Component{
                         <Text className='iconfont iconapp-go go'></Text>
                     </Button>
                 </View>
-                
+
             </View>
         )
     }
