@@ -108,7 +108,7 @@
 }
 .course-item {
   color: #fff;
-  /*background-color: aqua;*/
+  overflow: hidden;
   font-size: 28px;
   text-align: center;
   width: 90%;

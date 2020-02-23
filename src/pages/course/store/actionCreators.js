@@ -39,7 +39,11 @@ const getCourseInfo = (res, week) => ({
   course_d: res || [[], [], [], [], [], [], []],
   select_week: week
 })
-
+/**
+ * @desc 请求课表
+ * @param url
+ * @param dispatch
+ */
 const requestCourseData = (url, dispatch) => {
   let Authorization
   try {
@@ -53,7 +57,9 @@ const requestCourseData = (url, dispatch) => {
     Taro.hideLoading()
     console.log(res)
     if (res.data.code === 200) {
-      Taro.showToast({title: '刷新成功'})
+      Taro.showToast({title: '刷新成功', duration: 2000}).then(() => {
+        Taro.switchTab({url: '/pages/course/course'})
+      })
       // 解析课表数据
       let res_d = resolve_course(res.data.data)
       // 将课表数据和当前周存入缓存
@@ -71,6 +77,7 @@ const requestCourseData = (url, dispatch) => {
     }
   }).catch(() => {
     Taro.hideLoading()
+    Taro.showToast({title: '刷新失败', icon: 'none'})
   })
 }
 // eslint-disable-next-line import/prefer-default-export

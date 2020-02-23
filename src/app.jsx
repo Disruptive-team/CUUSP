@@ -34,14 +34,17 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/home/home',
       'pages/course/course',
+      'pages/register/register',
+      'pages/home/home',
       'pages/index/index',
       'pages/login/login',
-      'pages/register/register',
       'pages/my/my',
       'pages/setting/index'
     ],
+    networkTimeout: {
+      request: 10000
+    },
     subPackages: [
       {
         "root": 'functions',
@@ -88,14 +91,16 @@ class App extends Component {
       Taro.checkSession().then(() => {
         //session_key 未过期，并且在本生命周期一直有效
         //console.log('session_key 未过期')
+        // 从缓存中同步读取auth_token
         let auth_token
         try {
           auth_token = Taro.getStorageSync("auth_token")
-        } catch (e) {
-        }
+        } catch (e) {}
         // console.log("auth_token的值是",auth_token)
+        // auth_token不存在
         if (!auth_token) {
           // console.log("没有获取到auth_token")
+          // 调用login获取code进而获取auth_token
           Taro.login().then(res => {
             // console.log("请求微信的res是",res)
             checkCode({
@@ -104,6 +109,7 @@ class App extends Component {
             }).then(r => {
               // console.log("获取后端auth_token的结果是",r.data.data.auth_token)
               // console.log("获取code后端的结果是",r.data.code)
+              // 获取auth_token成功并将auth_token存入缓存
               if (r.data.code === 200) {
                 try {
                   Taro.setStorageSync('auth_token', r.data.data.auth_token)
@@ -138,20 +144,16 @@ class App extends Component {
   }
 
   getBindID(auth_token) {
-    let isBind
-    try {
-      isBind = Taro.getStorageSync('isBind')
-    } catch (e) {
-      console.log('真机读取缓存失败')
-    }
-    if (isBind) {
-      console.log('isBind')
-      console.log('===============')
-      console.log(isBind)
-      console.log('===============')
-      this.props.onSetCommonInfo({bindID: isBind})
-      return
-    }
+    // let isBind
+    // try {
+    //   isBind = Taro.getStorageSync('isBind')
+    // } catch (e) {
+    //   console.log('真机读取缓存失败')
+    // }
+    // if (isBind) {
+    //   this.props.onSetCommonInfo({bindID: isBind})
+    //   return
+    // }
     if (!auth_token) {
       Taro.getStorage({key: 'auth_token'}).then(r => {
         whetherBindID({auth_token: r.data}).then(res => {

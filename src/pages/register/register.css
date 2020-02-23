@@ -1,29 +1,42 @@
-.option{
-    height: 40px;
-    /* margin-right: 10px; */
-    font-size: 35rpx;
-    vertical-align: 20rpx;
-    
+page {
+  background: #F9F9F9;
 }
-
-.optionIpt{
-    border: 1rpx solid gray;
-    border-radius: 45rpx;
-    height: 75rpx;
-    width: 400rpx;
-    display: inline-block;
-    margin-top: 20rpx;
-    margin-left: 20rpx;
-    text-align: left;
-    text-indent: 20rpx;
-    padding-left: 20rpx;
+.user-and-password Input {
+  margin-left: 24px;
+  margin-right: 30px;
 }
-
-.bnt{
-    width: 70%;
-    height: 85rpx;
-    background: #00BFFF;
-    color: white;
-    margin-top: 55rpx;
-    line-height: 76rpx;
+.user-and-password Input::placeholder {
+  padding-left: 6px;
+  font-size: 10px;
+}
+.user-number {
+  margin: 50px auto;
+  padding: 15px;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  border-radius: 60px;
+  background: #fff;
+  line-height: 66px;
+}
+.user-password {
+  margin: 50px auto;
+  padding: 15px;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  border-radius: 60px;
+  background: #fff;
+  line-height: 66px;
+}
+.bind {
+  margin: 10px auto;
+  padding: 10px 0;
+  width: 80%;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  background: #4384F6;
+  line-height: 66px;
+  border-radius: 60px;
 }

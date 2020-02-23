@@ -94,6 +94,7 @@ class Course extends Component {
 
   onPullDownRefresh() {
     // 判断是否绑定学号
+    console.log(this.props.isBind)
     if (this.props.isBind) {
       this.props.onGetCourseInfo(wfw_url + '/api/course/getAllLast')
     } else {

@@ -6,37 +6,37 @@ page{
     background: #1E90FF;
     width: 16%;
     text-align: center;
-    height: 113rpx;
-    font-size: 37rpx;
+    height: 113px;
+    font-size: 37px;
     display: inline-block;
-    margin-right: 40rpx;
+    margin-right: 40px;
     word-break: break-all;
     border-radius: 4px;
-    padding-top: 15rpx;   
+    padding-top: 15px;
  }
 
  .examView{
     background: #87CEEB;
-    height: 125rpx;
-    margin-top: 15rpx;
+    height: 125px;
+    margin-top: 15px;
     color: white;
-    padding: 20rpx;
-    padding-left: 7%;    
+    padding: 20px;
+    padding-left: 7%;
  }
 
  .head{
-    height: 70rpx;
+    height: 70px;
     background: white;
     text-align: center;
-    line-height: 60rpx;
-    font-size: 35rpx;
-    padding-top: 15rpx;
-    margin-bottom: 10rpx;
+    line-height: 60px;
+    font-size: 35px;
+    padding-top: 15px;
+    margin-bottom: 10px;
 }
 
 .back{
     float: left;
     transform: scaleY(1.5);
     width: 10%;
-    font-size: 40rpx;
+    font-size: 40px;
 }
