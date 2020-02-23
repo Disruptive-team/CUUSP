@@ -48,7 +48,8 @@ class App extends Component {
         "pages": [
           'achievement/achievement',
           'exam/exam',
-          'card/card'
+          'card/card',
+          'person/person'
         ]
       }
     ],

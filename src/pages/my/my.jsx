@@ -4,7 +4,6 @@ import { connect } from '@tarojs/redux'
 
 import './my.css'
 import {action} from './store'
-import {updateUserInfo} from '../../Interface/user'
 // import {whetherBindID} from '../../Interface/common'
 
 @connect(({ userInfo }) => ({
@@ -37,80 +36,6 @@ class My extends Component{
         }
     }
     componentDidMount(){
-        let that = this
-        Taro.getSetting({
-            success: function(res){
-                if(res.authSetting['scope.userInfo']){
-                    Taro.getUserInfo().then(rr=>{
-                        that.setState({
-                            userImgSrc: rr.userInfo.avatarUrl,
-                            userName: rr.userInfo.nickName,
-                            scopeUserInfo: true
-                        })
-                    })
-                }
-            }
-        })
-    }
-    scope(){
-        if(!this.state.scopeUserInfo){
-            Taro.showToast({
-                title: '请先登录，再进行其他操作',
-                icon: 'none'
-            })
-            return
-        }
-    }
-    getUserInfo(){
-        let that = this
-        if(Taro.getEnv() === 'WEAPP'){
-            Taro.getUserInfo().then(res=>{
-                Taro.getStorage({
-                    key: 'auth_token',
-                    success: function(r){
-                        that.props.setUserInfo({
-                            nick_name: res.userInfo.nickName,
-                            gender: res.userInfo.gender,
-                            avatar_url: res.userInfo.avatarUrl,
-                            country: res.userInfo.country,
-                            city: res.userInfo.city,
-                            auth_token: r.data
-                        })
-                        that.setState({
-                            userImgSrc: res.userInfo.avatarUrl,
-                            userName: res.userInfo.nickName
-                        })
-                        updateUserInfo({
-                            nick_name: res.userInfo.nickName,
-                            gender: res.userInfo.gender,
-                            avatar_url: res.userInfo.avatarUrl,
-                            country: res.userInfo.country,
-                            city: res.userInfo.city,
-                            auth_token: r.data
-                        }).then(rr=>{
-                            console.log('rr')
-                        })
-                    },
-                    fail: function (r) {
-                      console.log('sadfsd')
-                    }
-                })
-
-            }).catch(res=>{
-                console.log(res)
-            })
-            Taro.showModal({
-                title: '提示',
-                content: '是否现在绑定教务处账号?',
-            }).then(res=>{
-                if(res.confirm){
-                    Taro.navigateTo({
-                        url: '../register/register'
-                    })
-                }
-            })
-
-        }
     }
     onShareAppMessage(res){
         if (res.from === 'button') {
@@ -123,16 +48,16 @@ class My extends Component{
           }
     }
     toPerson(){
-        this.scope()
+        Taro.navigateTo({
+            url: `../../functions/person/person`
+        })
     }
     toRegister(){
-        this.scope()
         Taro.navigateTo({
             url: '../register/register'
         })
     }
     about(){
-        this.scope()
     }
     clearStorge(){
         Taro.clearStorageSync()
