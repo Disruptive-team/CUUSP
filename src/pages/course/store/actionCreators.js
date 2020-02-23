@@ -49,7 +49,6 @@ const requestCourseData = (url, dispatch) => {
   if (url === wfw_url + '/api/course/getAllRealTime') {
       Taro.showLoading({title: '正在爬取课表...'})
   }
-  console.log('URL:'+url)
   Taro.request({url, header: {Authorization}, method: 'GET'}).then(res => {
     Taro.hideLoading()
     console.log(res)
@@ -65,7 +64,7 @@ const requestCourseData = (url, dispatch) => {
       dispatch(getCourseInfo(res_d, res.data.data.body.week))
     } else {
       if (url === wfw_url + '/api/course/getAllRealTime') {
-        Taro.showModal({title: '~温馨提示~', content: '获取课表失败，请查看学校教务处是否可用'})
+        Taro.showModal({title: '~温馨提示~', content: '获取课表失败，请检查学号密码是否正确或者查看学校教务处是否可用后重新绑定'})
       } else {
         Taro.showToast({title: '刷新失败', icon: 'none'})
       }
@@ -187,9 +186,10 @@ export const delete_mask = () => {
   }
 }
 
-export const only_show_current_week = () => {
+export const only_show_current_week = (data) => {
   return {
-    type: ONLY_SHOW_CURRENT_WEEK
+    type: ONLY_SHOW_CURRENT_WEEK,
+    only_current_week: data
   }
 }
 

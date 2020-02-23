@@ -13,8 +13,8 @@ import { wfw_url } from '../../utils/url'
   onGetCourseInfo (url) {
     dispatch(actionCreators.get_course_info(url))
   },
-  onOnlyShowCurrentWeek () {
-    dispatch(actionCreators.only_show_current_week())
+  onOnlyShowCurrentWeek (data) {
+    dispatch(actionCreators.only_show_current_week(data))
   }
 }))
 class Setting extends Component {
@@ -39,6 +39,24 @@ class Setting extends Component {
     }
   }
 
+  saveOnlyShowCurrentWeek () {
+    let current_week
+    try {
+      current_week = Taro.getStorageSync('current_week')
+      this.props.onOnlyShowCurrentWeek(!current_week)
+      Taro.setStorageSync('current_week', !current_week)
+    } catch (e) {
+      Taro.setStorageSync('current_week', this.props.course.only_current_week)
+    }
+    // if (current_week) {
+    // } else {
+    // }
+  }
+
+  componentDidMount() {
+
+  }
+
   render() {
     return (
       <View className='list_item'>
@@ -46,7 +64,7 @@ class Setting extends Component {
         <View className='only-show-current-week'>
           <View>仅显示当前课表</View>
           <View>
-            <Switch checked={!this.props.course.only_current_week} onClick={this.props.onOnlyShowCurrentWeek} />
+            <Switch checked={!this.props.course.only_current_week} onClick={this.saveOnlyShowCurrentWeek} />
           </View>
         </View>
       </View>

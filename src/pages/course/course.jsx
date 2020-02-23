@@ -44,6 +44,9 @@ import { wfw_url } from '../../utils/url'
   },
   onCacheToStore (course_data) {
     dispatch(actionCreators.cache_to_store(course_data))
+  },
+  onOnlyShowCurrentWeek (data) {
+    dispatch(actionCreators.only_show_current_week(data))
   }
 }))
 class Course extends Component {
@@ -63,6 +66,14 @@ class Course extends Component {
     Taro.getStorage({key: 'course_data'}).then((res) => {
       this.props.onCacheToStore(res.data.res_d)
     }).catch(() => {})
+    // 从缓存中读出是否仅显示当前周
+    let current_week
+    try {
+      current_week = Taro.getStorageSync('current_week')
+    } catch (e) {}
+    if (current_week) {
+      this.props.onOnlyShowCurrentWeek(current_week)
+    }
     // let auth_token
     // try {
     //   // Taro.showLoading({title: 'loading'})

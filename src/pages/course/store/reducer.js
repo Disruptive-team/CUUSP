@@ -71,7 +71,7 @@ const course = (state = defaultStore, action) => {
     case ONLY_SHOW_CURRENT_WEEK:
       return {
         ...state,
-        only_current_week: !state.only_current_week
+        only_current_week: action.only_current_week
       }
     case CACHE_TO_STORE:
       return {
