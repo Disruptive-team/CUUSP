@@ -10,7 +10,7 @@
     border: 1rpx solid gray;
     border-radius: 45rpx;
     height: 75rpx;
-    width: 55%;
+    width: 400rpx;
     display: inline-block;
     margin-top: 20rpx;
     margin-left: 20rpx;
@@ -24,6 +24,6 @@
     height: 85rpx;
     background: #00BFFF;
     color: white;
-    margin-top: 30rpx;
+    margin-top: 55rpx;
     line-height: 76rpx;
 }
