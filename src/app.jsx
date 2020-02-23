@@ -144,22 +144,13 @@ class App extends Component {
     }
   }
 
-  componentDidShow() {
-  }
-
-  componentDidHide() {
-  }
-
-  componentDidCatchError() {
-  }
-
   getBindID(auth_token) {
     let isBind
     try {
       isBind = Taro.getStorageSync('isBind')
     } catch (e) {}
     if (isBind) {
-      this.props.setCommonInfo({bindId: isBind})
+      this.props.setCommonInfo({bindID: isBind})
       return
     }
     if (!auth_token) {

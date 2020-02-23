@@ -48,9 +48,6 @@ class Setting extends Component {
     } catch (e) {
       Taro.setStorageSync('current_week', this.props.course.only_current_week)
     }
-    // if (current_week) {
-    // } else {
-    // }
   }
 
   componentDidMount() {
