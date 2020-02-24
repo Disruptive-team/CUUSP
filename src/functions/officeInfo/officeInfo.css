@@ -1,0 +1,28 @@
+page{
+    background: #F5F5F5
+ }
+
+.head{
+    height: 70px;
+    background: white;
+    text-align: center;
+    line-height: 60px;
+    font-size: 35px;
+    padding-top: 10px;
+    margin-bottom: 10px;
+}
+
+.info{
+    width: 100%;
+    background: white;
+    height: 80rpx;
+    font-size: 37rpx;
+    line-height: 75rpx;
+}
+
+.go{
+    float: right;
+    margin-right: 20rpx;
+    font-size: 30rpx;
+    margin-left: 10rpx;
+}

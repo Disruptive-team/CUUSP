@@ -49,7 +49,8 @@ class App extends Component {
           'achievement/achievement',
           'exam/exam',
           'card/card',
-          'person/person'
+          'person/person',
+          'officeInfo/officeInfo'
         ]
       }
     ],

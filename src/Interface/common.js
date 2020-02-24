@@ -24,3 +24,29 @@ export function whetherBindID(obj){
         method: 'GET',
     })
 }
+
+ 
+/**
+ * ----------------------------------------------------
+ * @path   /api/userInfo
+ * @method GET
+ * @desc   获取用户信息
+ * @author 杨欣
+ * @date 2020-2-24
+ * ----------------------------------------------------
+ */
+
+ export function getUserInfo(obj){
+    let {
+        auth_token
+    } = obj
+    return Taro.request({
+        url: 'http://ms.maxlv.org:5006/api/userInfo',
+        data: {},
+        header: {
+            'content-type': 'application/json',
+            Authorization: auth_token
+        },
+        method: 'GET',
+    })
+}

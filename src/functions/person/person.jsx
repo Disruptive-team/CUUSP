@@ -1,5 +1,5 @@
 import Taro,{ Component } from "@tarojs/taro";
-import { View, Button } from "@tarojs/components";
+import { View, Button, Text, OpenData } from "@tarojs/components";
 import './person.css'
 import {updateUserInfo} from '../../Interface/user'
 
@@ -61,29 +61,6 @@ class Person extends Component{
                     <OpenData type='userAvatarUrl' className='img'></OpenData>
                     <OpenData type='userNickName'></OpenData>
                     <Button className='update' openType='getUserInfo' onGetUserInfo={this.getUserInfo} >更新昵称和头像</Button>
-                </View>
-
-                <View>
-                    <View className='info' style='border-bottom: solid 1px #F5F5F5'>
-                        <Text style='margin-left: 20rpx'>姓名</Text>
-                        <Text className='iconfont iconapp-go go'></Text>
-                        <Text style='padding-left: 20rpx;float:right'>{this.state.studentName?this.state.studentName:'待完善'}</Text>
-                    </View>
-                    <View className='info' style='border-bottom: solid 1px #F5F5F5'>
-                        <Text style='margin-left: 20rpx'>学号</Text>
-                        <Text className='iconfont iconapp-go go'></Text>
-                        <Text style='padding-left: 20rpx;float:right'>{this.state.studentID?this.state.studentID:'待完善'}</Text>
-                    </View>
-                    <View className='info' style='border-bottom: solid 1px #F5F5F5'>
-                        <Text style='margin-left: 20rpx'>班级</Text>
-                        <Text className='iconfont iconapp-go go'></Text>
-                        <Text style='padding-left: 20rpx;float:right'>{this.state.studentClass?this.state.studentClass:'待完善'}</Text>
-                    </View>
-                    <View className='info'>
-                        <Text style='margin-left: 20rpx'>学校</Text>
-                        <Text className='iconfont iconapp-go go'></Text>
-                        <Text style='padding-left: 20rpx;float:right'>{this.state.studentSchool?this.state.studentSchool:'待完善'}</Text>
-                    </View>
                 </View>
                 
                 <View style='margin-top: 30rpx'>

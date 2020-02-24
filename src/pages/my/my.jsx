@@ -66,6 +66,11 @@ class My extends Component{
             icon: 'none'
         })
     }
+    toOfficeInfo(){
+        Taro.navigateTo({
+            url: '../../functions/officeInfo/officeInfo'
+        })
+    }
     render(){
         return(
             <View>
@@ -77,6 +82,11 @@ class My extends Component{
                     <Button className='choose bnt' onClick={this.toPerson} >
                         <Text className='icongerenxinxi iconfont icon'></Text>
                         <Text style='padding-left: 20rpx;'>个人信息</Text>
+                        <Text className='iconfont iconapp-go go'></Text>
+                    </Button>
+                    <Button className='choose bnt' onClick={this.toOfficeInfo} >
+                        <Text className='icongerenxinxi iconfont icon'></Text>
+                        <Text style='padding-left: 20rpx;'>教务处信息</Text>
                         <Text className='iconfont iconapp-go go'></Text>
                     </Button>
                     <Button className='choose bnt' onClick={this.toRegister}>
