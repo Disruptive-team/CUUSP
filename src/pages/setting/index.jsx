@@ -27,6 +27,14 @@ class Setting extends Component {
   }
 
   getLastCourse () {
+    let isBind
+    try {
+      isBind = Taro.getStorageSync('isBind')
+    } catch (e) {}
+    if (isBind !== this.props.isBind) {
+      Taro.showToast({title: '无网络', icon: 'none'})
+      return
+    }
     // 是否绑定学号
     if (this.props.isBind) {
       this.props.onGetCourseInfo(wfw_url + '/api/course/getAllRealTime')

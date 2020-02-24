@@ -2,10 +2,10 @@ page{
     background: #F5F5F5
  }
 
- 
+
 .functionEntry{
-    width: 90rpx;
-    height: 90rpx;
+    width: 90px;
+    height: 90px;
 }
 
 .functionEntryView{
@@ -15,7 +15,7 @@ page{
 }
 
 .functionEntryIcon{
-    font-size: 65rpx;
+    font-size: 65px;
     color: gray;
     text-align: center;
     align-self: center;
@@ -23,13 +23,35 @@ page{
 }
 
 .todayClass{
-    padding: 15rpx;
+    padding: 15px;
     width: 90%;
     margin: auto;
-    font-size: 35rpx;
-    border-radius: 8rpx;
+    font-size: 35px;
+    border-radius: 8px;
     background: #87CEFA;
     color: white;
-    margin-top: 10rpx;
-    padding-left: 40rpx;
+    margin-top: 10px;
+    padding-left: 40px;
+}
+.today_course {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  color: #666;
+}
+.left {
+  display: flex;
+  align-items: flex-end;
+}
+.week-num {
+  font-size: 38px;
+}
+.week {
+  margin-left: 24px;
+  font-size: 34px;
+}
+.no-course {
+  font-size: 42px;
+  text-align: center;
+  padding: 50px 0;
 }

@@ -10,7 +10,7 @@ import classPhoto from '../../images/class.png'
 import {getActiveSwiper} from '../../Interface/images'
 
 @connect(({commonInfo})=>({
-    commonInfo
+  commonInfo
 }))
 class Home extends Component{
   config = {
@@ -39,13 +39,13 @@ class Home extends Component{
         }
       } catch (e) {}
     }
-    console.log(this.props)
-    let that = this
     this.state = {
       today_course: course_data,
       week: course.week,
+      t,
+      mon_sun_chinese: ['一', '二', '三', '四', '五', '六', '日'],
       iconList: 'iconfont icondown functionEntryIcon',
-        bindID: that.props.commonInfo.bindID,
+        bindID: this.props.commonInfo.bindID,
         swiperImgs: []
     }
     }
@@ -114,6 +114,10 @@ class Home extends Component{
             })
         })
     }
+
+  onJumpToCourse () {
+    Taro.switchTab({url: '/pages/course/course'})
+  }
   render(){
         return (
             <View>
@@ -137,7 +141,7 @@ class Home extends Component{
                         <Image src={cardPng} className='functionEntry' />
                         <Text style='display:block'>一卡通</Text>
                     </View>
-                    <Text className={this.state.iconList} onClick={this.showList}></Text>
+                    <Text className={this.state.iconList} onClick={this.showList} />
                     {this.state.iconList === 'iconfont iconup functionEntryIcon' &&
                     <View className='functionEntryView'>
                         <Image src={lose} className='functionEntry' />
@@ -146,14 +150,21 @@ class Home extends Component{
                 </View>
 
                 <View style='padding: 10rpx;'>
-                    <Text style='font-size: 35rpx;color: gray;'>今日课表</Text>
+                    {/*<Text style='font-size: 35rpx;color: gray;'>今日课表</Text>*/}
+                    <View className='today_course'>
+                      <View className='left'>
+                        <View className='week-num'>第 {this.state.week} 周</View>
+                        <View className='week'>星期{this.state.mon_sun_chinese[this.state.t]}</View>
+                      </View>
+                      <View className='jump-to-course' onClick={this.onJumpToCourse}>跳转到课表</View>
+                    </View>
                     {
-                        this.state.today_course.map((item, index)=>{
+                        this.state.today_course.length === 0 ? <View className='no-course'>今日没课哟~</View> : this.state.today_course.map((item, index)=>{
                           return (
                             <View key={index} className='todayClass'>
-                                <Image src={classPhoto} style='width: 100rpx;height: 100rpx;margin-right: 34rpx;'/>
+                                <Image src={classPhoto} style='width: 100rpx;height: 100rpx;margin-right: 34rpx;' />
                                 <Text style='position: absolute'>{item.course}({item.teacher})</Text>
-                                <Text>{item.place}(第{item.start_section+1}-{item.start_section+item.section_length}节)</Text>
+                                <Text>{item.place}(第{(item.start_section-1)*2+1}-{item.start_section+item.section_length-1}节)</Text>
                             </View>
                             )
                         })

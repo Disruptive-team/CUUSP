@@ -15,7 +15,7 @@ import {action} from './store'
   }))
 class My extends Component{
     config = {
-        navigationBarTitleText: '分享',
+        navigationBarTitleText: '我的',
     }
     constructor(props){
         super(props)
@@ -36,6 +36,84 @@ class My extends Component{
         }
     }
     componentDidMount(){
+        let that = this
+        Taro.getSetting({
+            success: function(res){
+                if(res.authSetting['scope.userInfo']){
+                    Taro.getUserInfo().then(rr=>{
+                        that.setState({
+                            userImgSrc: rr.userInfo.avatarUrl,
+                            userName: rr.userInfo.nickName,
+                            scopeUserInfo: true
+                        })
+                    })
+                }
+            }
+        })
+    }
+    scope(){
+        Taro.getStorage({key: 'isBind'}).then((r)=>{
+            let isbind = r.data
+            if(isbind!==1){
+              Taro.showToast({
+                title: '请先绑定，再进行该操作',
+                icon: 'none'
+              })
+            }
+        }).catch((e)=>{
+
+        })
+    }
+    getUserInfo(){
+        let that = this
+        if(Taro.getEnv() === 'WEAPP'){
+            Taro.getUserInfo().then(res=>{
+                Taro.getStorage({
+                    key: 'auth_token',
+                    success: function(r){
+                        that.props.setUserInfo({
+                            nick_name: res.userInfo.nickName,
+                            gender: res.userInfo.gender,
+                            avatar_url: res.userInfo.avatarUrl,
+                            country: res.userInfo.country,
+                            city: res.userInfo.city,
+                            auth_token: r.data
+                        })
+                        that.setState({
+                            userImgSrc: res.userInfo.avatarUrl,
+                            userName: res.userInfo.nickName
+                        })
+                        updateUserInfo({
+                            nick_name: res.userInfo.nickName,
+                            gender: res.userInfo.gender,
+                            avatar_url: res.userInfo.avatarUrl,
+                            country: res.userInfo.country,
+                            city: res.userInfo.city,
+                            auth_token: r.data
+                        }).then(rr=>{
+                            console.log('rr')
+                        })
+                    },
+                    fail: function (r) {
+                      console.log('sadfsd')
+                    }
+                })
+
+            }).catch(res=>{
+                console.log(res)
+            })
+            Taro.showModal({
+                title: '提示',
+                content: '是否现在绑定教务处账号?',
+            }).then(res=>{
+                if(res.confirm){
+                    Taro.navigateTo({
+                        url: '../register/register'
+                    })
+                }
+            })
+
+        }
     }
     onShareAppMessage(res){
         if (res.from === 'button') {
@@ -72,6 +150,12 @@ class My extends Component{
         })
     }
     render(){
+      let Bind
+      try {
+        Bind = Taro.getStorageSync("isBind")
+      }catch (e) {
+        Bind=0
+      }
         return(
             <View>
                 <View className='head-image'>
@@ -91,11 +175,14 @@ class My extends Component{
                     </Button>
                     <Button className='choose bnt' onClick={this.toRegister}>
                         <Text className='iconjiaowuchu iconfont icon'></Text>
-                        <Text style='padding-left: 20rpx;'>修改教务信息</Text>
+                      {Bind
+                        ? <Text style='padding-left: 20rpx;'>修改教务信息</Text>
+                        : <Text style='padding-left: 20rpx;'>绑定教务信息</Text>
+                      }
                         <Text className='iconfont iconapp-go go'></Text>
                     </Button>
                 </View>
-                <View className='group' style='margin-bottom: 60rpx;'>
+                <View className='group'>
                     <Button className='choose bnt' openType='share' >
                         <Text className='iconfenxiang iconfont icon'></Text>
                         <Text style='padding-left: 20rpx;'>分享</Text>
@@ -118,7 +205,7 @@ class My extends Component{
                         <Text className='iconfont iconapp-go go'></Text>
                     </Button>
                 </View>
-                
+
             </View>
         )
     }

@@ -3,84 +3,84 @@ page{
  }
 
 .photo{
-    width: 150rpx;
-    height: 150rpx;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     border: 1px solid gray;
-    margin-top: 25rpx;
-    margin-left: 30rpx;
+    margin-top: 25px;
+    margin-left: 30px;
 }
 
 .card{
     background: #8FBC8F;
     width: 88%;
     margin: auto;
-    height: 320rpx;
-    margin-top: 15rpx;
-    border-radius: 6rpx;
+    height: 320px;
+    margin-top: 15px;
+    border-radius: 6px;
 }
 
 .info{
     color: white;
     position: absolute;
-    top: 110rpx;
-    line-height: 70rpx;
-    font-size: 35rpx;
+    top: 110px;
+    line-height: 70px;
+    font-size: 35px;
     left: 35%;
 }
 
 .date{
     display: inline-block;
     border: 1px solid gray;
-    width: 250rpx;
+    width: 250px;
     text-align: center;
     padding-top: 1px;
-    border-radius: 9rpx;
+    border-radius: 9px;
 }
 
 .head{
-    height: 70rpx;
+    height: 70px;
     background: white;
     text-align: center;
-    line-height: 60rpx;
-    font-size: 35rpx;
-    padding-top: 15rpx;
+    line-height: 60px;
+    font-size: 35px;
+    padding-top: 15px;
 }
 
 .back{
     float: left;
     transform: scaleY(1.5);
     width: 10%;
-    font-size: 40rpx;
+    font-size: 40px;
 }
 
 .price{
     float: right;
-    font-size: 50rpx;
-    line-height: 100rpx;
+    font-size: 50px;
+    line-height: 100px;
     margin-left: -25%;
 }
 
 .list{
-    height: 100rpx;
+    height: 100px;
     background: white;
-    padding: 20rpx;
-    margin-top: 10rpx;
-    padding-left: 40rpx;
+    padding: 20px;
+    margin-top: 10px;
+    padding-left: 40px;
 }
 
 .time{
     display: block;
-    font-size: 25rpx;
+    font-size: 25px;
     color: gray;
-    margin-top: 10rpx;
+    margin-top: 10px;
 }
 
 .textHidden{
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    width: 400rpx;
+    width: 400px;
 }
 
 .chooseView{
@@ -92,11 +92,11 @@ page{
 
 .chooseDate{
     background: white;
-    font-size: 37rpx;
+    font-size: 37px;
     margin-top: 101%;
     color: gray;
-    height: 430rpx;
-    padding-left: 30rpx;
+    height: 430px;
+    padding-left: 30px;
 }
 
 .chooseDateHead{
@@ -105,5 +105,5 @@ page{
     padding-left: 12px;
     padding-top: 15px;
     color: green;
-    margin-bottom: 20rpx;
+    margin-bottom: 20px;
 }
