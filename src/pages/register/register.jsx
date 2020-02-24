@@ -37,7 +37,7 @@ class Register extends Component {
     console.log(user_and_password)
     this.state = {
       studentNumber: user_and_password.user || '',
-      studentPassWord: user_and_password.password || '',
+      studentPassWord: '',
       seePwd: false
     }
   }

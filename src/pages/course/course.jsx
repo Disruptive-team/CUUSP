@@ -93,6 +93,15 @@ class Course extends Component {
   }
 
   onPullDownRefresh() {
+    let isBind
+    try {
+      isBind = Taro.getStorageSync('isBind')
+    } catch (e) {}
+    if (isBind !== this.props.isBind) {
+      Taro.showToast({title: '无网络', icon: 'none'})
+      Taro.stopPullDownRefresh()
+      return
+    }
     // 判断是否绑定学号
     console.log(this.props.isBind)
     if (this.props.isBind) {
@@ -104,28 +113,6 @@ class Course extends Component {
         }
       })
     }
-    //
-    // let Authorization
-    // try {
-    //   Authorization = Taro.getStorageSync('auth_token')
-    // } catch (e) {}
-    // whetherBindID({auth_token: Authorization}).then(r => {
-    //   if (r.data.data.bind === 0) {
-    //     Taro.showModal({title: '~温馨提示~', content: '未绑定学号，前往绑定中心绑定'}).then(rr => {
-    //       if (rr.confirm) {
-    //         Taro.switchTab({url: '/pages/my/my'})
-    //       }
-    //     })
-    //   } else {
-    //     Taro.startPullDownRefresh().then(() => {
-    //       Taro.showModal({title: '温馨提示', content: pullDownRefreshContent}).then(res => {
-    //         if (res.confirm) {
-    //           this.props.onGetCourseInfo(1)
-    //         }
-    //       })
-    //     })
-    //   }
-    // })
     Taro.stopPullDownRefresh()
   }
 
@@ -188,7 +175,6 @@ class Course extends Component {
       <View className='course'>
         <View className='position_fixed' id='position_fixed'>
           <View className='top'>
-            {/*<View className='iconfont' style='font-size: 16px;padding: 8px 8px'>&#xe6cd;</View>*/}
             {this.props.arrow_up && <View onClick={this.props.onSelectWeek.bind(this, this.props.arrow_up, this.props.margin_top)} className='iconfont' style='font-size: 16px;padding: 8px 8px'>第 {this.state.select_week} 周 &#xe797;</View>}
             {!this.props.arrow_up && <View onClick={this.props.onSelectWeek.bind(this, this.props.arrow_up, this.props.margin_top)} className='iconfont' style='font-size: 16px;padding: 8px 8px'>第 {this.state.select_week} 周 &#xe6b9;</View>}
             <View onClick={this.setting} className='iconfont' style='font-size: 16px;padding: 8px 8px'>&#xe69d;</View>
@@ -228,7 +214,7 @@ class Course extends Component {
                     item1 = this.dealItem(this.props.select_week, item1)
                     return (<View key={index1} className='course-item-outer'>
                       {this.isOverLap(this.props.select_week, item1) && <View className='overlap'>重</View>}
-                      {this.isWeekIn(this.props.select_week, item1[0].week) && <View onClick={this.course_detail.bind(this, index, item1[0].course, item1[0].start_section, item1[0].teacher, item1[0].section_length)} className='course-item' style={'height: '+(item1[0].section_length*60-2)+'PX;top: '+this.position_course_item(item1[0].start_section)+'PX;background-color: '+item1[0].color}>@{item1[0].place}{item1[0].course}</View>}
+                      {this.isWeekIn(this.props.select_week, item1[0].week) && <View onClick={this.course_detail.bind(this, index, item1[0].course, item1[0].start_section, item1[0].teacher, item1[0].section_length)} className='course-item' style={'height: '+(item1[0].section_length*60-2)+'PX;top: '+this.position_course_item(item1[0].start_section)+'PX;background-color: '+item1[0].color+';'+'border: 2px solid '+(this.isOverLap(this.props.select_week, item1) ? 'red' : '')}>@{item1[0].place}\n{item1[0].course}</View>}
                       {this.props.only_current_week && !this.isWeekIn(this.props.select_week, item1[0].week) && <View onClick={this.course_detail.bind(this, index, item1[0].course, item1[0].start_section, item1[0].teacher, item1[0].section_length)} className='course-item' style={'height: '+(item1[0].section_length*60-2)+'PX;top: '+this.position_course_item(item1[0].start_section)+'PX;color: #ccc'}>@{item1[0].place}{item1[0].course}</View>}
                     </View>)
                   })}

@@ -34,9 +34,9 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/home/home',
       'pages/course/course',
       'pages/register/register',
-      'pages/home/home',
       'pages/index/index',
       'pages/login/login',
       'pages/my/my',
@@ -124,7 +124,7 @@ class App extends Component {
         }
       }).catch(() => {
         // session_key 已经失效，需要重新执行登录流程
-        console.log('session_key过期')
+        // console.log('session_key过期')
         Taro.login().then(res => {
           checkCode({
             code: res.code,
@@ -161,8 +161,6 @@ class App extends Component {
             Taro.setStorage({key: 'isBind', data: res.data.data.bind})
             this.props.onSetCommonInfo({
               bindID: res.data.data.bind
-            }).catch(err => {
-              console.log(err)
             })
           }
         })

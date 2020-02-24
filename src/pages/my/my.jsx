@@ -16,7 +16,7 @@ import {updateUserInfo} from '../../Interface/user'
   }))
 class My extends Component{
     config = {
-        navigationBarTitleText: '分享',
+        navigationBarTitleText: '我的',
     }
     constructor(props){
         super(props)

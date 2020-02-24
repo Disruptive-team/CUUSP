@@ -24,7 +24,7 @@ page {
   padding: 15px;
   width: 80%;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   border-radius: 60px;
   background: #fff;
   line-height: 66px;
