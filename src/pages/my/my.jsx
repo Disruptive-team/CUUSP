@@ -17,104 +17,6 @@ class My extends Component{
     config = {
         navigationBarTitleText: '我的',
     }
-    constructor(props){
-        super(props)
-        console.log(this.props)
-        let name = '', school = '', img = '', id = ''
-        if(this.props.userInfo){
-            name = this.props.nick_name
-            school = this.props.studentSchool
-            img = this.props.avatar_url
-            id = this.props.studentID
-        }
-        this.state = {
-            userId: id,
-            userName: name,
-            userSchool: school,
-            userImgSrc: img,
-            scopeUserInfo: false
-        }
-    }
-    componentDidMount(){
-        let that = this
-        Taro.getSetting({
-            success: function(res){
-                if(res.authSetting['scope.userInfo']){
-                    Taro.getUserInfo().then(rr=>{
-                        that.setState({
-                            userImgSrc: rr.userInfo.avatarUrl,
-                            userName: rr.userInfo.nickName,
-                            scopeUserInfo: true
-                        })
-                    })
-                }
-            }
-        })
-    }
-    scope(){
-        Taro.getStorage({key: 'isBind'}).then((r)=>{
-            let isbind = r.data
-            if(isbind!==1){
-              Taro.showToast({
-                title: '请先绑定，再进行该操作',
-                icon: 'none'
-              })
-            }
-        }).catch((e)=>{
-
-        })
-    }
-    getUserInfo(){
-        let that = this
-        if(Taro.getEnv() === 'WEAPP'){
-            Taro.getUserInfo().then(res=>{
-                Taro.getStorage({
-                    key: 'auth_token',
-                    success: function(r){
-                        that.props.setUserInfo({
-                            nick_name: res.userInfo.nickName,
-                            gender: res.userInfo.gender,
-                            avatar_url: res.userInfo.avatarUrl,
-                            country: res.userInfo.country,
-                            city: res.userInfo.city,
-                            auth_token: r.data
-                        })
-                        that.setState({
-                            userImgSrc: res.userInfo.avatarUrl,
-                            userName: res.userInfo.nickName
-                        })
-                        updateUserInfo({
-                            nick_name: res.userInfo.nickName,
-                            gender: res.userInfo.gender,
-                            avatar_url: res.userInfo.avatarUrl,
-                            country: res.userInfo.country,
-                            city: res.userInfo.city,
-                            auth_token: r.data
-                        }).then(rr=>{
-                            console.log('rr')
-                        })
-                    },
-                    fail: function (r) {
-                      console.log('sadfsd')
-                    }
-                })
-
-            }).catch(res=>{
-                console.log(res)
-            })
-            Taro.showModal({
-                title: '提示',
-                content: '是否现在绑定教务处账号?',
-            }).then(res=>{
-                if(res.confirm){
-                    Taro.navigateTo({
-                        url: '../register/register'
-                    })
-                }
-            })
-
-        }
-    }
     onShareAppMessage(res){
         if (res.from === 'button') {
             // 来自页面内转发按钮
@@ -169,7 +71,7 @@ class My extends Component{
                         <Text className='iconfont iconapp-go go'></Text>
                     </Button>
                     <Button className='choose bnt' onClick={this.toOfficeInfo} >
-                        <Text className='icongerenxinxi iconfont icon'></Text>
+                        <Text className='iconicon-xuexiaoxinxi iconfont icon'></Text>
                         <Text style='padding-left: 20rpx;'>教务处信息</Text>
                         <Text className='iconfont iconapp-go go'></Text>
                     </Button>

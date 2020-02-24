@@ -15,9 +15,12 @@ class OfficeInfo extends Component{
     }
     state = {
         studentID: '',
-        studentSchool: '',
+        studentInstitute: '',
         studentName: '',
-        studentClass: ''
+        studentClass: '',
+        studentLevel: '',
+        studentBirth: '',
+        studentSubject: '',
     }
     componentDidMount(){
         let that = this
@@ -28,6 +31,15 @@ class OfficeInfo extends Component{
                     auth_token: res.data
                 }).then(rr=>{
                     console.log(rr)
+                    that.setState({
+                        studentID: rr.data.data.id,
+                        studentInstitute: rr.data.data.institute,
+                        studentName: rr.data.data.name,
+                        studentClass: rr.data.data.class,
+                        studentLevel: rr.data.data.level,
+                        studentBirth: rr.data.data.birthday,
+                        studentSubject: rr.data.data.subject,
+                    })
                 })
             },
             fail: function(){
@@ -51,23 +63,31 @@ class OfficeInfo extends Component{
                 <View>
                     <View className='info' style='border-bottom: solid 1px #F5F5F5'>
                         <Text style='margin-left: 20rpx'>姓名</Text>
-                        <Text className='iconfont iconapp-go go'></Text>
-                        <Text style='padding-left: 20rpx;float:right'>{this.state.studentName?this.state.studentName:'待完善'}</Text>
+                        <Text style='padding-left: 50px;color: gray;font-size: 13px;'>{this.state.studentName?this.state.studentName:'待完善'}</Text>
+                    </View>
+                    <View className='info' style='border-bottom: solid 1px #F5F5F5'>
+                        <Text style='margin-left: 20rpx'>生日</Text>
+                        <Text style='padding-left: 50px;color: gray;font-size: 13px;'>{this.state.studentBirth?this.state.studentBirth:'待完善'}</Text>
                     </View>
                     <View className='info' style='border-bottom: solid 1px #F5F5F5'>
                         <Text style='margin-left: 20rpx'>学号</Text>
-                        <Text className='iconfont iconapp-go go'></Text>
-                        <Text style='padding-left: 20rpx;float:right'>{this.state.studentID?this.state.studentID:'待完善'}</Text>
+                        <Text style='padding-left: 50px;color: gray;font-size: 13px;'>{this.state.studentID?this.state.studentID:'待完善'}</Text>
                     </View>
                     <View className='info' style='border-bottom: solid 1px #F5F5F5'>
                         <Text style='margin-left: 20rpx'>班级</Text>
-                        <Text className='iconfont iconapp-go go'></Text>
-                        <Text style='padding-left: 20rpx;float:right'>{this.state.studentClass?this.state.studentClass:'待完善'}</Text>
+                        <Text style='padding-left: 50px;color: gray;font-size: 13px;'>{this.state.studentClass?this.state.studentClass:'待完善'}</Text>
                     </View>
-                    <View className='info'>
-                        <Text style='margin-left: 20rpx'>学校</Text>
-                        <Text className='iconfont iconapp-go go'></Text>
-                        <Text style='padding-left: 20rpx;float:right'>{this.state.studentSchool?this.state.studentSchool:'待完善'}</Text>
+                    <View className='info' style='border-bottom: solid 1px #F5F5F5'>
+                        <Text style='margin-left: 20rpx'>专业</Text>
+                        <Text style='padding-left: 50px;color: gray;font-size: 13px;'>{this.state.studentSubject?this.state.studentSubject:'待完善'}</Text>
+                    </View>
+                    <View className='info' style='border-bottom: solid 1px #F5F5F5'>
+                        <Text style='margin-left: 20rpx'>学院</Text>
+                        <Text style='padding-left: 50px;color: gray;font-size: 13px;'>{this.state.studentInstitute?this.state.studentInstitute:'待完善'}</Text>
+                    </View>
+                    <View className='info' style='border-bottom: solid 1px #F5F5F5'>
+                        <Text style='margin-left: 20rpx'>学历</Text>
+                        <Text style='padding-left: 50px;color: gray;font-size: 13px;'>{this.state.studentLevel?this.state.studentLevel:'待完善'}</Text>
                     </View>
                 </View>
             </View>
