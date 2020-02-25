@@ -12,9 +12,10 @@ import './app.css'
 import './icon.css'
 import './assets/iconfont.css'
 
-import {common_info} from './store/actions'
+import {common_info, update_start_time} from './store/actions'
 import {whetherBindID} from './Interface/common'
 import {checkCode} from './Interface/user'
+import {wfw_url} from './utils/url'
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
 // if (process.env.NODE_ENV !== 'production' && process.env.TARO_ENV === 'h5')  {
@@ -28,6 +29,9 @@ const store = configStore()
 }), (dispatch) => ({
   onSetCommonInfo(data) {
     dispatch(common_info(data))
+  },
+  onUpdateStartTime (data) {
+    dispatch(update_start_time(data))
   }
 }))
 class App extends Component {
@@ -142,25 +146,29 @@ class App extends Component {
           })
         })
       })
+      let start_time
+      try {
+        start_time = Taro.getStorageSync('start_time')
+      } catch (e) {}
+      if (!start_time) {
+        Taro.request({url: wfw_url + '/api/getStartTime'}).then(res => {
+          if (res.data.code === 200) {
+            Taro.setStorageSync('start_time', res.data.data)
+            this.props.onUpdateStartTime(res.data.data)
+          }
+        })
+      } else {
+        this.props.onUpdateStartTime(start_time)
+      }
     }
   }
 
   getBindID(auth_token) {
-    // let isBind
-    // try {
-    //   isBind = Taro.getStorageSync('isBind')
-    // } catch (e) {
-    //   console.log('真机读取缓存失败')
-    // }
-    // if (isBind) {
-    //   this.props.onSetCommonInfo({bindID: isBind})
-    //   return
-    // }
     if (!auth_token) {
       Taro.getStorage({key: 'auth_token'}).then(r => {
         whetherBindID({auth_token: r.data}).then(res => {
           if (res.data.code === 200) {
-            Taro.setStorage({key: 'isBind', data: res.data.data.bind})
+            Taro.setStorageSync('isBind', res.data.data.bind)
             this.props.onSetCommonInfo({
               bindID: res.data.data.bind
             })

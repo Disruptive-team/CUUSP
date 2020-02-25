@@ -8,6 +8,7 @@ import CourseDetail from '../../components/course_detail'
 
 import { actionCreators } from './store'
 import { wfw_url } from '../../utils/url'
+import {compute_week} from '../../utils/computeDate'
 
 @connect(({ course, commonInfo }) => ({
   course_d: course.course_d || [],
@@ -15,14 +16,15 @@ import { wfw_url } from '../../utils/url'
   left_data: course.left_data,
   week_num: course.week_num,
   arrow_up: course.arrow_up,
-  select_week: course.select_week,
+  select_week: course.select_week || compute_week(commonInfo.start_time),
   detail_week: course.detail_week,
   detail_course: course.detail_course,
   is_click: course.is_click,
   start_section: course.start_section,
   select_aim_color: course.select_aim_color,
   only_current_week: course.only_current_week,
-  isBind: commonInfo.bindID
+  isBind: commonInfo.bindID,
+  start_time: commonInfo.start_time
 }), (dispatch) => ({
   onDealWeekNum () {
     dispatch(actionCreators.week_num())
@@ -74,22 +76,6 @@ class Course extends Component {
     if (current_week) {
       this.props.onOnlyShowCurrentWeek(current_week)
     }
-    // let auth_token
-    // try {
-    //   // Taro.showLoading({title: 'loading'})
-    //   auth_token = Taro.getStorageSync('auth_token')
-    // } catch (e) {
-    // }
-    // if (auth_token) {
-    //   Taro.hideLoading()
-    //   this.props.onGetCourseInfo(0)
-    // }
-    // else {
-    //   setTimeout(() => {
-    //     this.props.onGetCourseInfo(0)
-    //     Taro.hideLoading()
-    //   }, 3000)
-    // }
   }
 
   onPullDownRefresh() {
@@ -191,7 +177,7 @@ class Course extends Component {
             </View>
             }
           </View>
-          <Calendar week={this.props.select_week} start_date='2020-2-17' />
+          <Calendar week={this.props.select_week} start_date={this.props.start_time} />
         </View>
         <View className='course-content' style={'margin-top: ' + this.props.margin_top + 'px'}>
           <View className='left-section'>

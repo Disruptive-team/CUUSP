@@ -1,1 +1,2 @@
 export const SET_COMMON_INFO = 'SET_COMMON_INFO'
+export const UPDATE_START_TIME = 'UPDATE_START_TIME'

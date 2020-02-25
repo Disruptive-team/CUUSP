@@ -5,6 +5,7 @@ import { connect } from '@tarojs/redux'
 import './index.css'
 import { actionCreators } from '../course/store'
 import { wfw_url } from '../../utils/url'
+import { update_start_time } from '../../store/actions'
 
 @connect(({ course, commonInfo}) => ({
   course,
@@ -15,6 +16,9 @@ import { wfw_url } from '../../utils/url'
   },
   onOnlyShowCurrentWeek (data) {
     dispatch(actionCreators.only_show_current_week(data))
+  },
+  onUpdateSchoolOpenTime (data) {
+    dispatch(update_start_time(data))
   }
 }))
 class Setting extends Component {
@@ -58,8 +62,26 @@ class Setting extends Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount() {}
 
+  update_school_time () {
+    Taro.showLoading({title: 'loading...'})
+    Taro.request({url: wfw_url + '/api/getStartTime'}).then(res => {
+      if (res.data.code === 200) {
+        try {
+          Taro.setStorageSync('start_time', res.data.data)
+        } catch (e) {}
+        this.props.onUpdateSchoolOpenTime(res.data.data)
+        Taro.hideLoading()
+        Taro.showToast({title: '已更新'})
+      } else {
+        Taro.hideLoading()
+        Taro.showToast({title: '已更新', icon: 'none'})
+      }
+    }).catch(() => {
+      Taro.hideLoading()
+      Taro.showToast({title: '已更新', icon: 'none'})
+    })
   }
 
   render() {
@@ -72,6 +94,7 @@ class Setting extends Component {
             <Switch checked={!this.props.course.only_current_week} onClick={this.saveOnlyShowCurrentWeek} />
           </View>
         </View>
+        <View onClick={this.update_school_time}>更新开学时间</View>
       </View>
     )
   }
