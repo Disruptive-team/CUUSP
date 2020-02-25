@@ -1,0 +1,1 @@
+export const GET_TODAY_COURSE = 'GET_TODAY_COURSE'

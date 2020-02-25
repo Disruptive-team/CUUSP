@@ -16,7 +16,7 @@ const commonInfo = (state = initState, action) => {
       console.log(action.data)
       return {
         ...state,
-        bindID: action.data.bindID,
+        bindID: Boolean(action.data.bindID),
       }
     case UPDATE_START_TIME:
       return {

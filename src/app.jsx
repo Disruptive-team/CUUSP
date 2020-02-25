@@ -119,10 +119,9 @@ class App extends Component {
               if (r.data.code === 200) {
                 try {
                   Taro.setStorageSync('auth_token', r.data.data.auth_token)
-                } catch (e) {
-                }
+                } catch (e) {}
+                this.getBindID(r.data.data.auth_token)
               }
-              this.getBindID()
             })
           })
         } else {
