@@ -22,7 +22,21 @@ class Person extends Component{
         studentName: '',
         studentClass: ''
     }
-    getUserInfo(){
+    componentDidMount() {
+      this.getUserInfo()
+    }
+    convert_gender(gender){
+      if (gender===2){
+        return "女"
+      }
+      else if (gender===1){
+        return "男"
+      }else{
+        return "未设置"
+      }
+    }
+
+  getUserInfo(){
         let that = this
         if(Taro.getEnv() === 'WEAPP'){
             Taro.getUserInfo().then(res=>{
@@ -31,23 +45,23 @@ class Person extends Component{
                     key: 'auth_token',
                     success: function(r){
                         updateUserInfo({
-                            nick_name: res.userInfo.nickName,	
+                            nick_name: res.userInfo.nickName,
                             gender: res.userInfo.gender,
-                            avatar_url: res.userInfo.avatarUrl,	
+                            avatar_url: res.userInfo.avatarUrl,
                             country: res.userInfo.country,
                             city: res.userInfo.city,
                             auth_token: r.data
                         }).then(rr=>{
                             console.log(rr)
                         })
-                        that.setState({	
-                            gender: res.userInfo.gender,
+                        that.setState({
+                            gender: that.convert_gender(res.userInfo.gender),
                             country: res.userInfo.country,
                             city: res.userInfo.city,
                         })
                     }
                 })
-                
+
             }).catch(res=>{
                 console.log(res)
             })
@@ -58,11 +72,11 @@ class Person extends Component{
         return (
             <View>
                 <View className='head-image'>
-                    <OpenData type='userAvatarUrl' className='img'></OpenData>
-                    <OpenData type='userNickName'></OpenData>
+                    <OpenData type='userAvatarUrl' className='img'/>
+                    <OpenData type='userNickName'/>
                     <Button className='update' openType='getUserInfo' onGetUserInfo={this.getUserInfo} >更新昵称和头像</Button>
                 </View>
-                
+
                 <View style='margin-top: 30rpx'>
                     <View className='info' style='border-bottom: solid 1px #F5F5F5;'>
                         <Text style='margin-left: 20rpx'>性别</Text>

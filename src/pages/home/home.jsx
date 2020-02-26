@@ -51,20 +51,30 @@ class Home extends Component {
   }
 
   ifBind() {
-    if (!this.state.bindID) {
-      Taro.showModal({
-        title: '提示',
-        content: '您现在未绑定教务处，是否现在去绑定？',
-      }).then(res => {
-        if (res.confirm) {
-          Taro.navigateTo({
-            url: '../register/register'
-          })
-        }
-      })
-      return false
-    }
-    return true
+
+     return Taro.getStorage({"key":"isBind"}).then(
+       (res)=>{
+         if(res.data===1){
+           return true
+         }else{
+           Taro.showModal({
+             title: '提示',
+             content: '您现在未绑定教务处，是否现在去绑定？',
+           }).then(res => {
+             if (res.confirm) {
+               Taro.navigateTo({
+                 url: '../register/register'
+               })
+             }
+           })
+           return false
+         }
+       }
+     )
+
+
+
+
   }
 
   toExam() {
@@ -86,6 +96,7 @@ class Home extends Component {
 
   toCard() {
     if (this.ifBind()) {
+      console.log("ssss")
       Taro.navigateTo({
         url: '../../functions/card/card'
       })
