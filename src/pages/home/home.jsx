@@ -11,6 +11,7 @@ import {getActiveSwiper} from '../../Interface/images'
 import {compute_week} from '../../utils/computeDate'
 import {actionCreators} from './store'
 import {deal_today_course} from '../../utils/deal_today_course'
+import {check_bind} from "../../utils/common";
 
 @connect(({commonInfo, course, home}) => ({
   commonInfo,
@@ -50,57 +51,31 @@ class Home extends Component {
     this.getSwiperImgs()
   }
 
-  ifBind() {
-
-     return Taro.getStorage({"key":"isBind"}).then(
-       (res)=>{
-         if(res.data===1){
-           return true
-         }else{
-           Taro.showModal({
-             title: '提示',
-             content: '您现在未绑定教务处，是否现在去绑定？',
-           }).then(res => {
-             if (res.confirm) {
-               Taro.navigateTo({
-                 url: '../register/register'
-               })
-             }
-           })
-           return false
-         }
-       }
-     )
-
-
-
-
-  }
-
   toExam() {
-    if (this.ifBind()) {
+    check_bind().then(()=>{
       Taro.navigateTo({
         url: '../../functions/exam/exam'
       })
-    }
+    })
+
   }
 
   toAchievement() {
-    if (this.ifBind()) {
+    check_bind().then(()=>{
       Taro.navigateTo({
         url: '../../functions/achievement/achievement'
       })
-    }
-
+    })
   }
 
   toCard() {
-    if (this.ifBind()) {
-      console.log("ssss")
-      Taro.navigateTo({
-        url: '../../functions/card/card'
-      })
-    }
+    check_bind().then(
+      ()=>{
+        Taro.navigateTo({
+          url: '../../functions/card/card'
+        })
+      }
+    )
   }
 
   showList() {
@@ -139,7 +114,7 @@ class Home extends Component {
             </SwiperItem>)
           })}
         </Swiper>
-        <View style='background: white;padding: 10rpx;margin-top: 15rpx;display: flex;flex-wrap: wrap;'>
+        <View style='background: white;padding: 10px;margin-top: 15px;display: flex;flex-wrap: wrap;'>
           <View className='functionEntryView' onClick={this.toExam}>
             <Image src={exam} className='functionEntry' />
             <Text style='display:block'>考试</Text>
@@ -160,8 +135,8 @@ class Home extends Component {
           </View>}
         </View>
 
-        <View style='padding: 10rpx;'>
-          {/*<Text style='font-size: 35rpx;color: gray;'>今日课表</Text>*/}
+        <View style='padding: 10px;'>
+          {/*<Text style='font-size: 35px;color: gray;'>今日课表</Text>*/}
           <View className='today_course'>
             <View className='left'>
               <View className='week-num'>第 {compute_week(this.props.commonInfo.start_time)} 周</View>
@@ -174,7 +149,7 @@ class Home extends Component {
               <View className='no-course'>今日没课哟~</View> : this.props.today_course.map((item, index) => {
                 return (
                   <View key={index} className='todayClass'>
-                    <Image src={classPhoto} style='width: 100rpx;height: 100rpx;margin-right: 34rpx;' />
+                    <Image src={classPhoto} style='width: 100px;height: 100px;margin-right: 34px;' />
                     <Text style='position: absolute'>{item.course}({item.teacher})</Text>
                     <Text>{item.place}(第{(item.start_section - 1) * 2 + 1}-{(item.start_section - 1) * 2 + item.section_length}节)</Text>
                   </View>

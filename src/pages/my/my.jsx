@@ -4,6 +4,7 @@ import { connect } from '@tarojs/redux'
 
 import './my.css'
 import {action} from './store'
+import {check_bind} from "../../utils/common";
 // import {whetherBindID} from '../../Interface/common'
 
 @connect(({ userInfo }) => ({
@@ -47,9 +48,13 @@ class My extends Component{
         })
     }
     toOfficeInfo(){
-        Taro.navigateTo({
+      check_bind().then(
+        ()=>{
+          Taro.navigateTo({
             url: '../../functions/officeInfo/officeInfo'
-        })
+          })
+        }
+      )
     }
     render(){
       let Bind
